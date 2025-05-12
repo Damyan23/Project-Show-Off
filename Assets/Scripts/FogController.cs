@@ -40,13 +40,12 @@ public class FogController : MonoBehaviour
 
     private void OnValidate()
     {
-        if(localFog == null) localFog = localFogT.GetComponent<LocalVolumetricFog>();
-        Vector3 size = localFog.parameters.size;
-        localFog.parameters.textureTiling = new Vector3(size.x * 0.04f, size.y * 0.1f, size.z * 0.04f);
-
         //Validate the bounds
-        fogLowerBound = Mathf.Max(1, fogLowerBound);
-        fogUpperBound = Mathf.Max(fogLowerBound + 1, fogUpperBound);
-
+        if (globalFog != null)
+        {
+            fogLowerBound = Mathf.Max(1, fogLowerBound);
+            fogUpperBound = Mathf.Max(fogLowerBound + 1, fogUpperBound);
+            globalFog.meanFreePath.value = Mathf.Min(globalFog.meanFreePath.value, fogUpperBound);
+        }
     }
 }
