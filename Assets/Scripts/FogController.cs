@@ -6,22 +6,20 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class FogController : MonoBehaviour
 {
-    Volume fogVolume;
     Fog globalFog;
-    LocalVolumetricFog localFog;
 
-    [SerializeField] Transform player;
-    [SerializeField] Transform localFogT;
-
+    [Header("Fog Settings")]
     [SerializeField] float fogLowerBound;
     [SerializeField] float fogUpperBound;   
 
+    [Header("References")]
+    [SerializeField] Volume globalFogVolume;
+    [SerializeField] LocalVolumetricFog localFog;
+
+
     private void Awake()
     {
-        fogVolume = GetComponent<Volume>();
-        fogVolume.profile.TryGet<Fog>(out globalFog);
-
-        localFog = localFogT.GetComponent<LocalVolumetricFog>();
+        globalFogVolume.profile.TryGet<Fog>(out globalFog);
 
         globalFog.meanFreePath.value = fogUpperBound;
     }
