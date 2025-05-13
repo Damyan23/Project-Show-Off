@@ -555,8 +555,8 @@ Transform:
   m_GameObject: {fileID: 1461949102}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3543, y: -0.8878, z: 0.1659}
-  m_LocalScale: {x: 39.979713, y: 1, z: 39.979713}
+  m_LocalPosition: {x: -0.3543, y: -0.5, z: 0.1659}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 1629622453}
   - component: {fileID: 1629622452}
   - component: {fileID: 1629622451}
+  - component: {fileID: 1629622455}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -595,7 +596,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -660,12 +661,34 @@ Transform:
   m_GameObject: {fileID: 1629622450}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6751988, y: 6.482702, z: 9.591908}
-  m_LocalScale: {x: 2, y: 0.98486, z: 0.98586}
+  m_LocalPosition: {x: 4.93, y: 1, z: 10.83}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1629622455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629622450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2a96063009e0e4d8ab0314fab32360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - {x: -0.7530656, y: 1, z: 13.244265}
+  - {x: 12.541468, y: 1, z: -9.207288}
+  - {x: 0.06706262, y: 1, z: -4.783746}
+  - {x: -11.279506, y: 1, z: -14.884539}
+  posY: 1
+  roamingSpeed: 5
+  chaseSpeed: 7.5
+  detectionRadius: 5
+  playerT: {fileID: 2017592786}
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +1023,7 @@ GameObject:
   - component: {fileID: 2017592787}
   - component: {fileID: 2017592782}
   m_Layer: 6
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1103,7 +1126,7 @@ Transform:
   m_GameObject: {fileID: 2017592781}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35429955, y: 0.652, z: 0.16589928}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1119,7 +1142,7 @@ Rigidbody:
   m_GameObject: {fileID: 2017592781}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 3
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
