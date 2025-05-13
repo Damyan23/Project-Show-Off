@@ -494,7 +494,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -0.89123297, y: -0, z: -1.2477262}
+    textureOffset: {x: -0, y: -0, z: -0}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -1378,6 +1378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fogLowerBound: 1
   fogUpperBound: 20
+  fogPercentage: 0
   globalFogVolume: {fileID: 670536912}
   localFog: {fileID: 355100795}
 --- !u!1 &1884547833
