@@ -10,16 +10,15 @@ public class ItemBehaviour : MonoBehaviour
 
 
     [Header("Pickup Behaviour")]
-    [SerializeField] private float pickupDistance = 5f;
     [SerializeField] private KeyCode pickupKey;
-
+    [HideInInspector] public bool isItemOnAltar = false;
     private InventoryManager inventoryManager;
 
 
     void Awake()
     {
         inventoryManager = InventoryManager.Instance;
-        pickupKey = inventoryManager.interactWithItem;
+        pickupKey = inventoryManager.interactWithInteractable;
     }
 
     public void PickupItem()
@@ -31,6 +30,6 @@ public class ItemBehaviour : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupDistance);
+        Gizmos.DrawWireSphere(transform.position, InventoryManager.Instance.interactionDistance);
     }
 }
