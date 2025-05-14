@@ -113,7 +113,7 @@ public class InventoryManager : MonoBehaviour
 
     void dropItem ()
     {
-        if (currentItem == null) return;
+        if (currentItem == null || !isSlotTaken) return;
 
         rb.isKinematic = false;
 
