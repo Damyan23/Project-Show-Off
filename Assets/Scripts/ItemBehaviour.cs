@@ -15,7 +15,7 @@ public class ItemBehaviour : MonoBehaviour
     private InventoryManager inventoryManager;
 
 
-    void Awake()
+    void Start()
     {
         inventoryManager = InventoryManager.Instance;
         pickupKey = inventoryManager.interactWithInteractable;
