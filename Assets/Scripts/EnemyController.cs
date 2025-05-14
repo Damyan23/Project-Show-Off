@@ -52,9 +52,23 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.name == "Player")
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            player.StartCoroutine(player.HitPlayer(this));
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+    private void OnValidate()
+    {
+        transform.position = points[0];
     }
 }
