@@ -5,6 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float sprintSpeed = 8f;
+    [SerializeField] private float sprintFovIncrease = 20f;
+    [SerializeField] private KeyCode sprintKey;
     private Rigidbody rb;
 
     [Header("Sanity")]
@@ -12,9 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float sightInsanityFactor = 2f;
     [SerializeField] float hitInsanityFactor = 25f;
     [SerializeField] float enemyDisableTimeAfterHit = 10f;
+    [SerializeField] float insanityFovIncrease = 20f;
 
 
     [Header("Camera")]
+    [SerializeField] private float fovLerpSpeed = 5f;
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private Vector3 cameraOffset;
     private Transform cameraTransform;
@@ -28,6 +33,10 @@ public class PlayerController : MonoBehaviour
 
     private float currentInsanity;
     private const float maxSanity = 100f;
+
+    const float baseFov = 60f;
+
+    bool isSprinting;
 
     void Start()
     {
@@ -46,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleMouseLook();
         HandleInput();
+        ApplyFov();
     }
 
     void FixedUpdate()
@@ -91,6 +101,16 @@ public class PlayerController : MonoBehaviour
         fogController.SetFogPercentage(currentInsanity);
     }
 
+    void ApplyFov()
+    {
+        float sprintFov = isSprinting ? sprintFovIncrease : 0f;
+        float insanityFov = currentInsanity / 100f * insanityFovIncrease;
+
+        float currentFov = Camera.main.fieldOfView;
+        float targetFov = baseFov + sprintFov + insanityFov;
+        Camera.main.fieldOfView = Mathf.Lerp(currentFov, targetFov, Time.deltaTime * fovLerpSpeed);
+    }
+
     bool ObjectVisible(GameObject obj)
     {
         Renderer renderer = obj.GetComponent<Renderer>();
@@ -128,11 +148,13 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+        isSprinting = Input.GetKey(sprintKey);
     }
 
     void MovePlayer()
     {
         Vector3 direction = transform.right * horizontal + transform.forward * vertical;
-        rb.AddForce(direction.normalized * moveSpeed);
+        float speed = isSprinting ? sprintSpeed : moveSpeed;
+        rb.AddForce(direction.normalized * speed);
     }
 }
