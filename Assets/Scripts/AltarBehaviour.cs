@@ -28,6 +28,8 @@ public class AltarBehaviour : MonoBehaviour
     private void Update()
     {
         PauseSoundWhenInRange();
+
+        if (isSlotTaken && _audio.isPlaying) _audio.Pause();
     }
 
     private void PauseSoundWhenInRange()
@@ -48,9 +50,6 @@ public class AltarBehaviour : MonoBehaviour
     }
     
     
-    /// <summary>
-    /// Called by the item when it enters/exits the altar trigger.
-    /// </summary>
     public void SetSlotTaken(bool taken, GameObject item)
     {
         _currentItem = item;
