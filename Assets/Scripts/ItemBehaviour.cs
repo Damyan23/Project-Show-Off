@@ -14,9 +14,10 @@ public class ItemBehaviour : MonoBehaviour
     [HideInInspector] public bool isItemOnAltar = false;
     private InventoryManager inventoryManager;
 
-
     void Awake()
     {
+        if (InventoryManager.Instance == null) return;
+
         inventoryManager = InventoryManager.Instance;
         pickupKey = inventoryManager.interactWithInteractable;
     }
@@ -25,11 +26,5 @@ public class ItemBehaviour : MonoBehaviour
     {
         // Add the item to the player's inventory
         if (InventoryManager.Instance != null) { InventoryManager.Instance.AddItem(this.gameObject); }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, InventoryManager.Instance.interactionDistance);
     }
 }
