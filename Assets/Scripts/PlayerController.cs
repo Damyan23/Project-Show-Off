@@ -1,13 +1,16 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private KeyCode sprintKey;
     [SerializeField] private float sprintSpeed = 8f;
     [SerializeField] private float sprintFovIncrease = 20f;
-    [SerializeField] private KeyCode sprintKey;
     private Rigidbody rb;
 
     [Header("Sanity")]
@@ -20,12 +23,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private float fovLerpSpeed = 5f;
+    [SerializeField, Range(0f, 1f)] private float maxVignetteIntensity = 0.5f;
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private Vector3 cameraOffset;
     private Transform cameraTransform;
 
     [Header("References")]
     [SerializeField] FogController fogController;
+    [SerializeField] Volume globalVolume;
 
     private float xRotation = 0f;
     private float horizontal;
@@ -76,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
             if (ObjectVisible(enemy.gameObject))
             {
-                currentInsanity += Mathf.Min(sightInsanityFactor, 100f);
+                AddInsanity(sightInsanityFactor);
                 ApplyInsanity();
                 return;
             }
@@ -85,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator HitPlayer(EnemyController enemy)
     {
-        currentInsanity += hitInsanityFactor;
+        AddInsanity(hitInsanityFactor);
         ApplyInsanity();
 
         enemy.gameObject.SetActive(false);
@@ -96,9 +101,20 @@ public class PlayerController : MonoBehaviour
         enemy.transform.position = enemy.points[0];
     }
 
+    public void AddInsanity(float value)
+    {
+        currentInsanity = Mathf.Clamp(currentInsanity + value, 0, maxSanity);
+    }
+
     void ApplyInsanity()
     {
         fogController.SetFogPercentage(currentInsanity);
+
+        if(globalVolume.profile.TryGet<Vignette>(out Vignette vignette))
+        {
+            float vignetteIntensity = currentInsanity / 100f * maxVignetteIntensity;
+            vignette.intensity.value = vignetteIntensity;
+        }
     }
 
     void ApplyFov()

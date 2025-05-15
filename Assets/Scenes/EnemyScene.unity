@@ -553,7 +553,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -10.137918, y: -0, z: -14.193086}
+    textureOffset: {x: -0, y: -0, z: -0}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -1211,13 +1211,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 25
+  sprintKey: 0
+  sprintSpeed: 8
+  sprintFovIncrease: 20
   enemySightInsanityRange: 50
   sightInsanityFactor: 2
   hitInsanityFactor: 25
   enemyDisableTimeAfterHit: 10
+  insanityFovIncrease: 20
+  fovLerpSpeed: 5
+  maxVignetteIntensity: 0.5
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0.7, z: 0}
   fogController: {fileID: 1137313072}
+  globalVolume: {fileID: 1830943957}
 --- !u!136 &2017592783
 CapsuleCollider:
   m_ObjectHideFlags: 0
