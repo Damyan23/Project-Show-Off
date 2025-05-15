@@ -16,7 +16,12 @@ public class AltarBehaviour : MonoBehaviour
     {
         _audio = GetComponent<AudioSource>();
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene.");
+        }
+
         inventoryManager = InventoryManager.Instance;
     }
 
@@ -27,9 +32,11 @@ public class AltarBehaviour : MonoBehaviour
 
     private void PauseSoundWhenInRange()
     {
-        if (player == null || inventoryManager == null) return;
+        if (player == null) return;
         
-        float distance = Vector3.Distance(player.transform.position, inventoryManager.gameObject.transform.position);
+        float distance = Vector3.Distance(player.transform.position, this.transform.position);
+
+        Debug.Log($"Distance to player: {distance}");
         if (distance <= inventoryManager.interactionDistance)
         {
             _audio.Pause();
