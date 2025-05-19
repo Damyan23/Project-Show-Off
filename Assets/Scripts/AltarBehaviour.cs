@@ -13,8 +13,6 @@ public class AltarBehaviour : MonoBehaviour
     private GameObject player = null;
     private InventoryManager inventoryManager;
 
-
-
     void Awake()
     {
         _audio = GetComponent<AudioSource>();
@@ -60,5 +58,6 @@ public class AltarBehaviour : MonoBehaviour
         isSlotTaken = true;
         _currentItem = item;
         item.transform.SetParent(transform);
+
     }
 }

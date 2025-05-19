@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float detectionRadius = 10f;
 
     [Header("References")]
-    [SerializeField] Transform playerT;
+    private Transform playerT;
 
     private bool detectedPlayer;
 
@@ -29,6 +29,9 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        // If player is not assigned and we can find the player, assign it
+        if (playerT == null && GameObject.FindGameObjectWithTag("Player")) playerT = GameObject.FindGameObjectWithTag("Player").transform;
+
         detectedPlayer = Vector3.Distance(transform.position, playerT.position) < detectionRadius;
 
         if (detectedPlayer)

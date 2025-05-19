@@ -28,6 +28,9 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public delegate void decreaseSanity();
     public decreaseSanity _decreaseSanity;
 
+    [Header("References")]
+    private GameManager gameManager;
+
     private float zDepth = 1f; 
     private Rigidbody rb;
 
@@ -38,6 +41,11 @@ public class InventoryManager : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
     }
+
+    void Start()
+    {
+        gameManager = GameManager.instance;
+    } 
 
     void Update()
     {
@@ -141,7 +149,8 @@ public class InventoryManager : MonoBehaviour
         rb.includeLayers += this.gameObject.layer;
 
         isSlotTaken = false;
-        
+
         _decreaseSanity.Invoke();
+        gameManager.AltarCompleted();
     }
 }

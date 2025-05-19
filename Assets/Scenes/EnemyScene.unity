@@ -553,7 +553,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -4.8237667, y: -0, z: -6.7532735}
+    textureOffset: {x: -0, y: -0, z: -0}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -1235,6 +1235,41 @@ PrefabInstance:
       propertyPath: playerT
       value: 
       objectReference: {fileID: 2017592786}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: behaviorMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: detectionRadius
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: stalkDistanceFar
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: maxCircleDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: minCircleDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: stalkDistanceNear
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 318805522511239883, guid: 70363deb007404f4e96cbdfbc0374074,
+        type: 3}
+      propertyPath: distanceChangeInterval
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6667986810536620969, guid: 70363deb007404f4e96cbdfbc0374074,
         type: 3}
       propertyPath: m_Name
