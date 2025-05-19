@@ -61,10 +61,4 @@ public class AltarBehaviour : MonoBehaviour
         _currentItem = item;
         item.transform.SetParent(transform);
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, InventoryManager.Instance.interactionDistance);
-    }
 }
