@@ -25,7 +25,5 @@ public class ItemBehaviour : MonoBehaviour
     {
         // Add the item to the player's inventory
         if (InventoryManager.Instance != null) { InventoryManager.Instance.AddItem(this.gameObject); }
-
-
     }
 }

@@ -12,6 +12,9 @@ public class AltarBehaviour : MonoBehaviour
 
     private GameObject player = null;
     private InventoryManager inventoryManager;
+
+
+
     void Awake()
     {
         _audio = GetComponent<AudioSource>();
@@ -29,7 +32,10 @@ public class AltarBehaviour : MonoBehaviour
     {
         PauseSoundWhenInRange();
 
-        if (isSlotTaken && _audio.isPlaying) _audio.Pause();
+        if (isSlotTaken)
+        {
+            if (_audio.isPlaying) { _audio.Pause(); }
+        }
     }
 
     private void PauseSoundWhenInRange()
@@ -37,8 +43,7 @@ public class AltarBehaviour : MonoBehaviour
         if (player == null) return;
         
         float distance = Vector3.Distance(player.transform.position, this.transform.position);
-
-        Debug.Log($"Distance to player: {distance}");
+         
         if (distance <= inventoryManager.interactionDistance)
         {
             _audio.Pause();
@@ -48,12 +53,13 @@ public class AltarBehaviour : MonoBehaviour
             _audio.Play();
         }
     }
-    
-    
-    public void SetSlotTaken(bool taken, GameObject item)
+
+    public void PlaceItem(GameObject item)
     {
+        if (isSlotTaken) return;
+        isSlotTaken = true;
         _currentItem = item;
-        _audio.mute = taken;
+        item.transform.SetParent(transform);
     }
 
     private void OnDrawGizmosSelected()

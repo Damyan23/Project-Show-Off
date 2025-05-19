@@ -1259,7 +1259,7 @@ GameObject:
   - component: {fileID: 2017592788}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1277,8 +1277,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 25
+  sprintSpeed: 40
+  enableSprinting: 1
+  sprintKey: 304
+  preventUphillSlowdown: 1
+  maxSlopeAngle: 45
+  slopeRayLength: 1.5
+  sprintFovIncrease: 20
+  enemySightInsanityRange: 50
+  sightInsanityFactor: 2
+  hitInsanityFactor: 25
+  enemyDisableTimeAfterHit: 10
+  insanityFovIncrease: 20
+  fovLerpSpeed: 5
+  maxVignetteIntensity: 0.5
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0.7, z: 0}
+  fogController: {fileID: 0}
+  globalVolume: {fileID: 0}
 --- !u!136 &2017592783
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -11,6 +12,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private bool enableSprinting = true;
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    private bool isSprinting = false;
+    private float xRotation = 0f;
+    private float horizontal;
+    private float vertical;
+
+
 
     [Header("Slope Handling")]
     [SerializeField] private bool preventUphillSlowdown = true;
@@ -19,14 +26,18 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private float sprintFovIncrease = 20f;
     private Rigidbody rb;
-    private bool isSprinting = false;
+
 
     [Header("Sanity")]
-    [SerializeField] float enemySightInsanityRange = 50f;
-    [SerializeField] float sightInsanityFactor = 2f;
-    [SerializeField] float hitInsanityFactor = 25f;
-    [SerializeField] float enemyDisableTimeAfterHit = 10f;
-    [SerializeField] float insanityFovIncrease = 20f;
+    private const float maxSanity = 100f;
+    [HideInInspector] public float currentInsanity;
+    [SerializeField] private float enemySightInsanityRange = 50f;
+    [SerializeField] private float sightInsanityFactor = 2f;
+    [SerializeField] private float hitInsanityFactor = 25f;
+    [SerializeField] private float enemyDisableTimeAfterHit = 10f;
+    [SerializeField] private float insanityFovIncrease = 20f;
+    [SerializeField] private float baseReductionValue = 10f;
+    const float baseFov = 60f;
 
 
     [Header("Camera")]
@@ -36,22 +47,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 cameraOffset;
     private Transform cameraTransform;
 
+
     [Header("References")]
-    [SerializeField] FogController fogController;
-    [SerializeField] Volume globalVolume;
+    [SerializeField] private FogController fogController;
+    [SerializeField] private Volume globalVolume;
+    private InventoryManager inventoryManager;
 
-    private float xRotation = 0f;
-    private float horizontal;
-    private float vertical;
 
-    private float currentInsanity;
-    private const float maxSanity = 100f;
-
-    const float baseFov = 60f;
-
-    bool isSprinting;
-
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -64,20 +67,30 @@ public class PlayerController : MonoBehaviour
         InvokeRepeating("DetectEnemies", 0f, 1f);
     }
 
-    void Update()
+    private void Update()
     {
+        tryGetInventoryManager();
         HandleMouseLook();
         HandleInput();
-        ApplyFov();
+        applyFov();
     }
 
-    void FixedUpdate()
+    private void tryGetInventoryManager()
     {
-        MovePlayer();
+        if (InventoryManager.Instance != null)
+        {
+            inventoryManager = InventoryManager.Instance;
+            inventoryManager._decreaseSanity = removeInsanity;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        movePlayer();
     }
 
     //Detect whether enemy is in sight and make player go insane (doesn't stack)
-    void DetectEnemies()
+    private void detectEnemies()
     {
         if (Camera.main == null) return;
 
@@ -87,10 +100,10 @@ public class PlayerController : MonoBehaviour
         {
             if (Vector3.Distance(enemy.transform.position, transform.position) > enemySightInsanityRange) continue;
 
-            if (ObjectVisible(enemy.gameObject))
+            if (objectVisible(enemy.gameObject))
             {
                 AddInsanity(sightInsanityFactor);
-                ApplyInsanity();
+                applyInsanity();
                 return;
             }
         }
@@ -99,7 +112,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator HitPlayer(EnemyController enemy)
     {
         AddInsanity(hitInsanityFactor);
-        ApplyInsanity();
+        applyInsanity();
 
         enemy.gameObject.SetActive(false);
 
@@ -113,8 +126,19 @@ public class PlayerController : MonoBehaviour
     {
         currentInsanity = Mathf.Clamp(currentInsanity + value, 0, maxSanity);
     }
+    private void removeInsanity()
+    {
+        currentInsanity = Mathf.Clamp(currentInsanity - baseReductionValue, 0, maxSanity);
+        applyInsanity();
+    }
 
-    void ApplyInsanity()
+    public void RemoveInsanity(float value)
+    {
+        currentInsanity = Mathf.Clamp(currentInsanity - value, 0, maxSanity);
+        applyInsanity();
+    }
+
+    private void applyInsanity()
     {
         fogController.SetFogPercentage(currentInsanity);
 
@@ -125,7 +149,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ApplyFov()
+
+    private void applyFov()
     {
         float sprintFov = isSprinting ? sprintFovIncrease : 0f;
         float insanityFov = currentInsanity / 100f * insanityFovIncrease;
@@ -135,7 +160,7 @@ public class PlayerController : MonoBehaviour
         Camera.main.fieldOfView = Mathf.Lerp(currentFov, targetFov, Time.deltaTime * fovLerpSpeed);
     }
 
-    bool ObjectVisible(GameObject obj)
+    private bool objectVisible(GameObject obj)
     {
         Renderer renderer = obj.GetComponent<Renderer>();
 
@@ -175,7 +200,7 @@ public class PlayerController : MonoBehaviour
         isSprinting = Input.GetKey(sprintKey);
     }
 
-    void MovePlayer()
+    private void movePlayer()
     {
         Vector3 direction = transform.right * horizontal + transform.forward * vertical;
         
@@ -192,13 +217,13 @@ public class PlayerController : MonoBehaviour
         // Handle slopes if enabled
         if (preventUphillSlowdown)
         {
-            direction = AdjustDirectionForSlope(direction);
+            direction = adjustDirectionForSlope(direction);
         }
 
         rb.AddForce(direction.normalized * currentSpeed, ForceMode.Acceleration);
     }
 
-    private Vector3 AdjustDirectionForSlope(Vector3 direction)
+    private Vector3 adjustDirectionForSlope(Vector3 direction)
     {
         // Cast ray to detect ground
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, slopeRayLength))
