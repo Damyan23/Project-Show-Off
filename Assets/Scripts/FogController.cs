@@ -40,10 +40,11 @@ public class FogController : MonoBehaviour
 
     public void SetFogPercentage(float percentage)
     {
+        fogPercentage = percentage;
         float diff = fogUpperBound - fogLowerBound;
         float factor = percentage / 100f;
-        float value = fogUpperBound - factor * diff;
-        globalFog.meanFreePath.value = value;
+        float newFogValue = fogUpperBound - factor * diff;
+        globalFog.meanFreePath.value = newFogValue;
     }
 
     private void OnValidate()
