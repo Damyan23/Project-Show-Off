@@ -10,7 +10,9 @@ public class AltarBehaviour : MonoBehaviour
 
     [SerializeField] private float intervalInSeconds = 5f;
 
-    [SerializeField] private AudioSource _audio;
+    [SerializeField] private AudioClip _clip;
+    private AudioSource _audio;
+
     private GameObject _currentItem;
     private GameObject player = null;
     private InventoryManager inventoryManager;
@@ -20,6 +22,12 @@ public class AltarBehaviour : MonoBehaviour
     void Awake()
     {
         _audio = GetComponent<AudioSource>();
+        _clip = Resources.Load<AudioClip>("Audio/altar_sound");
+
+        if (_clip == null)
+        {
+            Debug.LogError("AudioClip not found at Resources/Audio/altar_sound");
+        }
 
         player = GameObject.FindWithTag("Player");
         if (player == null)
@@ -46,9 +54,9 @@ public class AltarBehaviour : MonoBehaviour
         }
 
         timeSinceLastSound += Time.deltaTime;
-        if (timeSinceLastSound >= intervalInSeconds)
+        if (timeSinceLastSound >= intervalInSeconds && _clip != null)
         {
-            _audio.Play();
+            _audio.PlayOneShot(_clip);
             timeSinceLastSound = 0f;
         }
     }
