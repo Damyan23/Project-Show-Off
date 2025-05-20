@@ -7,11 +7,15 @@ public class AltarBehaviour : MonoBehaviour
 {
     [HideInInspector] public bool isSlotTaken = false;
     [HideInInspector] public GameObject item;
-    private AudioSource _audio;
-    private GameObject _currentItem;
 
+    [SerializeField] private float intervalInSeconds = 5f;
+
+    [SerializeField] private AudioSource _audio;
+    private GameObject _currentItem;
     private GameObject player = null;
     private InventoryManager inventoryManager;
+
+    private float timeSinceLastSound = 0f;
 
     void Awake()
     {
@@ -28,27 +32,24 @@ public class AltarBehaviour : MonoBehaviour
 
     private void Update()
     {
-        PauseSoundWhenInRange();
-
         if (isSlotTaken)
         {
-            if (_audio.isPlaying) { _audio.Pause(); }
+            if (_audio.isPlaying) _audio.Pause();
+            return;
         }
-    }
 
-    private void PauseSoundWhenInRange()
-    {
-        if (player == null) return;
-        
-        float distance = Vector3.Distance(player.transform.position, this.transform.position);
-         
+        float distance = Vector3.Distance(player.transform.position, transform.position);
         if (distance <= inventoryManager.interactionDistance)
         {
-            _audio.Pause();
+            if (_audio.isPlaying) _audio.Pause();
+            return;
         }
-        else if (!_audio.isPlaying)
+
+        timeSinceLastSound += Time.deltaTime;
+        if (timeSinceLastSound >= intervalInSeconds)
         {
             _audio.Play();
+            timeSinceLastSound = 0f;
         }
     }
 
@@ -58,6 +59,5 @@ public class AltarBehaviour : MonoBehaviour
         isSlotTaken = true;
         _currentItem = item;
         item.transform.SetParent(transform);
-
     }
 }
