@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject baby = Instantiate(babyPrefab);
         baby.transform.position = babySpawnPosition;
+        babySpawned = true;
     }
 
     private void IncrementAltarCount()

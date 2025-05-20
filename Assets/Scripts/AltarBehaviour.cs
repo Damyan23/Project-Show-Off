@@ -22,12 +22,6 @@ public class AltarBehaviour : MonoBehaviour
     void Awake()
     {
         _audio = GetComponent<AudioSource>();
-        _clip = Resources.Load<AudioClip>("Audio/altar_sound");
-
-        if (_clip == null)
-        {
-            Debug.LogError("AudioClip not found at Resources/Audio/altar_sound");
-        }
 
         player = GameObject.FindWithTag("Player");
         if (player == null)
