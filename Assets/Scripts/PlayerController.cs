@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-
-
     [Header("Slope Handling")]
     [SerializeField] private bool preventUphillSlowdown = true;
     [SerializeField] private float maxSlopeAngle = 45f;
@@ -39,33 +37,51 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float baseReductionValue = 10f;
     const float baseFov = 60f;
 
-
-    [Header("Camera")]
+    [Header("Camera & Post Processing")]
+    private Transform cameraTransform;
     [SerializeField] private float fovLerpSpeed = 5f;
     [SerializeField, Range(0f, 1f)] private float maxVignetteIntensity = 0.5f;
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private Vector3 cameraOffset;
-    private Transform cameraTransform;
+    [SerializeField] private Volume globalVolume;
 
+    private ChromaticAberration chromaticAberration;
+    private ColorAdjustments colorAdjustments;
+    private MotionBlur motionBlur;
+    private Vignette vignette;
+
+    [Header("Post-Processing Settings")]
+    [SerializeField] private float maxChromaticAberration = 0.5f;
+    [SerializeField] private float maxMotionBlur = 1.0f;
+    [SerializeField] private float maxDesaturation = -100f;
 
     [Header("References")]
     [SerializeField] private FogController fogController;
-    [SerializeField] private Volume globalVolume;
     private InventoryManager inventoryManager;
 
+    [Header("Layer Masking")]
+    [SerializeField] private LayerMask exclusionLayer;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
-        if (rb == null)
-            rb = GetComponent<Rigidbody>();
-
+        gameObject.TryGetComponent<Rigidbody>(out rb);
         if (Camera.main != null)
             cameraTransform = Camera.main.transform;
 
-        InvokeRepeating("DetectEnemies", 0f, 1f);
+        tryGetPostProcessingEffects();
+
+        InvokeRepeating("detectEnemies", 0f, 1f);
     }
+
+    private void tryGetPostProcessingEffects()
+    {
+        globalVolume.profile.TryGet(out chromaticAberration);
+        globalVolume.profile.TryGet(out colorAdjustments);
+        globalVolume.profile.TryGet(out motionBlur);
+        globalVolume.profile.TryGet(out vignette);
+    }
+
 
     private void Update()
     {
@@ -141,14 +157,27 @@ public class PlayerController : MonoBehaviour
     private void applyInsanity()
     {
         fogController.SetFogPercentage(currentInsanity);
-
-        if(globalVolume.profile.TryGet<Vignette>(out Vignette vignette))
-        {
-            float vignetteIntensity = currentInsanity / 100f * maxVignetteIntensity;
-            vignette.intensity.value = vignetteIntensity;
-        }
+        applyPostProcessingEffects();
     }
 
+    private void applyPostProcessingEffects()
+    {
+        float insanityFactor = currentInsanity / maxSanity;
+        chromaticAberration.intensity.value = Mathf.Lerp(0, maxChromaticAberration, insanityFactor);
+        motionBlur.intensity.value = Mathf.Lerp(0, maxMotionBlur, insanityFactor);
+        colorAdjustments.saturation.value = Mathf.Lerp(0, maxDesaturation, insanityFactor);
+
+        float vignetteIntensity = currentInsanity / 100f * maxVignetteIntensity;
+        vignette.intensity.value = vignetteIntensity;
+
+        foreach (Renderer renderer in FindObjectsOfType<Renderer>())
+        {
+            if (((1 << renderer.gameObject.layer) & exclusionLayer.value) != 0)
+            {
+                renderer.sharedMaterial.SetFloat("_Saturation", 1.0f);
+            }
+        }
+    }
 
     private void applyFov()
     {
