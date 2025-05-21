@@ -6,11 +6,11 @@ public class ParticleController : MonoBehaviour
 {
     private ParticleSystem particle;
     private ParticleSystem.MainModule main;
-    [SerializeField] private float buildUpTime = 2f;
+    [SerializeField] private float buildUpTime = 3f;
 
     private float timer = 0f;
-    private float startLifetime = 0;
-    private float targetLifetime = 3;
+    [SerializeField] private float startLifetime = 0;
+    [SerializeField] private float targetLifetime = 3;
 
     void Start()
     {
