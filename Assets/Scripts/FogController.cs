@@ -6,24 +6,22 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class FogController : MonoBehaviour
 {
-    Fog globalFog;
 
     [Header("Fog Settings")]
-    [SerializeField] float fogLowerBound;
-    [SerializeField] float fogUpperBound;
+    [SerializeField] float minFogDistance;
+    [SerializeField] float maxFogDistance;
 
     [SerializeField, Range(0, 100f)] float fogPercentage = 0f;
 
     [Header("References")]
     [SerializeField] Volume globalFogVolume;
-    [SerializeField] LocalVolumetricFog localFog;
 
+    private Fog globalFog;
 
     private void Awake()
     {
         globalFogVolume.profile.TryGet<Fog>(out globalFog);
-
-        globalFog.meanFreePath.value = fogUpperBound;
+        globalFog.meanFreePath.value = maxFogDistance;
     }
 
     private void Update()
@@ -34,30 +32,27 @@ public class FogController : MonoBehaviour
 
     public void SetFogValue(float newFogValue)
     {
-        newFogValue = Mathf.Min(Mathf.Max(fogLowerBound, newFogValue), fogUpperBound);
+        newFogValue = Mathf.Min(Mathf.Max(minFogDistance, newFogValue), maxFogDistance);
         globalFog.meanFreePath.value = newFogValue;
     }
 
     public void SetFogPercentage(float percentage)
     {
         fogPercentage = percentage;
-        float diff = fogUpperBound - fogLowerBound;
+        float diff = maxFogDistance - minFogDistance;
         float factor = percentage / 100f;
-        float newFogValue = fogUpperBound - factor * diff;
+        float newFogValue = maxFogDistance - factor * diff;
         globalFog.meanFreePath.value = newFogValue;
     }
 
     private void OnValidate()
     {
-        //Validate the bounds
-        if (globalFog != null)
-        {
-            globalFogVolume.profile.TryGet<Fog>(out globalFog);
-            fogLowerBound = Mathf.Max(1, fogLowerBound);
-            fogUpperBound = Mathf.Max(fogLowerBound + 1, fogUpperBound);
-            globalFog.meanFreePath.value = Mathf.Min(globalFog.meanFreePath.value, fogUpperBound);
+        minFogDistance = Mathf.Max(1, minFogDistance);
+        maxFogDistance = Mathf.Max(minFogDistance + 1, maxFogDistance);
 
-            SetFogPercentage(fogPercentage);
-        }
+        if (globalFogVolume == null) return;
+
+        if (globalFogVolume.profile.TryGet<Fog>(out globalFog)) SetFogPercentage(fogPercentage);
+        
     }
 }
