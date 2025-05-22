@@ -53,7 +53,7 @@ public class SanityController : MonoBehaviour
     {
         if (enableDebugMode)
         {
-            CurrentInsanity = Mathf.Clamp(CurrentInsanity - Input.mouseScrollDelta.y, 0, 100);
+            CurrentInsanity = Mathf.Clamp(CurrentInsanity + Input.mouseScrollDelta.y, 0, 100);
             ApplyInsanity();
         }
     }
@@ -111,7 +111,7 @@ public class SanityController : MonoBehaviour
         motionBlur.intensity.value = Mathf.Lerp(0, maxMotionBlur, insanityFactor);
         colorAdjustments.saturation.value = Mathf.Lerp(0, maxDesaturation, insanityFactor);
 
-        float vignetteIntensity = CurrentInsanity / 100f * maxVignetteIntensity;
+        float vignetteIntensity = CurrentInsanity / maxSanity * maxVignetteIntensity;
         vignette.intensity.value = vignetteIntensity;
 
         foreach (Renderer renderer in FindObjectsOfType<Renderer>())

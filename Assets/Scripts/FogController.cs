@@ -24,12 +24,6 @@ public class FogController : MonoBehaviour
         globalFog.meanFreePath.value = maxFogDistance;
     }
 
-    private void Update()
-    {
-        float newFogValue = globalFog.meanFreePath.value - Input.mouseScrollDelta.y * 0.5f;
-        SetFogValue(newFogValue);
-    }
-
     public void SetFogValue(float newFogValue)
     {
         newFogValue = Mathf.Min(Mathf.Max(minFogDistance, newFogValue), maxFogDistance);
