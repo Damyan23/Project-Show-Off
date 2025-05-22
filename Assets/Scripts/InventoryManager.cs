@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -31,6 +32,8 @@ public class InventoryManager : MonoBehaviour
     [Header("References")]
     private GameManager gameManager;
 
+    [SerializeField] private TextMeshProUGUI pressEToInteract;
+
     private float zDepth = 1f; 
     private Rigidbody rb;
 
@@ -51,31 +54,34 @@ public class InventoryManager : MonoBehaviour
     {
         Collider[] interactabels = Physics.OverlapSphere (this.transform.position, interactionDistance, interactionLayerMask);
 
+        float minDistance = float.MaxValue;
+        Collider closestInteractable = null;
 
-        if (Input.GetKeyDown (interactWithInteractable))
+        foreach (Collider interactable in interactabels)
         {
-            float minDistance = float.MaxValue;
-            Collider closestInteractable = null;
+            if (!isSlotTaken && interactable.CompareTag("Altar")) continue;
+            else if (isSlotTaken && interactable.CompareTag("Item")) continue;
 
+            float distance = Vector3.Distance(interactable.transform.position, this.transform.position);
 
-            foreach (Collider interactable in interactabels)
+            if (distance < minDistance)
             {
-                if (!isSlotTaken && interactable.CompareTag("Altar")) continue;
-                else if (isSlotTaken && interactable.CompareTag("Item")) continue;
-
-                float distance = Vector3.Distance(interactable.transform.position, this.transform.position);
-
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    closestInteractable = interactable;
-                }
+                minDistance = distance;
+                closestInteractable = interactable;
             }
+        }
 
-            if (closestInteractable != null) 
-            { 
-                handleInteractable(closestInteractable); 
-            }   
+        if (closestInteractable != null && !pressEToInteract.enabled) pressEToInteract.enabled = true;
+        else if (closestInteractable == null && pressEToInteract.enabled) pressEToInteract.enabled = false;
+
+        if (Input.GetKeyDown(interactWithInteractable))
+        {
+
+            if (closestInteractable != null)
+            {
+                handleInteractable(closestInteractable);
+            }
+            else if (pressEToInteract.enabled) pressEToInteract.enabled = false;
         }
 
         if (isSlotTaken) { UpdateItemPositionAndRotation(); }

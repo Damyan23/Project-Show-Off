@@ -14,9 +14,10 @@ public class ItemBehaviour : MonoBehaviour
     [HideInInspector] public bool isItemOnAltar = false;
     private InventoryManager inventoryManager;
 
-
-    void Start()
+    void Awake()
     {
+        if (InventoryManager.Instance == null) return;
+
         inventoryManager = InventoryManager.Instance;
         pickupKey = inventoryManager.interactWithInteractable;
     }
