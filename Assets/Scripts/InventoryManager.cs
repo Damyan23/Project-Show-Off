@@ -10,7 +10,6 @@ public class InventoryManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Vector3 positionOffset;
     
-    // Make sure this is public and marked with [SerializeField]
     [SerializeField] public Vector3 rotationOffset;
 
     private Camera cam;
@@ -26,8 +25,13 @@ public class InventoryManager : MonoBehaviour
     public float interactionDistance = 5f;
     [SerializeField] private LayerMask interactionLayerMask;
 
-    private float zDepth = 1f; 
+    [HideInInspector] public delegate void decreaseSanity();
+    public decreaseSanity _decreaseSanity;
 
+    [Header("References")]
+    private GameManager gameManager;
+
+    private float zDepth = 1f; 
     private Rigidbody rb;
 
     void Awake()
@@ -37,6 +41,11 @@ public class InventoryManager : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
     }
+
+    void Start()
+    {
+        gameManager = GameManager.instance;
+    } 
 
     void Update()
     {
@@ -113,7 +122,7 @@ public class InventoryManager : MonoBehaviour
 
     void dropItem ()
     {
-        if (currentItem == null) return;
+        if (currentItem == null || !isSlotTaken) return;
 
         rb.isKinematic = false;
 
@@ -129,20 +138,19 @@ public class InventoryManager : MonoBehaviour
         currentItem.transform.localPosition = Vector3.zero;
         currentItem.transform.localRotation = Quaternion.identity;
 
-        currentItem.transform.SetParent(altar.transform);
+        altar.GetComponent<AltarBehaviour>().PlaceItem(currentItem);
 
         currentItem.transform.localPosition = Vector3.zero + (altar.GetComponent<MeshRenderer>().bounds.size.y - currentItem.GetComponent<MeshRenderer>().bounds.size.y) * Vector3.up;
-        currentItem.transform.localRotation = Quaternion.Euler(new Vector3 (0, 90, 90));
+        currentItem.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 90));
 
         rb.isKinematic = false;
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         rb.includeLayers += this.gameObject.layer;
 
-        currentItem.GetComponent<ItemBehaviour>().isItemOnAltar = true;
-        altar.GetComponent<AltarBehaviour>().isSlotTaken = true;
-        altar.GetComponent<AltarBehaviour>().item = currentItem;
-
         isSlotTaken = false;
+
+        _decreaseSanity.Invoke();
+        gameManager.AltarCompleted();
     }
 }
