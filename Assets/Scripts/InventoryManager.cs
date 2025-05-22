@@ -143,8 +143,8 @@ public class InventoryManager : MonoBehaviour
 
         currentItem.transform.localPosition = Vector3.zero;
         currentItem.transform.localRotation = Quaternion.identity;
-        if (altar.GetComponentInParent<AltarBehaviour>() == null) return;
-        altar.GetComponentInParent<AltarBehaviour>().PlaceItem(currentItem);
+
+        altar.GetComponent<AltarBehaviour>().PlaceItem(currentItem);
 
         currentItem.transform.localPosition = Vector3.zero + (altar.GetComponent<MeshRenderer>().bounds.size.y - currentItem.GetComponent<MeshRenderer>().bounds.size.y) * Vector3.up;
         currentItem.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 90));
