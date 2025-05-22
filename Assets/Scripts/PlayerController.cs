@@ -1,10 +1,9 @@
 using System.Collections;
 using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
 
+[RequireComponent(typeof(CameraController))]
+[RequireComponent(typeof(SanityController))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
@@ -13,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool enableSprinting = true;
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     private bool isSprinting = false;
-    private float xRotation = 0f;
+    
     private float horizontal;
     private float vertical;
 
@@ -22,205 +21,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxSlopeAngle = 45f;
     [SerializeField] private float slopeRayLength = 1.5f;
     
-    [SerializeField] private float sprintFovIncrease = 20f;
+
     private Rigidbody rb;
-
-
-    [Header("Sanity")]
-    private const float maxSanity = 100f;
-    [HideInInspector] public float currentInsanity;
-    [SerializeField] private float enemySightInsanityRange = 50f;
-    [SerializeField] private float sightInsanityFactor = 2f;
-    [SerializeField] private float hitInsanityFactor = 25f;
-    [SerializeField] private float enemyDisableTimeAfterHit = 10f;
-    [SerializeField] private float insanityFovIncrease = 20f;
-    [SerializeField] private float baseReductionValue = 10f;
-    const float baseFov = 60f;
-
-    [Header("Camera & Post Processing")]
-    private Transform cameraTransform;
-    [SerializeField] private float fovLerpSpeed = 5f;
-    [SerializeField, Range(0f, 1f)] private float maxVignetteIntensity = 0.5f;
-    [SerializeField] private float mouseSensitivity = 100f;
-    [SerializeField] private Vector3 cameraOffset;
-    [SerializeField] private Volume globalVolume;
-
-    private ChromaticAberration chromaticAberration;
-    private ColorAdjustments colorAdjustments;
-    private MotionBlur motionBlur;
-    private Vignette vignette;
-
-    [Header("Post-Processing Settings")]
-    [SerializeField] private float maxChromaticAberration = 0.5f;
-    [SerializeField] private float maxMotionBlur = 1.0f;
-    [SerializeField] private float maxDesaturation = -100f;
 
     [Header("References")]
     [SerializeField] private FogController fogController;
-    private InventoryManager inventoryManager;
-
-    [Header("Layer Masking")]
-    [SerializeField] private LayerMask exclusionLayer;
+    [SerializeField] private CameraController cameraController;
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         gameObject.TryGetComponent<Rigidbody>(out rb);
-        if (Camera.main != null)
-            cameraTransform = Camera.main.transform;
-
-        tryGetPostProcessingEffects();
-
-        InvokeRepeating("detectEnemies", 0f, 1f);
     }
-
-    private void tryGetPostProcessingEffects()
-    {
-        globalVolume.profile.TryGet(out chromaticAberration);
-        globalVolume.profile.TryGet(out colorAdjustments);
-        globalVolume.profile.TryGet(out motionBlur);
-        globalVolume.profile.TryGet(out vignette);
-    }
-
 
     private void Update()
     {
-        tryGetInventoryManager();
-        HandleMouseLook();
         HandleInput();
-        applyFov();
-    }
 
-    private void tryGetInventoryManager()
-    {
-        if (InventoryManager.Instance != null)
-        {
-            inventoryManager = InventoryManager.Instance;
-            inventoryManager._decreaseSanity = removeInsanity;
-        }
+        cameraController.ToggleSprintFov(isSprinting);
     }
 
     private void FixedUpdate()
     {
-        movePlayer();
-    }
-
-    //Detect whether enemy is in sight and make player go insane (doesn't stack)
-    private void detectEnemies()
-    {
-        if (Camera.main == null) return;
-
-        EnemyController[] enemies = FindObjectsOfType<EnemyController>();
-
-        foreach (EnemyController enemy in enemies)
-        {
-            if (Vector3.Distance(enemy.transform.position, transform.position) > enemySightInsanityRange) continue;
-
-            if (objectVisible(enemy.gameObject))
-            {
-                AddInsanity(sightInsanityFactor);
-                applyInsanity();
-                return;
-            }
-        }
-    }
-
-    public IEnumerator HitPlayer(EnemyController enemy)
-    {
-        AddInsanity(hitInsanityFactor);
-        applyInsanity();
-
-        enemy.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(enemyDisableTimeAfterHit);
-
-        enemy.gameObject.SetActive(true);
-        enemy.transform.position = enemy.points[0];
-    }
-
-    public void AddInsanity(float value)
-    {
-        currentInsanity = Mathf.Clamp(currentInsanity + value, 0, maxSanity);
-    }
-    private void removeInsanity()
-    {
-        currentInsanity = Mathf.Clamp(currentInsanity - baseReductionValue, 0, maxSanity);
-        applyInsanity();
-    }
-
-    public void RemoveInsanity(float value)
-    {
-        currentInsanity = Mathf.Clamp(currentInsanity - value, 0, maxSanity);
-        applyInsanity();
-    }
-
-    private void applyInsanity()
-    {
-        fogController.SetFogPercentage(currentInsanity);
-        applyPostProcessingEffects();
-    }
-
-    private void applyPostProcessingEffects()
-    {
-        float insanityFactor = currentInsanity / maxSanity;
-        chromaticAberration.intensity.value = Mathf.Lerp(0, maxChromaticAberration, insanityFactor);
-        motionBlur.intensity.value = Mathf.Lerp(0, maxMotionBlur, insanityFactor);
-        colorAdjustments.saturation.value = Mathf.Lerp(0, maxDesaturation, insanityFactor);
-
-        float vignetteIntensity = currentInsanity / 100f * maxVignetteIntensity;
-        vignette.intensity.value = vignetteIntensity;
-
-        foreach (Renderer renderer in FindObjectsOfType<Renderer>())
-        {
-            if (((1 << renderer.gameObject.layer) & exclusionLayer.value) != 0)
-            {
-                renderer.sharedMaterial.SetFloat("_Saturation", 1.0f);
-            }
-        }
-    }
-
-    private void applyFov()
-    {
-        float sprintFov = isSprinting ? sprintFovIncrease : 0f;
-        float insanityFov = currentInsanity / 100f * insanityFovIncrease;
-
-        float currentFov = Camera.main.fieldOfView;
-        float targetFov = baseFov + sprintFov + insanityFov;
-        Camera.main.fieldOfView = Mathf.Lerp(currentFov, targetFov, Time.deltaTime * fovLerpSpeed);
-    }
-
-    private bool objectVisible(GameObject obj)
-    {
-        Renderer renderer = obj.GetComponent<Renderer>();
-
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-        if (!GeometryUtility.TestPlanesAABB(planes, renderer.bounds)) return false;
-
-        if (Physics.Raycast(transform.position, Vector3.Normalize(obj.transform.position - transform.position), out RaycastHit hitInfo))
-        {
-            return hitInfo.transform.name == obj.name;
-        }
-
-        return false;
-    }
-
-    void HandleMouseLook()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        // Rotate camera vertically
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        // Rotate player horizontally
-        transform.Rotate(Vector3.up * mouseX);
-
-        // Follow player
-        cameraTransform.position = transform.position + cameraOffset;
-    }
+        MovePlayer();
+    }    
 
     void HandleInput()
     {
@@ -229,7 +52,7 @@ public class PlayerController : MonoBehaviour
         isSprinting = Input.GetKey(sprintKey);
     }
 
-    private void movePlayer()
+    private void MovePlayer()
     {
         Vector3 direction = transform.right * horizontal + transform.forward * vertical;
         
@@ -246,13 +69,13 @@ public class PlayerController : MonoBehaviour
         // Handle slopes if enabled
         if (preventUphillSlowdown)
         {
-            direction = adjustDirectionForSlope(direction);
+            direction = AdjustDirectionForSlope(direction);
         }
 
         rb.AddForce(direction.normalized * currentSpeed, ForceMode.Acceleration);
     }
 
-    private Vector3 adjustDirectionForSlope(Vector3 direction)
+    private Vector3 AdjustDirectionForSlope(Vector3 direction)
     {
         // Cast ray to detect ground
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, slopeRayLength))

@@ -38,13 +38,13 @@ public class EnemyController : MonoBehaviour
         {
             //Move toward player
             Vector3 dirToPlayer = Vector3.Normalize(playerT.position - transform.position);
-            transform.Translate(dirToPlayer * Time.deltaTime * chaseSpeed);
+            transform.Translate(chaseSpeed * Time.deltaTime * dirToPlayer);
         }
         else
         {
             //Move toward next point
             Vector3 dirToNextPoint = Vector3.Normalize(points[currentPointIndex] - transform.position);
-            transform.Translate(dirToNextPoint * Time.deltaTime * roamingSpeed);
+            transform.Translate(roamingSpeed * Time.deltaTime * dirToNextPoint);
 
             if(Vector3.Distance(transform.position, points[currentPointIndex]) < 0.1f)
             {
@@ -59,8 +59,8 @@ public class EnemyController : MonoBehaviour
     {
         if(other.transform.name == "Player")
         {
-            PlayerController player = other.GetComponent<PlayerController>();
-            player.StartCoroutine(player.HitPlayer(this));
+            SanityController sanityController = other.GetComponent<SanityController>();
+            StartCoroutine(sanityController.HitPlayer(this));
         }
     }
 

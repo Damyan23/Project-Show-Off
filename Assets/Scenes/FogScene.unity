@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 157207113}
   - component: {fileID: 157207115}
   m_Layer: 0
-  m_Name: Sun
+  m_Name: Moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 130000
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -195,13 +195,13 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6500
+  m_ColorTemperature: 9000
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
-  m_ShadowAngle: 2.5
+  m_ShadowAngle: 10
 --- !u!4 &157207114
 Transform:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 9.57, z: -6.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,12 +229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 130000
+  m_Intensity: 1
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
-  m_LightDimmer: 1
+  m_LightDimmer: 1.5
   m_VolumetricDimmer: 1
   m_LightUnit: 2
   m_FadeDistance: 10000
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_AreaLightShadowCone: 120
   m_UseScreenSpaceShadows: 0
   m_InteractsWithSky: 1
-  m_AngularDiameter: 2.5
+  m_AngularDiameter: 10
   m_FlareSize: 2
   m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
   m_FlareFalloff: 4
@@ -284,16 +284,16 @@ MonoBehaviour:
   m_ShadowNearPlane: 0.1
   m_BlockerSampleCount: 24
   m_FilterSampleCount: 16
-  m_MinFilterSize: 0.1
+  m_MinFilterSize: 1
   m_KernelSize: 5
   m_LightAngle: 1
   m_MaxDepthBias: 0.001
   m_ShadowResolution:
     m_Override: 512
-    m_UseOverride: 1
-    m_Level: 0
+    m_UseOverride: 0
+    m_Level: 1
   m_ShadowDimmer: 1
-  m_VolumetricShadowDimmer: 1
+  m_VolumetricShadowDimmer: 0.1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
     m_Override: 0
@@ -477,20 +477,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters:
     albedo: {r: 1, g: 1, b: 1, a: 1}
-    meanFreePath: 0.5
-    blendingMode: 2
+    meanFreePath: 10
+    blendingMode: 1
     priority: 0
     anisotropy: 0
     volumeMask: {fileID: 11700000, guid: 7e1cc774c55df914f8f38903f032d2cb, type: 3}
     textureScrollingSpeed: {x: 0.05, y: 0, z: 0.07}
     textureTiling: {x: 2, y: 1, z: 2}
-    positiveFade: {x: 0, y: 0, z: 0}
-    negativeFade: {x: 0, y: 0, z: 0}
-    m_EditorUniformFade: 0
+    positiveFade: {x: 0.0025, y: 0.02, z: 0.0025}
+    negativeFade: {x: 0.0025, y: 0.02, z: 0.0025}
+    m_EditorUniformFade: 0.1
     m_EditorPositiveFade: {x: 0, y: 0, z: 0.0025}
     m_EditorNegativeFade: {x: 0, y: 0, z: 0.0025}
     m_EditorAdvancedFade: 0
-    size: {x: 40, y: 10, z: 40}
+    size: {x: 40, y: 5, z: 40}
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
@@ -508,7 +508,7 @@ Transform:
   m_GameObject: {fileID: 355100794}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -547,7 +547,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: eae4049b68fc10145a92d9dee24a7dcc, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 5fd22d70a5662f442a116947550e1383, type: 2}
 --- !u!4 &670536913
 Transform:
   m_ObjectHideFlags: 0
@@ -1331,7 +1331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1830943957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,13 +1371,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830943956}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1140c8d9c4977544aa3a14be9a62d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fogLowerBound: 1
-  fogUpperBound: 20
+  fogUpperBound: 10
   fogPercentage: 0
   globalFogVolume: {fileID: 670536912}
   localFog: {fileID: 355100795}
@@ -1569,8 +1569,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 25
+  sprintSpeed: 10
+  enableSprinting: 1
+  sprintKey: 304
+  preventUphillSlowdown: 1
+  maxSlopeAngle: 45
+  slopeRayLength: 1.5
+  sprintFovIncrease: 20
+  currentInsanity: 0
+  enemySightInsanityRange: 50
+  sightInsanityFactor: 2
+  hitInsanityFactor: 25
+  enemyDisableTimeAfterHit: 10
+  insanityFovIncrease: 20
+  baseReductionValue: 10
+  fovLerpSpeed: 5
+  maxVignetteIntensity: 0.5
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0.7, z: 0}
+  globalVolume: {fileID: 1830943957}
+  maxChromaticAberration: 0.5
+  maxMotionBlur: 1
+  maxDesaturation: -100
+  fogController: {fileID: 1830943959}
+  exclusionLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!136 &2017592783
 CapsuleCollider:
   m_ObjectHideFlags: 0
