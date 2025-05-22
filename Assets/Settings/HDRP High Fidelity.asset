@@ -61,7 +61,7 @@ MonoBehaviour:
     supportProbeVolumeStreaming: 0
     probeVolumeSHBands: 1
     supportRayTracing: 1
-    supportedRayTracingMode: 3
+    supportedRayTracingMode: 2
     lightLoopSettings:
       cookieAtlasSize: 512
       cookieFormat: 74
