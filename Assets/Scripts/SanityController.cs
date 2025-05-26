@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -43,7 +44,7 @@ public class SanityController : MonoBehaviour
 
     private void Start()
     {
-        InventoryManager.Instance._decreaseSanity = RemoveInsanity;
+        //InventoryManager.Instance._decreaseSanity = RemoveInsanity;
         TryGetPostProcessingEffects();
 
         InvokeRepeating("DetectEnemies", 0f, 1f);
@@ -53,8 +54,12 @@ public class SanityController : MonoBehaviour
     {
         if (enableDebugMode)
         {
-            CurrentInsanity = Mathf.Clamp(CurrentInsanity - Input.mouseScrollDelta.y, 0, 100);
-            ApplyInsanity();
+            float newSanity = Mathf.Clamp(CurrentInsanity - Input.mouseScrollDelta.y, 0, 100);
+            if (Mathf.Abs(CurrentInsanity - newSanity) > Mathf.Epsilon)
+            {
+                CurrentInsanity = newSanity;
+                ApplyInsanity();
+            }
         }
     }
 
@@ -89,6 +94,8 @@ public class SanityController : MonoBehaviour
         fogController.SetFogPercentage(CurrentInsanity);
         cameraController.ApplyFov(CurrentInsanity);
         ApplyPostProcessingEffects();
+
+        if (enableDebugMode) Debug.Log(CurrentInsanity);
     }
 
     public IEnumerator HitPlayer(EnemyController enemy)
@@ -113,6 +120,19 @@ public class SanityController : MonoBehaviour
 
         float vignetteIntensity = CurrentInsanity / 100f * maxVignetteIntensity;
         vignette.intensity.value = vignetteIntensity;
+
+        //Make vignette red if above threshold
+        float redVignetteThreshold = 0.75f;
+        if (insanityFactor >= redVignetteThreshold)
+        {
+            //Scale the redfactor quadratically
+            float redFactor = Mathf.InverseLerp(redVignetteThreshold, 1f, insanityFactor);
+            vignette.color.value = new Color(redFactor * redFactor, 0, 0);
+        }
+        else
+        {
+            vignette.color.value = Color.black;
+        }
 
         foreach (Renderer renderer in FindObjectsOfType<Renderer>())
         {
