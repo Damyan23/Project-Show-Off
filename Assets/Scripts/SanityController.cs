@@ -14,6 +14,7 @@ public class SanityController : MonoBehaviour
     [SerializeField] private float enemyDetectionRange = 50f;
     [SerializeField] private float enemyDetectionInsanityPoints = 4f;
     [SerializeField] float offerSanityReduction = 20f;
+    [SerializeField, Range(0f, maxSanity)] float insaneThreshold = 75f;
 
     [Header("Post-Processing Settings")]
     [SerializeField] private float maxChromaticAberration = 0.5f;
@@ -28,7 +29,8 @@ public class SanityController : MonoBehaviour
     [SerializeField] private Volume globalVolume;
     [SerializeField] private FogController fogController;
     [SerializeField] private CameraController cameraController;
-
+    [SerializeField] private RandomSoundPlayer soundPlayer;
+    
     [Header("Debug")]
     [SerializeField] private bool enableDebugMode = false;
 
@@ -43,7 +45,7 @@ public class SanityController : MonoBehaviour
 
     private void Start()
     {
-        InventoryManager.Instance._decreaseSanity = RemoveInsanity;
+        //InventoryManager.Instance._decreaseSanity = RemoveInsanity;
         TryGetPostProcessingEffects();
 
         InvokeRepeating("DetectEnemies", 0f, 1f);
@@ -53,8 +55,12 @@ public class SanityController : MonoBehaviour
     {
         if (enableDebugMode)
         {
-            CurrentInsanity = Mathf.Clamp(CurrentInsanity + Input.mouseScrollDelta.y, 0, 100);
-            ApplyInsanity();
+            float newSanity = Mathf.Clamp(CurrentInsanity - Input.mouseScrollDelta.y, 0, 100);
+            if (Mathf.Abs(CurrentInsanity - newSanity) > Mathf.Epsilon)
+            {
+                CurrentInsanity = newSanity;
+                ApplyInsanity();
+            }
         }
     }
 
@@ -89,6 +95,9 @@ public class SanityController : MonoBehaviour
         fogController.SetFogPercentage(CurrentInsanity);
         cameraController.ApplyFov(CurrentInsanity);
         ApplyPostProcessingEffects();
+        soundPlayer.StartRandomLoop(CurrentInsanity > insaneThreshold);
+
+        if (enableDebugMode) Debug.Log(CurrentInsanity);
     }
 
     public IEnumerator HitPlayer(EnemyController enemy)
@@ -113,6 +122,19 @@ public class SanityController : MonoBehaviour
 
         float vignetteIntensity = CurrentInsanity / maxSanity * maxVignetteIntensity;
         vignette.intensity.value = vignetteIntensity;
+
+
+        //Make vignette red if above threshold
+        if (insanityFactor >= insaneThreshold / maxSanity)
+        {
+            //Scale the redfactor quadratically
+            float redFactor = Mathf.InverseLerp(insaneThreshold / maxSanity, 1f, insanityFactor);
+            vignette.color.value = new Color(redFactor * redFactor, 0, 0);
+        }
+        else
+        {
+            vignette.color.value = Color.black;
+        }
 
         foreach (Renderer renderer in FindObjectsOfType<Renderer>())
         {

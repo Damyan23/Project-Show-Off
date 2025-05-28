@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class RandomSoundPlayer : MonoBehaviour
 {
     [Header("Sound Settings")]
-    [SerializeField] private List<AudioClip> soundClips = new ();
+    [SerializeField] private List<AudioClip> normalSoundClips = new ();
+    [SerializeField] private List<AudioClip> insaneSoundClips = new ();
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private float minDelay = 2f;
     [SerializeField] private float maxDelay = 5f;
@@ -15,25 +16,25 @@ public class RandomSoundPlayer : MonoBehaviour
 
     private void Start()
     {
-        if (loopRandomly && soundClips.Count > 0)
+        if (loopRandomly && normalSoundClips.Count > 0)
         {
-            loopCoroutine = StartCoroutine(PlayRandomLoop());
+            loopCoroutine = StartCoroutine(PlayRandomLoop(false));
         }
     }
 
-    public void PlayRandomSound()
+    public void PlayRandomSound(List<AudioClip> soundClips)
     {
-        if (soundClips.Count == 0 || audioSource == null)
+        if (normalSoundClips.Count == 0 || audioSource == null)
             return;
 
         AudioClip clip = soundClips[Random.Range(0, soundClips.Count)];
         audioSource.PlayOneShot(clip);
     }
 
-    public void StartRandomLoop()
+    public void StartRandomLoop(bool isInsane)
     {
         if (loopCoroutine == null)
-            loopCoroutine = StartCoroutine(PlayRandomLoop());
+            loopCoroutine = StartCoroutine(PlayRandomLoop(isInsane));
     }
 
     public void StopRandomLoop()
@@ -45,11 +46,11 @@ public class RandomSoundPlayer : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayRandomLoop()
+    private IEnumerator PlayRandomLoop(bool isInsane)
     {
         while (true)
         {
-            PlayRandomSound();
+            PlayRandomSound(isInsane ? insaneSoundClips : normalSoundClips);
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
         }
