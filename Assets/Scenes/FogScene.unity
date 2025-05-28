@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 9.57, z: -6.57}
+  m_LocalPosition: {x: 0, y: 9.65, z: -6.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -494,7 +494,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -1.730398, y: -0, z: -2.422557}
+    textureOffset: {x: -74.883965, y: -0, z: -104.83755}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -855,7 +855,7 @@ Transform:
   m_GameObject: {fileID: 1258141520}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 2.5, y: 2, z: 0.15}
   m_LocalScale: {x: 1.5, y: 4, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1692,6 +1692,7 @@ MonoBehaviour:
   enemyDetectionRange: 50
   enemyDetectionInsanityPoints: 4
   offerSanityReduction: 20
+  insaneThreshold: 75
   maxChromaticAberration: 0.5
   maxMotionBlur: 1
   maxDesaturation: -100
@@ -1702,6 +1703,7 @@ MonoBehaviour:
   globalVolume: {fileID: 1830943957}
   fogController: {fileID: 1830943959}
   cameraController: {fileID: 2017592789}
+  soundPlayer: {fileID: 0}
   enableDebugMode: 1
 --- !u!114 &2017592789
 MonoBehaviour:

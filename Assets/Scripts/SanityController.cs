@@ -15,6 +15,7 @@ public class SanityController : MonoBehaviour
     [SerializeField] private float enemyDetectionRange = 50f;
     [SerializeField] private float enemyDetectionInsanityPoints = 4f;
     [SerializeField] float offerSanityReduction = 20f;
+    [SerializeField, Range(0f, maxSanity)] float insaneThreshold = 75f;
 
     [Header("Post-Processing Settings")]
     [SerializeField] private float maxChromaticAberration = 0.5f;
@@ -29,7 +30,8 @@ public class SanityController : MonoBehaviour
     [SerializeField] private Volume globalVolume;
     [SerializeField] private FogController fogController;
     [SerializeField] private CameraController cameraController;
-
+    [SerializeField] private RandomSoundPlayer soundPlayer;
+    
     [Header("Debug")]
     [SerializeField] private bool enableDebugMode = false;
 
@@ -94,6 +96,7 @@ public class SanityController : MonoBehaviour
         fogController.SetFogPercentage(CurrentInsanity);
         cameraController.ApplyFov(CurrentInsanity);
         ApplyPostProcessingEffects();
+        soundPlayer.StartRandomLoop(CurrentInsanity > insaneThreshold);
 
         if (enableDebugMode) Debug.Log(CurrentInsanity);
     }
@@ -121,12 +124,12 @@ public class SanityController : MonoBehaviour
         float vignetteIntensity = CurrentInsanity / 100f * maxVignetteIntensity;
         vignette.intensity.value = vignetteIntensity;
 
+
         //Make vignette red if above threshold
-        float redVignetteThreshold = 0.75f;
-        if (insanityFactor >= redVignetteThreshold)
+        if (insanityFactor >= insaneThreshold / maxSanity)
         {
             //Scale the redfactor quadratically
-            float redFactor = Mathf.InverseLerp(redVignetteThreshold, 1f, insanityFactor);
+            float redFactor = Mathf.InverseLerp(insaneThreshold / maxSanity, 1f, insanityFactor);
             vignette.color.value = new Color(redFactor * redFactor, 0, 0);
         }
         else
