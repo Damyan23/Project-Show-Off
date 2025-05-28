@@ -14,6 +14,8 @@ public class RandomSoundPlayer : MonoBehaviour
 
     private Coroutine loopCoroutine;
 
+    bool isInsane = false;
+
     private void Start()
     {
         if (loopRandomly && normalSoundClips.Count > 0)
@@ -32,7 +34,13 @@ public class RandomSoundPlayer : MonoBehaviour
     }
 
     public void StartRandomLoop(bool isInsane)
-    {
+    { 
+        if(this.isInsane != isInsane)
+        {
+            StopRandomLoop();
+            this.isInsane = isInsane;
+        }
+
         if (loopCoroutine == null)
             loopCoroutine = StartCoroutine(PlayRandomLoop(isInsane));
     }
