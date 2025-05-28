@@ -35,6 +35,12 @@ public class AltarBehaviour : MonoBehaviour
 
         inventoryManager = InventoryManager.Instance;
         particles = GetComponentsInChildren<ParticleSystem>();
+        foreach (var particle in particles)
+        {
+            var main = particle.main;
+            particle.Stop();
+            main.playOnAwake = false;
+        }
     }
 
     private void Update()

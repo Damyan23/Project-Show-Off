@@ -146,7 +146,7 @@ public class InventoryManager : MonoBehaviour
 
         altar.GetComponentInParent<AltarBehaviour>().PlaceItem(currentItem);
 
-        currentItem.transform.localPosition = Vector3.zero + (altar.GetComponent<MeshRenderer>().bounds.size.y - currentItem.GetComponent<MeshRenderer>().bounds.size.y) * Vector3.up;
+        currentItem.transform.localPosition = Vector3.zero + (altar.GetComponentInChildren<MeshRenderer>().bounds.size.y - currentItem.GetComponent<MeshRenderer>().bounds.size.y) * Vector3.up;
         currentItem.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 90));
 
         rb.isKinematic = false;

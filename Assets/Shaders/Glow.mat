@@ -54,9 +54,9 @@ Material:
     - _EmissiveIntensity: 1
     - _FresnelIntensity: 3
     - _FresnelPower: 2
-    - _GlowFalloff: 5
-    - _GlowIntensity: 10
-    - _GlowRange: 2.38
+    - _GlowFalloff: 0.1
+    - _GlowIntensity: 0
+    - _GlowRange: 0
     - _Metallic: 0
     - _RenderQueueType: 5
     - _Smoothness: 0.462
