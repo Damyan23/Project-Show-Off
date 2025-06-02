@@ -1,0 +1,7 @@
+﻿title: NearbyItemMonologue
+position: 0,0
+
+---
+<<declare $itemName = "" >>
+idk what her name was: Hmm… I should check out that <i>{$itemName}</i> over there.
+===

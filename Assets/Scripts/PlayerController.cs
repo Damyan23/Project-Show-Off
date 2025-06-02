@@ -26,10 +26,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private FogController fogController;
-    [SerializeField] private CameraController cameraController;
+    private CameraController cameraController;
 
     private void Start()
     {
+        cameraController = GetComponent<CameraController>();
         gameObject.TryGetComponent<Rigidbody>(out rb);
     }
 

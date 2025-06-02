@@ -66,10 +66,10 @@ public class SanityController : MonoBehaviour
 
     private void TryGetPostProcessingEffects()
     {
-        globalVolume.profile.TryGet(out chromaticAberration);
-        globalVolume.profile.TryGet(out colorAdjustments);
-        globalVolume.profile.TryGet(out motionBlur);
-        globalVolume.profile.TryGet(out vignette);
+        globalVolume?.profile.TryGet(out chromaticAberration);
+        globalVolume?.profile.TryGet(out colorAdjustments);
+        globalVolume?.profile.TryGet(out motionBlur);
+        globalVolume?.profile.TryGet(out vignette);
     }
 
 

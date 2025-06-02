@@ -36,6 +36,7 @@ public class InventoryManager : MonoBehaviour
 
     private float zDepth = 1f; 
     private Rigidbody rb;
+    [HideInInspector] public Collider closestInteractable = null;
 
     void Awake()
     {
@@ -55,7 +56,6 @@ public class InventoryManager : MonoBehaviour
         Collider[] interactabels = Physics.OverlapSphere (this.transform.position, interactionDistance, interactionLayerMask);
 
         float minDistance = float.MaxValue;
-        Collider closestInteractable = null;
 
         foreach (Collider interactable in interactabels)
         {
@@ -67,12 +67,13 @@ public class InventoryManager : MonoBehaviour
             if (distance < minDistance)
             {
                 minDistance = distance;
-                closestInteractable = interactable;
+                
+                if (closestInteractable != interactable) { closestInteractable = interactable; }
             }
         }
 
-        if (closestInteractable != null && !pressEToInteract.enabled) pressEToInteract.enabled = true;
-        else if (closestInteractable == null && pressEToInteract.enabled) pressEToInteract.enabled = false;
+        if (closestInteractable != null && !pressEToInteract.enabled) { pressEToInteract.enabled = true; }
+        else if (closestInteractable == null && pressEToInteract.enabled) { pressEToInteract.enabled = false; }
 
         if (Input.GetKeyDown(interactWithInteractable))
         {
@@ -81,7 +82,7 @@ public class InventoryManager : MonoBehaviour
             {
                 handleInteractable(closestInteractable);
             }
-            else if (pressEToInteract.enabled) pressEToInteract.enabled = false;
+            else if (pressEToInteract.enabled) { pressEToInteract.enabled = false; }
         }
 
         if (isSlotTaken) { UpdateItemPositionAndRotation(); }
