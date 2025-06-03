@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CameraController))]
 [RequireComponent(typeof(SanityController))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
@@ -22,11 +23,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slopeRayLength = 1.5f;
     
 
-    private Rigidbody rb;
+    public Rigidbody rb { get; private set; }
 
     [Header("References")]
     [SerializeField] private FogController fogController;
     private CameraController cameraController;
+
+    private bool isActive = true;
 
     private void Start()
     {
@@ -36,6 +39,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!isActive) return;
+
         HandleInput();
 
         cameraController.ToggleSprintFov(isSprinting);
@@ -45,6 +50,11 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
     }    
+
+    public void TogglePlayerMovement(bool toggle)
+    {
+        isActive = toggle;
+    }
 
     void HandleInput()
     {
