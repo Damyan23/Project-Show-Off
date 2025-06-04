@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isActive) return;
+
         MovePlayer();
     }    
 

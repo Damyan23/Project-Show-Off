@@ -63,11 +63,11 @@ public class Ladder : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            player.transform.Translate(climbSpeed * Time.deltaTime * upDirection);
+            player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection);
+            player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
         }
     }
 
@@ -105,6 +105,7 @@ public class Ladder : MonoBehaviour
         hasClimbed = false;
         player.TogglePlayerMovement(true);
         player.rb.useGravity = true;
+        player.GetComponent<CapsuleCollider>().enabled = true;
     }
 
     void GetOnLadder(Vector3 newPosition)
@@ -116,6 +117,7 @@ public class Ladder : MonoBehaviour
 
         player.TogglePlayerMovement(false);
         player.rb.useGravity = false;
+        player.GetComponent<CapsuleCollider>().enabled = false;
     }
 
     void CheckInteractWithLadder()
