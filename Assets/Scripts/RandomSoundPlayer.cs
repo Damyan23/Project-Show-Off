@@ -9,6 +9,7 @@ public class RandomSoundPlayer : MonoBehaviour
     [SerializeField] private List<AudioClip> normalSoundClips = new ();
     [SerializeField] private List<AudioClip> insaneSoundClips = new ();
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource insaneAudioSource;
     [SerializeField] private float minDelay = 2f;
     [SerializeField] private float maxDelay = 5f;
     [SerializeField] private bool loopRandomly = false;
@@ -30,7 +31,7 @@ public class RandomSoundPlayer : MonoBehaviour
         }
     }
 
-    public void PlayRandomSound(List<AudioClip> soundClips)
+    public void PlayRandomSound(List<AudioClip> soundClips, AudioSource source)
     {
         if (normalSoundClips.Count == 0 || audioSource == null)
             return;
@@ -64,7 +65,7 @@ public class RandomSoundPlayer : MonoBehaviour
     {
         while (true)
         {
-            PlayRandomSound(isInsane ? insaneSoundClips : normalSoundClips);
+            PlayRandomSound(isInsane ? insaneSoundClips : normalSoundClips, isInsane ? insaneAudioSource: audioSource);
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
         }
