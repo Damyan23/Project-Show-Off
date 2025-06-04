@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Altar
   - Item
+  - Tree
   layers:
   - Default
   - TransparentFX
