@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ladder : MonoBehaviour
@@ -8,58 +6,96 @@ public class Ladder : MonoBehaviour
     [SerializeField] float climbSpeed = 3f;
 
     [Header("Ladder Position Settings")]
-    [SerializeField] float topY;
-    [SerializeField] float bottomY;
-    [SerializeField] Vector3 bottomTeleportPosition;
-    [SerializeField] Vector3 topTeleportPosition;
-    [SerializeField] Vector3 playerOffset;
+    [SerializeField] Vector3 bottomLadderPositionOffset;
+    [SerializeField] Vector3 topLadderPositionOffset;
+
+    [Header("Teleport Settings")]
+    [SerializeField] Vector3 bottomTeleportPositionOffset;
+    [SerializeField] Vector3 topTeleportPositionOffset;
 
     [Header("References")]
     [SerializeField] PlayerController player;
 
+    Vector3 topLadderPosition;
+    Vector3 bottomLadderPosition;
+
+    Vector3 topTeleportPosition;
+    Vector3 bottomTeleportPosition;
+
+    Vector3 upDirection;
+
     bool isOnLadder = false;
     bool hasClimbed = false;
+
+    private void Start()
+    {
+        upDirection = Vector3.Normalize(topLadderPositionOffset - bottomLadderPositionOffset);
+
+        topLadderPosition = transform.position + topLadderPositionOffset;
+        bottomLadderPosition = transform.position + bottomLadderPositionOffset;
+
+        topTeleportPosition = transform.position + topTeleportPositionOffset;
+        bottomTeleportPosition = transform.position + bottomTeleportPositionOffset;
+    }
 
     private void Update()
     {
         if (isOnLadder)
         {
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                player.transform.Translate(climbSpeed * Time.deltaTime * transform.up);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                player.transform.Translate(-climbSpeed * Time.deltaTime * transform.up);
-            }
-
-            //Make sure player doesn't immediately gets set off the ladder
+            Move();
             if (hasClimbed)
             {
-                if (Mathf.Abs(player.transform.position.y - topY) <= 1f)
-                {
-                    GetOffLadder(topTeleportPosition);
-                }
-                else if (Mathf.Abs(player.transform.position.y - bottomY) <= 1f) 
-                {
-                    GetOffLadder(bottomTeleportPosition);
-                }
+                CheckGetOffLadder();
             }
             else
             {
-                if(Mathf.Abs(player.transform.position.y - topY) > 1.5f && Mathf.Abs(player.transform.position.y - bottomY) > 1.5f)
-                {
-                    hasClimbed = true;
-                }
+                CheckHasClimbed();
             }
+
         }
         else
         {
             CheckInteractWithLadder();
         }
+    }
 
+    void Move()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            player.transform.Translate(climbSpeed * Time.deltaTime * upDirection);
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection);
+        }
+    }
 
+    void CheckHasClimbed()
+    {
+        if (hasClimbed) return;
+
+        if (Vector3.Distance(player.transform.position, topLadderPosition)    > 1.5f &&
+            Vector3.Distance(player.transform.position, bottomLadderPosition) > 1.5f)
+        {
+            hasClimbed = true;
+        }
+    }
+
+    void CheckGetOffLadder()
+    {
+        //Make sure player doesn't immediately gets set off the ladder
+        if (hasClimbed)
+        {
+            if (Vector3.Distance(player.transform.position, topLadderPosition) <= 0.5f)
+            {
+                GetOffLadder(topTeleportPosition);
+            }
+            else if (Vector3.Distance(player.transform.position, bottomLadderPosition) <= 0.5f)
+            {
+                GetOffLadder(bottomTeleportPosition);
+            }
+        }
     }
 
     void GetOffLadder(Vector3 newPosition)
@@ -74,6 +110,7 @@ public class Ladder : MonoBehaviour
     void GetOnLadder(Vector3 newPosition)
     {
         isOnLadder = true;
+        player.rb.velocity = Vector3.zero;
 
         player.transform.position = newPosition;
 
@@ -94,17 +131,17 @@ public class Ladder : MonoBehaviour
             Vector2 ladderDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.z - player.transform.position.z).normalized;
             float dot = Vector2.Dot(playerLookDirection, ladderDirection);
 
-            if (horizontalDistance < 2.5f && dot > 0.75f)
+            if (horizontalDistance < 5f && dot > 0.75f)
             {
-                if(Mathf.Abs(player.transform.position.y - topY) < Mathf.Abs(player.transform.position.y - bottomY))
+                if (Vector3.Distance(player.transform.position, topLadderPosition) < Vector3.Distance(player.transform.position, bottomLadderPosition))
                 {
                     //Get on at top of the ladder
-                    GetOnLadder(new Vector3(transform.position.x, topY, transform.position.z) + playerOffset);
+                    GetOnLadder(topLadderPosition);
                 }
                 else
                 {
                     //Get on at the bottom of the ladder
-                    GetOnLadder(new Vector3(transform.position.x, bottomY, transform.position.z) + playerOffset);
+                    GetOnLadder(bottomLadderPosition);
                 }
             }
         }
@@ -112,15 +149,28 @@ public class Ladder : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        upDirection = Vector3.Normalize(topLadderPositionOffset - bottomLadderPositionOffset);
+
+        topLadderPosition = transform.position + topLadderPositionOffset;
+        bottomLadderPosition = transform.position + bottomLadderPositionOffset;
+
+        topTeleportPosition = transform.position + topTeleportPositionOffset;
+        bottomTeleportPosition = transform.position + bottomTeleportPositionOffset;
+
+
         //Red spheres are player teleport positions
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(topTeleportPosition, 0.5f);
-        Gizmos.DrawSphere(bottomTeleportPosition, 0.5f);
+        Gizmos.DrawSphere(topTeleportPosition, 0.25f);
+        Gizmos.DrawSphere(bottomTeleportPosition, 0.25f);
 
         //Blue spheres are top and bottom of ladder
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, topY, transform.position.z) + playerOffset, 0.5f);
-        Gizmos.DrawSphere(new Vector3(transform.position.x, bottomY, transform.position.z) + playerOffset, 0.5f);
+        Gizmos.DrawSphere(topLadderPosition, 0.25f);
+        Gizmos.DrawSphere(bottomLadderPosition, 0.25f);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(bottomLadderPosition, topLadderPosition);
+
     }
 
 
