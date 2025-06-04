@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 public class RandomSoundPlayer : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class RandomSoundPlayer : MonoBehaviour
     bool isInsane = false;
 
     private void Start()
+    {
+        Invoke("StartLoop", minDelay);
+    }
+
+    private void StartLoop()
     {
         if (loopRandomly && normalSoundClips.Count > 0)
         {
