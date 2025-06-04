@@ -10,6 +10,7 @@ public class TreeBrush : EditorWindow
     public GameObject treePrefab;
     public float brushSize = 5f;
     public float treeRadius = 1f;
+    public float treeScale = 1f;
     public int treeCount = 10;
     public LayerMask hitMask;
 
@@ -22,7 +23,11 @@ public class TreeBrush : EditorWindow
     void OnSceneGUI(SceneView sceneView)
     {
         Event e = Event.current;
-        Transform treeParent = GameObject.Find("Tree Parent").transform;
+
+        GameObject treeParentObj = GameObject.Find("Tree Parent");
+        if (treeParentObj == null) return;
+        Transform treeParent = treeParentObj.transform;
+
 
         Handles.color = Color.blue;
         Ray mouseRay = HandleUtility.GUIPointToWorldRay(e.mousePosition);
@@ -84,6 +89,7 @@ public class TreeBrush : EditorWindow
                             tree.transform.Rotate(new Vector3(0f, randomRotation, 0f));
                             tree.transform.parent = treeParent;
                             tree.transform.position = groundHit.point;
+                            tree.transform.localScale = Vector3.one * treeScale;
                             //tree.transform.up = groundHit.normal; // optional alignment
                             Undo.RegisterCreatedObjectUndo(tree, "Place Tree");
 
@@ -104,6 +110,7 @@ public class TreeBrush : EditorWindow
             brushSize = EditorGUILayout.Slider("Brush Size", brushSize, 0.1f, 50f);
             treeRadius = EditorGUILayout.Slider("Tree Radius", treeRadius, 0.1f, 50f);
             treeCount = EditorGUILayout.IntSlider("Trees per Click", treeCount, 1, 100);
+            treeScale = EditorGUILayout.Slider("Tree Scale", treeScale, 0.1f, 100f);
             hitMask = LayerMaskField("Hit Layer Mask", hitMask);
         }
 
