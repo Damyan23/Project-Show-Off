@@ -37,7 +37,7 @@ public class RandomSoundPlayer : MonoBehaviour
             return;
 
         AudioClip clip = soundClips[Random.Range(0, soundClips.Count)];
-        audioSource.PlayOneShot(clip);
+        source.PlayOneShot(clip);
     }
 
     public void StartRandomLoop(bool isInsane)
@@ -65,7 +65,7 @@ public class RandomSoundPlayer : MonoBehaviour
     {
         while (true)
         {
-            PlayRandomSound(isInsane ? insaneSoundClips : normalSoundClips, isInsane ? insaneAudioSource: audioSource);
+            PlayRandomSound(isInsane ? insaneSoundClips : normalSoundClips, isInsane ? insaneAudioSource : audioSource);
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
         }
