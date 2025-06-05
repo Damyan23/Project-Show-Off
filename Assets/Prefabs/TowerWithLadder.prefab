@@ -1,5 +1,129 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &197583209370596358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8112938108604500152}
+  m_Layer: 0
+  m_Name: Ladder  Top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8112938108604500152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197583209370596358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1150, z: -25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 139160057388499057}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4719278891413479712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8345132883950754609}
+  m_Layer: 0
+  m_Name: Teleport Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8345132883950754609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719278891413479712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 139160057388499057}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4891342279214550598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4083573023847182478}
+  m_Layer: 0
+  m_Name: Teleport Top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4083573023847182478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4891342279214550598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1200, z: -150}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 139160057388499057}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7520779867593728784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2561271699584167724}
+  m_Layer: 0
+  m_Name: Ladder  Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2561271699584167724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520779867593728784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 50, z: 125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 139160057388499057}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &460735129563555738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36,7 +160,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
@@ -110,7 +234,23 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9b2808f29d4be1149a83fb544b1fb970, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2561271699584167724}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8112938108604500152}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8345132883950754609}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4083573023847182478}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
@@ -129,6 +269,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8944126403274837632}
   m_SourcePrefab: {fileID: 100100000, guid: 405a98ed09b322d4a8f365cd77528ccd, type: 3}
+--- !u!4 &139160057388499057 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
+    type: 3}
+  m_PrefabInstance: {fileID: 460735129563555738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &704981997386345310 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1129353803350396100, guid: 405a98ed09b322d4a8f365cd77528ccd,
@@ -197,11 +343,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6003a7013af51644a95cbd6cf1137c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  climbSpeed: 4
-  bottomLadderPositionOffset: {x: 0, y: 5, z: -9}
-  topLadderPositionOffset: {x: 0, y: 87, z: 1.25}
-  bottomTeleportPositionOffset: {x: 0, y: 3, z: -10}
-  topTeleportPositionOffset: {x: 0, y: 90, z: 8}
+  climbSpeed: 20
+  bottomLadderT: {fileID: 2561271699584167724}
+  topLadderT: {fileID: 8112938108604500152}
+  bottomTeleportT: {fileID: 8345132883950754609}
+  topTeleportT: {fileID: 4083573023847182478}
   player: {fileID: 0}
 --- !u!1 &5069242356463175951 stripped
 GameObject:
