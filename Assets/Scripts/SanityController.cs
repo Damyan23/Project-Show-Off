@@ -95,7 +95,7 @@ public class SanityController : MonoBehaviour
         fogController.SetFogPercentage(CurrentInsanity);
         cameraController.ApplyFov(CurrentInsanity);
         ApplyPostProcessingEffects();
-        soundPlayer.StartRandomLoop(CurrentInsanity > insaneThreshold);
+        soundPlayer.ApplySFX(CurrentInsanity, maxSanity);
 
         if (enableDebugMode) Debug.Log(CurrentInsanity);
     }
