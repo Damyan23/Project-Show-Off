@@ -61,13 +61,34 @@ public class Ladder : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (hasClimbed)
         {
-            player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
+            if (Input.GetKey(KeyCode.W))
+            {
+                player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
+        else
         {
-            player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
+            //If player is at top
+            if(Vector3.Distance(player.transform.position, topLadderPosition) < Vector3.Distance(player.transform.position, bottomLadderPosition))
+            {
+                if (Input.GetKey(KeyCode.S))
+                {
+                    player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
+                }
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
+                }
+            }
         }
     }
 
@@ -126,7 +147,12 @@ public class Ladder : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.z);
-            float horizontalDistance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), playerPos);
+
+            float topDst = Vector3.Distance(playerPos, topLadderPosition);
+            float bottomDst = Vector3.Distance(playerPos, bottomLadderPosition);
+            Vector3 ladderPos = topDst < bottomDst ? topLadderPosition : bottomLadderPosition;
+
+            float horizontalDistance = Vector2.Distance(new Vector2(ladderPos.x, ladderPos.z), playerPos);
 
             //Only get on ladder if player look at it
             Vector2 playerLookDirection = new Vector2(player.transform.forward.x, player.transform.forward.z);

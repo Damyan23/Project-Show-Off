@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 405a98ed09b322d4a8f365cd77528ccd,
         type: 3}
@@ -198,10 +198,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   climbSpeed: 4
-  bottomLadderPositionOffset: {x: 0, y: 0.5, z: -1.5}
-  topLadderPositionOffset: {x: 0, y: 12, z: 0}
-  bottomTeleportPositionOffset: {x: 0, y: 0.5, z: -2}
-  topTeleportPositionOffset: {x: 0, y: 12, z: 1.5}
+  bottomLadderPositionOffset: {x: 0, y: 5, z: -9}
+  topLadderPositionOffset: {x: 0, y: 87, z: 1.25}
+  bottomTeleportPositionOffset: {x: 0, y: 3, z: -10}
+  topTeleportPositionOffset: {x: 0, y: 90, z: 8}
   player: {fileID: 0}
 --- !u!1 &5069242356463175951 stripped
 GameObject:
