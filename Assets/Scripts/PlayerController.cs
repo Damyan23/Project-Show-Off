@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sounds Settings")]
     private AudioSource audioSource;
-    private AudioClip footstepSound;
-    [SerializeField, Range(1f, 2f)] private float footstepSpeed;
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private AudioClip runningSound;
 
     private bool isActive = true;
 
@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
 
         gameObject.TryGetComponent<AudioSource>(out audioSource);
         audioSource.loop = true;
-        audioSource.clip = footstepSound;
     }
 
     private void Update()
@@ -97,11 +96,13 @@ public class PlayerController : MonoBehaviour
         if (isSprinting && enableSprinting)
         {
             currentSpeed = sprintSpeed;
-            audioSource.pitch = sprintSpeed;
+            if (audioSource.clip != runningSound)
+                audioSource.clip = runningSound;
         }
         else
         {
-            audioSource.pitch = footstepSpeed;
+            if (audioSource.clip != footstepSound)
+                audioSource.clip = footstepSound;
         }
 
         // Handle slopes if enabled
