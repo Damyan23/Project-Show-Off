@@ -97,7 +97,7 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 1
-    - _Wind_Speed: 3
+    - _Wind_Speed: 5
     - _Wind_Strength: 2
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 3
@@ -107,7 +107,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Wind_Direction: {r: 2.23, g: 2, b: 0, a: 0}
+    - _Wind_Direction: {r: 5, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2905490204415612071
 MonoBehaviour:
