@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Altar
   - Item
-  - Start Altar
-  - Smoke
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -18,7 +17,7 @@ TagManager:
   - Player
   - Ground
   - Interactable
-  - Smoke
+  - 
   - 
   - 
   - 
