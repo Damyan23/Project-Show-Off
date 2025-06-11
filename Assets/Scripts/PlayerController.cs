@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
     private CameraController cameraController;
 
     [Header("Sounds Settings")]
-    private AudioSource audioSource;
-    private AudioClip footstepSound;
+    [SerializeField]private AudioSource audioSource;
+    [SerializeField]private AudioClip footstepSound;
     [SerializeField, Range(1f, 2f)] private float footstepSpeed;
 
     private bool isActive = true;
