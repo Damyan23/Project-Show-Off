@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SanityController : MonoBehaviour
 {
@@ -30,6 +32,7 @@ public class SanityController : MonoBehaviour
     [SerializeField] private FogController fogController;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private RandomSoundPlayer soundPlayer;
+    [SerializeField] private Image deathFade;
     
     [Header("Debug")]
     [SerializeField] private bool enableDebugMode = false;
@@ -47,6 +50,8 @@ public class SanityController : MonoBehaviour
     {
         //InventoryManager.Instance._decreaseSanity = RemoveInsanity;
         TryGetPostProcessingEffects();
+
+        DontDestroyOnLoad(globalVolume.gameObject);
 
         InvokeRepeating("DetectEnemies", 0f, 1f);
     }
@@ -98,6 +103,8 @@ public class SanityController : MonoBehaviour
         soundPlayer.ApplySFX(CurrentInsanity, maxSanity);
 
         if (enableDebugMode) Debug.Log(CurrentInsanity);
+
+        if (CurrentInsanity >= maxSanity) StartCoroutine(TransitionToDeathScreen());
     }
 
     public IEnumerator HitPlayer(EnemyController enemy)
@@ -177,5 +184,20 @@ public class SanityController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private IEnumerator TransitionToDeathScreen()
+    {
+        float alpha = 0f;
+
+        while(alpha < 1f)
+        {
+            alpha += 0.05f;
+            deathFade.color = new Color(0f, 0f, 0f, alpha);
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        SceneManager.LoadScene(2);
+
     }
 }
