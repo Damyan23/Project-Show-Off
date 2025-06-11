@@ -506,8 +506,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackFade: {fileID: 1643687623}
   enemy: {fileID: 1570129538}
-  enemyMoveSpeed: 5
-  fogIntensity: 5
+  enemyMoveSpeed: 7.5
+  fogIntensity: 4
 --- !u!4 &657612017
 Transform:
   m_ObjectHideFlags: 0
