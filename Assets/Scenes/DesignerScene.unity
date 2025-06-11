@@ -230398,7 +230398,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -19.481997, y: -0, z: -9.740998}
+    textureOffset: {x: -1.4863027, y: -0, z: -0.74315137}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -271675,6 +271675,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0.7, z: 0}
+  headBobbingIntensity: 0.075
+  headBobbingSpeed: 17.5
   insanityFovIncrease: 20
   sprintFovIncrease: 20
   fovLerpSpeed: 5
