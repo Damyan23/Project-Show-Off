@@ -470,25 +470,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters:
     albedo: {r: 1, g: 1, b: 1, a: 1}
-    meanFreePath: 10
-    blendingMode: 1
+    meanFreePath: 0.05
+    blendingMode: 0
     priority: 0
     anisotropy: 0
     volumeMask: {fileID: 11700000, guid: 7e1cc774c55df914f8f38903f032d2cb, type: 3}
-    textureScrollingSpeed: {x: 0.05, y: 0, z: 0.07}
+    textureScrollingSpeed: {x: 0.07, y: 0, z: 0.07}
     textureTiling: {x: 2, y: 1, z: 2}
-    positiveFade: {x: 0.0025, y: 0.02, z: 0.0025}
-    negativeFade: {x: 0.0025, y: 0.02, z: 0.0025}
+    positiveFade: {x: 0.0025, y: 0.1, z: 0.0025}
+    negativeFade: {x: 0.0025, y: 0.1, z: 0.0025}
     m_EditorUniformFade: 0.1
     m_EditorPositiveFade: {x: 0, y: 0, z: 0.0025}
     m_EditorNegativeFade: {x: 0, y: 0, z: 0.0025}
     m_EditorAdvancedFade: 0
-    size: {x: 40, y: 5, z: 40}
+    size: {x: 40, y: 1, z: 40}
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -0.05830582, y: -0, z: -0.081628144}
-    falloffMode: 1
+    textureOffset: {x: -0.19063501, y: -0, z: -0.19063501}
+    falloffMode: 0
     maskMode: 0
     materialMask: {fileID: 0}
   m_Version: 2
@@ -501,7 +501,7 @@ Transform:
   m_GameObject: {fileID: 355100794}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -946,7 +946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1800696221
 MonoBehaviour:
   m_ObjectHideFlags: 0
