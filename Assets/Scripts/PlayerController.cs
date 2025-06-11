@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CameraController))]
 [RequireComponent(typeof(SanityController))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
@@ -29,12 +30,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FogController fogController;
     private CameraController cameraController;
 
+    [Header("Sounds Settings")]
+    [SerializeField]private AudioSource audioSource;
+    [SerializeField]private AudioClip footstepSound;
+    [SerializeField, Range(1f, 2f)] private float footstepSpeed;
+
     private bool isActive = true;
 
     private void Start()
     {
         cameraController = GetComponent<CameraController>();
         gameObject.TryGetComponent<Rigidbody>(out rb);
+
+        gameObject.TryGetComponent<AudioSource>(out audioSource);
+        audioSource.loop = true;
+        audioSource.clip = footstepSound;
     }
 
     private void Update()
@@ -68,15 +78,30 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         Vector3 direction = transform.right * horizontal + transform.forward * vertical;
-        
+
         if (direction.magnitude < 0.1f)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+
             return;
-            
+        }
+        else
+        {
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+        }
+
         // Calculate current speed based on sprinting state
         float currentSpeed = moveSpeed;
         if (isSprinting && enableSprinting)
         {
             currentSpeed = sprintSpeed;
+            audioSource.pitch = sprintSpeed;
+        }
+        else
+        {
+            audioSource.pitch = footstepSpeed;
         }
 
         // Handle slopes if enabled

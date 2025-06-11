@@ -6,12 +6,12 @@ public class Ladder : MonoBehaviour
     [SerializeField] float climbSpeed = 3f;
 
     [Header("Ladder Position Settings")]
-    [SerializeField] Vector3 bottomLadderPositionOffset;
-    [SerializeField] Vector3 topLadderPositionOffset;
+    [SerializeField] Transform bottomLadderT;
+    [SerializeField] Transform topLadderT;
 
     [Header("Teleport Settings")]
-    [SerializeField] Vector3 bottomTeleportPositionOffset;
-    [SerializeField] Vector3 topTeleportPositionOffset;
+    [SerializeField] Transform bottomTeleportT;
+    [SerializeField] Transform topTeleportT;
 
     [Header("References")]
     [SerializeField] PlayerController player;
@@ -29,13 +29,13 @@ public class Ladder : MonoBehaviour
 
     private void Start()
     {
-        upDirection = Vector3.Normalize(topLadderPositionOffset - bottomLadderPositionOffset);
+        upDirection = Vector3.Normalize(topLadderT.position - bottomLadderT.position);
 
-        topLadderPosition = transform.position + topLadderPositionOffset;
-        bottomLadderPosition = transform.position + bottomLadderPositionOffset;
+        topLadderPosition = topLadderT.position;
+        bottomLadderPosition = bottomLadderT.position;
 
-        topTeleportPosition = transform.position + topTeleportPositionOffset;
-        bottomTeleportPosition = transform.position + bottomTeleportPositionOffset;
+        topTeleportPosition = topTeleportT.position;
+        bottomTeleportPosition = bottomTeleportT.position;
     }
 
     private void Update()
@@ -61,13 +61,34 @@ public class Ladder : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (hasClimbed)
         {
-            player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
+            if (Input.GetKey(KeyCode.W))
+            {
+                player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
+        else
         {
-            player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
+            //If player is at top
+            if(Vector3.Distance(player.transform.position, topLadderPosition) < Vector3.Distance(player.transform.position, bottomLadderPosition))
+            {
+                if (Input.GetKey(KeyCode.S))
+                {
+                    player.transform.Translate(-climbSpeed * Time.deltaTime * upDirection, Space.World);
+                }
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    player.transform.Translate(climbSpeed * Time.deltaTime * upDirection, Space.World);
+                }
+            }
         }
     }
 
@@ -126,14 +147,22 @@ public class Ladder : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.z);
-            float horizontalDistance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), playerPos);
+            Vector2 topLadderXZ = new Vector2(topLadderPosition.x, topLadderPosition.z);
+            Vector2 bottomLadderXZ = new Vector2(bottomLadderPosition.x, bottomLadderPosition.z);
+
+            float topDst = Vector3.Distance(playerPos, topLadderXZ);
+            float bottomDst = Vector3.Distance(playerPos, bottomLadderXZ);
+            Vector3 ladderPos = topDst < bottomDst ? topLadderPosition : bottomLadderPosition;
+
+            float horizontalDistance = Vector2.Distance(new Vector2(ladderPos.x, ladderPos.z), playerPos);
 
             //Only get on ladder if player look at it
             Vector2 playerLookDirection = new Vector2(player.transform.forward.x, player.transform.forward.z);
             Vector2 ladderDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.z - player.transform.position.z).normalized;
             float dot = Vector2.Dot(playerLookDirection, ladderDirection);
+            Debug.Log(horizontalDistance);
 
-            if (horizontalDistance < 5f && dot > 0.75f)
+            if (horizontalDistance < 7.5f && dot > 0.75f)
             {
                 if (Vector3.Distance(player.transform.position, topLadderPosition) < Vector3.Distance(player.transform.position, bottomLadderPosition))
                 {
@@ -149,15 +178,15 @@ public class Ladder : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        upDirection = Vector3.Normalize(topLadderPositionOffset - bottomLadderPositionOffset);
+        upDirection = Vector3.Normalize(topLadderT.position - bottomLadderT.position);
 
-        topLadderPosition = transform.position + topLadderPositionOffset;
-        bottomLadderPosition = transform.position + bottomLadderPositionOffset;
+        topLadderPosition = topLadderT.position;
+        bottomLadderPosition = bottomLadderT.position;
 
-        topTeleportPosition = transform.position + topTeleportPositionOffset;
-        bottomTeleportPosition = transform.position + bottomTeleportPositionOffset;
+        topTeleportPosition = topTeleportT.position;
+        bottomTeleportPosition = bottomTeleportT.position;
 
 
         //Red spheres are player teleport positions

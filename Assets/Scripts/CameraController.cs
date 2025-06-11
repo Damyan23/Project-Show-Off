@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
     [Header("Player Camera Settings")]
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private Vector3 cameraOffset;
+    [SerializeField] private float headBobbingIntensity = 0.075f;
+    [SerializeField] private float headBobbingSpeed = 17.5f;
 
     [Header("FOV Settings")]
     [SerializeField] private float insanityFovIncrease = 20f;
@@ -17,10 +19,15 @@ public class CameraController : MonoBehaviour
     private float xRotation = 0f;
 
     private Camera cam;
+    private Rigidbody rb;
+
+    
 
     private void Awake()
     {
         cam = Camera.main;
+
+        rb = GetComponent<Rigidbody>();    
     }
 
     private void Start()
@@ -31,6 +38,8 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         HandleMouseInput();
+
+        
     }
 
     void HandleMouseInput()
@@ -49,7 +58,10 @@ public class CameraController : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
 
         // Follow player
-        cam.transform.position = transform.position + cameraOffset;
+        float bobbing = Mathf.Sin(Time.time * headBobbingSpeed) * headBobbingIntensity;
+        Vector3 bobbingOffset = new Vector3(0f, bobbing, 0f);
+        cam.transform.position = transform.position + cameraOffset + (rb.velocity.magnitude > 0.25f ? bobbingOffset : Vector3.zero);
+
         
     }
 
