@@ -12,14 +12,14 @@ public class ItemBehaviour : MonoBehaviour
     [Header("Pickup Behaviour")]
     [SerializeField] private KeyCode pickupKey;
     [HideInInspector] public bool isItemOnAltar = false;
-    private InventoryManager inventoryManager;
+    private PlayerInteraction playerInteraction;
 
     void Awake()
     {
         if (InventoryManager.Instance == null) return;
 
-        inventoryManager = InventoryManager.Instance;
-        pickupKey = inventoryManager.interactWithInteractable;
+        playerInteraction = PlayerInteraction.Instance;
+        pickupKey = playerInteraction.interactWithInteractable;
     }
 
     public void PickupItem()

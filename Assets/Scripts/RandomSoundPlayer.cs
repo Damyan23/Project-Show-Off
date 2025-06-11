@@ -30,8 +30,6 @@ public class RandomSoundPlayer : MonoBehaviour
 
     bool isInsane = false;
 
-
-
     private void Start()
     {
         Invoke("StartLoop", minDelay);

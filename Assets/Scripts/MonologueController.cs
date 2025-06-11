@@ -12,8 +12,8 @@ public class ItemMonologueTrigger : MonoBehaviour
     private Transform startAltar;
 
     private DialogueRunner dialogueRunner;
-    private InventoryManager inventoryManager;
-    private Collider closestInteractable;
+    private PlayerInteraction playerInteraction;
+    private Collider closestInteractable = null;
     private Transform closestInteractableT;
     
     // Track which item we last showed dialogue for
@@ -23,7 +23,7 @@ public class ItemMonologueTrigger : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         startAltar = GameObject.FindGameObjectWithTag("Start Altar")?.transform;
-        inventoryManager = InventoryManager.Instance;
+        playerInteraction = PlayerInteraction.Instance;
         dialogueRunner = FindObjectOfType<DialogueRunner>();
 
         if (player == null)
@@ -39,10 +39,10 @@ public class ItemMonologueTrigger : MonoBehaviour
             return;
 
         // Update the transform we have in the function only if the closest interactable from inventory manager actually changes
-        if (inventoryManager.closestInteractable != null && inventoryManager.closestInteractable != closestInteractable)
+        if (playerInteraction.closestInteractable != null && playerInteraction.closestInteractable != closestInteractable)
         {
-            closestInteractable = inventoryManager.closestInteractable;
-            closestInteractableT = inventoryManager.closestInteractable.GetComponent<Transform>();
+            closestInteractable = playerInteraction.closestInteractable;
+            closestInteractableT = playerInteraction.closestInteractable.GetComponent<Transform>();
         }
         
         float distanceToClosestItem = Mathf.Infinity;

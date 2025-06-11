@@ -18,7 +18,7 @@ public class AltarBehaviour : MonoBehaviour
     [Header("References")]
     private GameObject _currentItem = null;
     private GameObject player = null;
-    private InventoryManager inventoryManager;
+    private PlayerInteraction playerInteraction;
 
     [Header("Particles settings")]
     private ParticleSystem[] particles;
@@ -33,7 +33,7 @@ public class AltarBehaviour : MonoBehaviour
             Debug.LogError("Player not found in the scene.");
         }
 
-        inventoryManager = InventoryManager.Instance;
+        playerInteraction = PlayerInteraction.Instance;
         particles = GetComponentsInChildren<ParticleSystem>();
         foreach (var particle in particles)
         {
@@ -52,7 +52,7 @@ public class AltarBehaviour : MonoBehaviour
         }
 
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance <= inventoryManager.interactionDistance)
+        if (distance <= playerInteraction.interactionDistance)
         {
             if (audioSource.isPlaying) audioSource.Pause();
             return;
