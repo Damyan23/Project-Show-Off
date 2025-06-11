@@ -3370,7 +3370,7 @@ MonoBehaviour:
   - parameterName: MasterReverb
     lowerValue: 0
     upperValue: 1000
-  - parameterName: RoomMaster
+  - parameterName: masterRoom
     lowerValue: -10000
     upperValue: -5000
   - parameterName: MasterDistortion
@@ -3931,8 +3931,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Task: Do something thing'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d30880d4ac1e04263b7ebfdffe9ac49b, type: 2}
+  m_sharedMaterial: {fileID: -5666082623687625410, guid: d30880d4ac1e04263b7ebfdffe9ac49b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3962,7 +3963,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 3
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -4616,6 +4617,7 @@ MonoBehaviour:
   fogController: {fileID: 1365107275}
   cameraController: {fileID: 1509719300}
   soundPlayer: {fileID: 1067706430}
+  deathFade: {fileID: 0}
   enableDebugMode: 1
 --- !u!114 &1509719300
 MonoBehaviour:
@@ -4631,6 +4633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0.7, z: 0}
+  headBobbingIntensity: 0.075
+  headBobbingSpeed: 17.5
   insanityFovIncrease: 20
   sprintFovIncrease: 20
   fovLerpSpeed: 5
@@ -4681,7 +4685,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   fogController: {fileID: 0}
   audioSource: {fileID: 1509719308}
-  footstepSound: {fileID: 8300000, guid: 5cc0c7dd2bae1434fb75bbe392de147d, type: 3}
+  footstepSound: {fileID: 8300000, guid: 80ff577e9126148e0a2d9e3099611bed, type: 3}
   footstepSpeed: 1
 --- !u!54 &1509719303
 Rigidbody:
