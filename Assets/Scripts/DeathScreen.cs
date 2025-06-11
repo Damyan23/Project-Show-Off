@@ -29,22 +29,19 @@ public class DeathScreen : MonoBehaviour
         camT = Camera.main.transform;
 
         enemyMoveDir = Vector3.Normalize(camT.position - enemy.position);
-        enemy.rotation = Quaternion.LookRotation(-enemyMoveDir);
+        enemyMoveDir.y = 0f;
+        enemy.localRotation = Quaternion.LookRotation(-enemyMoveDir);
 
         StartCoroutine(TransitionIntoScene());
     }
 
     private void Update()
     {
-        if (!transitionDone) return;
+        if (!transitionDone) return;  
 
-        //Make enemy move faster over time
-        //enemyMoveSpeed = Mathf.Min(enemyMoveSpeed * 1.05f, 15f);
-        float frameDst = Time.deltaTime * enemyMoveSpeed;   
-
-        if(Vector3.Distance(enemy.position, camT.position) > frameDst)
+        if(Vector3.Distance(enemy.position, camT.position) > 0.1f)
         {
-            enemy.Translate(enemyMoveDir * frameDst);
+            enemy.Translate(Time.deltaTime * enemyMoveSpeed * enemyMoveDir);
         }
         else
         {
