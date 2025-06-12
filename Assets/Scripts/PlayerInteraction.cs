@@ -8,6 +8,11 @@ public class PlayerInteraction : MonoBehaviour
 {
     #region Singleton
         public static PlayerInteraction Instance;
+
+    void OnValidate()
+    {
+        Instance = this;
+    }
     #endregion
 
 
@@ -28,7 +33,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void Start()
     {
-        Instance = this;
         gameManager = GameManager.instance;
     }
 
