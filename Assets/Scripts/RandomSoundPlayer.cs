@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine.Audio;
+using Unity.VisualScripting;
 
 public class RandomSoundPlayer : MonoBehaviour
 {
     [Header("Sound Settings")]
-    [SerializeField] private List<AudioClip> normalSoundClips = new ();
-    [SerializeField] private List<AudioClip> insaneSoundClips = new ();
+    [SerializeField] private List<SoundClip> soundClips;
     [SerializeField] private float insaneThreshold = 75f;
     [SerializeField] private float minDelay = 2f;
     [SerializeField] private float maxDelay = 5f;
-    [SerializeField] private bool loopRandomly = false;
 
     [Header("Mixer Settings")]
     [SerializeField] private List<MixerSettings> settings;
@@ -20,10 +19,6 @@ public class RandomSoundPlayer : MonoBehaviour
     [Header("References")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioMixer mixer;
-
-    private Coroutine loopCoroutine;
-
-    private List<AudioClip> activeClips;
 
     private AudioMixerSnapshot normalSnapshot;
     private AudioMixerSnapshot insaneSnapshot;
@@ -34,32 +29,61 @@ public class RandomSoundPlayer : MonoBehaviour
     {
         Invoke("StartLoop", minDelay);
 
-        activeClips = normalSoundClips;
-
         normalSnapshot = mixer.FindSnapshot("Normal");
         insaneSnapshot = mixer.FindSnapshot("Insane");
     }
 
     private void StartLoop()
     {
-        if (loopRandomly && activeClips.Count > 0)
+        if (soundClips.Count > 0)
         {
-            loopCoroutine = StartCoroutine(PlayRandomLoop());
+            StartCoroutine(PlayRandomLoop());
         }
     }
 
     private void PlayRandomSound()
     {
-        if (activeClips.Count == 0 || audioSource == null)
+        if (soundClips.Count == 0 || audioSource == null)
             return;
 
-        audioSource.PlayOneShot(activeClips[Random.Range(0, activeClips.Count)]);
+        SoundClip soundClip = GetRandomSound();
+        if (soundClip == null) return;
+
+        audioSource.PlayOneShot(soundClip.audioClip);
     }
 
-    private void StartRandomLoop()
-    { 
-        if (loopCoroutine == null)
-            loopCoroutine = StartCoroutine(PlayRandomLoop());
+    private SoundClip GetRandomSound()
+    {
+        float totalWeight = 0f;
+
+        foreach (SoundClip clip in soundClips)
+        {
+            if (!isInsane && clip.insane) continue;
+            totalWeight += clip.weight;
+        }
+
+        float rand = Random.Range(0f, totalWeight);
+        float sumOfWeights = 0f;
+        int i = -1;
+
+        while(sumOfWeights < rand)
+        {
+            SoundClip clip = soundClips[i + 1];
+            if (!isInsane && clip.insane)
+            {
+                i++;
+                continue;
+            }
+
+            sumOfWeights += clip.weight;
+            i++;
+        }
+
+        if (sumOfWeights == 0f) return null;
+
+        //Debug.Log($"Total weight: {totalWeight}, Random number: {rand}, Chosen clip index: {i}");
+
+        return soundClips[i];
     }
 
     private IEnumerator PlayRandomLoop()
@@ -74,8 +98,7 @@ public class RandomSoundPlayer : MonoBehaviour
 
     public void ApplySFX(float insanity, float maxInsanity)
     {
-        //Set the correct clips to be played
-        activeClips = insanity > insaneThreshold ? insaneSoundClips : normalSoundClips;
+        isInsane = insanity > insaneThreshold;
 
         //Apply sanity to all settings
         float t = insanity / maxInsanity;
@@ -94,4 +117,12 @@ public struct MixerSettings
     public string parameterName;
     public float lowerValue;
     public float upperValue;
+}
+
+[System.Serializable]
+public class SoundClip
+{
+    public AudioClip audioClip;
+    public float weight;
+    public bool insane;
 }
