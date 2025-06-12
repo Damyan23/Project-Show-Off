@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     #region Singleton
         public static PlayerInteraction Instance;
 
-    void OnValidate()
+    void Awake()
     {
         Instance = this;
     }
