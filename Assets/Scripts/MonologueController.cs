@@ -23,7 +23,7 @@ public class ItemMonologueTrigger : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         startAltar = GameObject.FindGameObjectWithTag("Start Altar")?.transform;
-        playerInteraction = PlayerInteraction.Instance;
+        playerInteraction = player.GetComponent<PlayerInteraction>();
         dialogueRunner = FindObjectOfType<DialogueRunner>();
 
         if (player == null)

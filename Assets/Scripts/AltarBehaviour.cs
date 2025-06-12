@@ -33,7 +33,8 @@ public class AltarBehaviour : MonoBehaviour
             Debug.LogError("Player not found in the scene.");
         }
 
-        playerInteraction = PlayerInteraction.Instance;
+        playerInteraction = player.GetComponent<PlayerInteraction>();
+        Debug.Log(playerInteraction);
         particles = GetComponentsInChildren<ParticleSystem>();
         foreach (var particle in particles)
         {
