@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(InventoryManager))]
 public class PlayerInteraction : MonoBehaviour
 {
     #region Singleton

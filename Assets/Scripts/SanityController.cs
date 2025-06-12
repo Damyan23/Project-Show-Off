@@ -200,4 +200,15 @@ public class SanityController : MonoBehaviour
         SceneManager.LoadScene(2);
 
     }
+
+    [Header("Footstep Settings")]
+    [SerializeField] private AudioClip[] footstepClips;
+    [SerializeField] private AudioSource footstepSource;
+
+    public void PlayFootstep()
+    {
+        if (footstepClips.Length == 0 || footstepSource == null) return;
+        int index = Random.Range(0, footstepClips.Length);
+        footstepSource.PlayOneShot(footstepClips[index]);
+    }
 }
