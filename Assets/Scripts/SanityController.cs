@@ -204,11 +204,20 @@ public class SanityController : MonoBehaviour
     [Header("Footstep Settings")]
     [SerializeField] private AudioClip[] footstepClips;
     [SerializeField] private AudioSource footstepSource;
+    [SerializeField, Range(0.1f, 2f)] private float footstepInterval = 0.5f; // Time in seconds between footsteps
+
+    private float lastFootstepTime = 0f;
 
     public void PlayFootstep()
     {
         if (footstepClips.Length == 0 || footstepSource == null) return;
-        int index = Random.Range(0, footstepClips.Length);
-        footstepSource.PlayOneShot(footstepClips[index]);
+
+        // Only play if enough time has passed since the last footstep
+        if (Time.time - lastFootstepTime >= footstepInterval)
+        {
+            int index = Random.Range(0, footstepClips.Length);
+            footstepSource.PlayOneShot(footstepClips[index]);
+            lastFootstepTime = Time.time;
+        }
     }
 }
