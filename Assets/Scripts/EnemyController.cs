@@ -8,8 +8,6 @@ public class EnemyController : MonoBehaviour
     public List<Vector3> points;
     private int currentPointIndex;
 
-    [HideInInspector] public float posY = 1f;
-
     [Header("Stats")]
     [SerializeField] float roamingSpeed = 2.5f;
     [SerializeField] float chaseSpeed = 4f;

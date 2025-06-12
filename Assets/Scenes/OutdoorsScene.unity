@@ -3142,8 +3142,9 @@ MonoBehaviour:
   slopeRayLength: 1.5
   rb: {fileID: 0}
   fogController: {fileID: 0}
+  audioSource: {fileID: 0}
   footstepSound: {fileID: 0}
-  runningSound: {fileID: 0}
+  footstepSpeed: 1
 --- !u!136 &2017592783
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3288,7 +3289,11 @@ MonoBehaviour:
   fogController: {fileID: 0}
   cameraController: {fileID: 0}
   soundPlayer: {fileID: 0}
+  deathFade: {fileID: 0}
   enableDebugMode: 0
+  footstepClips: []
+  footstepSource: {fileID: 0}
+  footstepInterval: 0.5
 --- !u!114 &2017592790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3303,6 +3308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0, z: 0}
+  headBobbingIntensity: 0.075
+  headBobbingSpeed: 17.5
   insanityFovIncrease: 20
   sprintFovIncrease: 20
   fovLerpSpeed: 5
@@ -4063,7 +4070,7 @@ PrefabInstance:
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: -0.65083987
+      value: 0.32468587
       objectReference: {fileID: 0}
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}
@@ -4073,7 +4080,7 @@ PrefabInstance:
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: 0.71285313
+      value: 0.90902764
       objectReference: {fileID: 0}
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}

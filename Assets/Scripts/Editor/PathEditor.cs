@@ -13,7 +13,6 @@ public class PathEditor : Editor
             //Get handle position
             Vector3 oldPosition = enemyController.points[i];
             Vector3 newPosition = Handles.PositionHandle(oldPosition, Quaternion.identity);
-            newPosition.y = enemyController.posY;
 
             //If difference is big enough, update the list
             if(Vector3.Distance(oldPosition, newPosition) > 0.001f) enemyController.points[i] = newPosition;
