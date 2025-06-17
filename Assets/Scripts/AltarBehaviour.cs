@@ -72,7 +72,7 @@ public class AltarBehaviour : MonoBehaviour
         if (isSlotTaken) return;
         isSlotTaken = true;
         _currentItem = item;
-        item.transform.SetParent(transform);
+        item.transform.SetParent(transform.GetChild(0).transform);
         lightCandelsUp();
     }
 

@@ -26,18 +26,33 @@ public class InventoryManager : MonoBehaviour
         cam = Camera.main;
     }
 
+    void OnValidate()
+    {
+        if (currentItem != null && cam != null)
+        {
+            Vector3 viewportPos = new Vector3(1f, 0f, zDepth);
+            Vector3 worldTargetPos = cam.ViewportToWorldPoint(viewportPos);
+            currentItem.transform.position = worldTargetPos + positionOffset;
+            currentItem.transform.rotation = Quaternion.Euler(rotationOffset);
+        }
+    }
+
     public void AddItem(GameObject item)
     {
         currentItem = item;
+        item.layer = LayerMask.NameToLayer("HeldItem");
         rb = currentItem.GetComponent<Rigidbody>();
         rb.isKinematic = true;
 
         item.transform.SetParent(cam.transform);
-        currentItem.transform.rotation = Quaternion.Euler(rotationOffset);
+        // Set local position so it's always at the same spot relative to the camera
+        currentItem.transform.localPosition = cam.transform.InverseTransformPoint(
+            cam.ViewportToWorldPoint(new Vector3(1f, 0f, zDepth))
+        ) + positionOffset;
 
-        Vector3 screenCorner = new Vector3(Screen.width, 0, zDepth) + positionOffset;
-        Vector3 worldTargetPos = cam.ScreenToWorldPoint(screenCorner);
-        currentItem.transform.position = worldTargetPos;
+
+        // Set local rotation
+        currentItem.transform.localRotation = Quaternion.Euler(rotationOffset);
 
         isSlotTaken = true;
     }

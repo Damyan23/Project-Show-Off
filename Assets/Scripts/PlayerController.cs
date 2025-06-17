@@ -32,8 +32,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sounds Settings")]
     [SerializeField]private AudioSource audioSource;
-    [SerializeField]private AudioClip footstepSound;
-    [SerializeField, Range(1f, 2f)] private float footstepSpeed;
+        
+    [Header("Footstep Settings")]
+    [SerializeField] private AudioClip[] footstepClips;
+    private AudioSource footstepSource;
+    [SerializeField, Range(0.1f, 2f)] private float footstepInterval = 0.5f; // Time in seconds between footsteps
+    private float lastFootstepTime = 0f;
+
 
     private bool isActive = true;
 
@@ -44,7 +49,6 @@ public class PlayerController : MonoBehaviour
 
         gameObject.TryGetComponent<AudioSource>(out audioSource);
         audioSource.loop = true;
-        audioSource.clip = footstepSound;
     }
 
     private void Update()
@@ -82,14 +86,9 @@ public class PlayerController : MonoBehaviour
         if (direction.magnitude < 0.1f)
         {
             if (audioSource.isPlaying)
-                audioSource.Stop();
+                PlayFootstep ();
 
             return;
-        }
-        else
-        {
-            if (!audioSource.isPlaying)
-                audioSource.Play();
         }
 
         // Calculate current speed based on sprinting state
@@ -97,11 +96,6 @@ public class PlayerController : MonoBehaviour
         if (isSprinting && enableSprinting)
         {
             currentSpeed = sprintSpeed;
-            audioSource.pitch = sprintSpeed;
-        }
-        else
-        {
-            audioSource.pitch = footstepSpeed;
         }
 
         // Handle slopes if enabled
@@ -113,19 +107,32 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(direction.normalized * currentSpeed, ForceMode.Acceleration);
     }
 
+    public void PlayFootstep()
+    {
+        if (footstepClips.Length == 0 || footstepSource == null) return;
+
+        // Only play if enough time has passed since the last footstep
+        if (Time.time - lastFootstepTime >= footstepInterval)
+        {
+            int index = Random.Range(0, footstepClips.Length);
+            footstepSource.PlayOneShot(footstepClips[index]);
+            lastFootstepTime = Time.time;
+        }
+    }
+
     private Vector3 AdjustDirectionForSlope(Vector3 direction)
     {
         // Cast ray to detect ground
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, slopeRayLength))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            
+
             // If we're on a slope
             if (slopeAngle > 0 && slopeAngle < maxSlopeAngle)
             {
                 // Project our movement direction onto the slope
                 Vector3 slopeDirection = Vector3.ProjectOnPlane(direction, hit.normal).normalized;
-                
+
                 // If we're moving uphill
                 if (Vector3.Dot(slopeDirection, Vector3.up) < 0)
                 {
@@ -140,7 +147,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
         return direction;
     }
 

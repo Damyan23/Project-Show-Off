@@ -7,6 +7,9 @@ public class CameraController : MonoBehaviour
     [Header("Player Camera Settings")]
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private Vector3 cameraOffset;
+
+    [Header("Head Bobbing Settings")]
+    [SerializeField] private bool enableHeadBobbing = true;
     [SerializeField] private float headBobbingIntensity = 0.075f;
     [SerializeField] private float headBobbingSpeed = 17.5f;
 
@@ -38,8 +41,6 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         HandleMouseInput();
-
-        
     }
 
     void HandleMouseInput()
@@ -57,12 +58,27 @@ public class CameraController : MonoBehaviour
         // Rotate player horizontally
         transform.Rotate(Vector3.up * mouseX);
 
-        // Follow player
-        float bobbing = Mathf.Sin(Time.time * headBobbingSpeed) * headBobbingIntensity;
-        Vector3 bobbingOffset = new Vector3(0f, bobbing, 0f);
-        cam.transform.position = transform.position + cameraOffset + (rb.velocity.magnitude > 0.25f ? bobbingOffset : Vector3.zero);
-
-        
+        if (enableHeadBobbing)
+        {
+            ApplyHeadBobbing();
+        }
+        else
+        {
+            cam.transform.localPosition = cameraOffset;
+        }
+    }
+    void ApplyHeadBobbing()
+    {
+        if (rb.velocity.magnitude > 0.25f)
+        {
+            float bobbing = Mathf.Sin(Time.time * headBobbingSpeed) * headBobbingIntensity;
+            Vector3 bobbingOffset = new Vector3(0f, bobbing, 0f);
+            cam.transform.localPosition = cameraOffset + bobbingOffset;
+        }
+        else
+        {
+            cam.transform.localPosition = cameraOffset;
+        }
     }
 
     public void ApplyFov(float currentInsanity)

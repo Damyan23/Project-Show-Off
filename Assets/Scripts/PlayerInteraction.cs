@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     #region Singleton
-        public static PlayerInteraction Instance;
+    public static PlayerInteraction Instance;
     #endregion
 
 
@@ -15,6 +15,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private LayerMask interactionLayerMask;
     public KeyCode interactWithInteractable = KeyCode.E;
     [SerializeField] private KeyCode dropKey = KeyCode.Q;
+    [SerializeField] private Vector3 placementOffset;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI pressFToInteract;
@@ -66,6 +67,8 @@ public class PlayerInteraction : MonoBehaviour
             if (!InventoryManager.Instance.isSlotTaken && interactable.CompareTag("Altar")) continue;
             // If holding an item, skip items
             if (InventoryManager.Instance.isSlotTaken && interactable.CompareTag("Item")) continue;
+            // If item is on altar, skip it
+            if (interactable.CompareTag("Item") && interactable.GetComponent<ItemBehaviour>().isItemOnAltar) continue;
 
             float distance = Vector3.Distance(interactable.transform.position, this.transform.position);
 
@@ -87,7 +90,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else if (interactable.CompareTag("Altar") && InventoryManager.Instance.isSlotTaken)
         {
-            PlaceItemOnAltar(interactable.gameObject);
+            PlaceItemOnAltar(interactable.transform.parent.gameObject);
         }
     }
 
@@ -96,16 +99,17 @@ public class PlayerInteraction : MonoBehaviour
         var currentItem = InventoryManager.Instance.currentItem;
         if (currentItem == null) return;
 
-        currentItem.transform.localPosition = Vector3.zero;
-        currentItem.transform.localRotation = Quaternion.identity;
-
+        // Parent to altar first!
         altar.GetComponentInParent<AltarBehaviour>().PlaceItem(currentItem);
 
-        currentItem.transform.localPosition = Vector3.zero + (altar.GetComponent<MeshRenderer>().bounds.size.y - currentItem.GetComponent<MeshRenderer>().bounds.size.y) * Vector3.up;
+        // Center on altar
+        //Vector3 verticalOffset = currentItem.transform.parent.GetComponent<MeshRenderer>().bounds.extents.y * Vector3.up;
+        currentItem.transform.localPosition = Vector3.zero + placementOffset;
         currentItem.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 90));
 
+        // Freeze physics
         var rb = currentItem.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
+        rb.isKinematic = true;
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
 
@@ -114,5 +118,6 @@ public class PlayerInteraction : MonoBehaviour
 
         _decreaseSanity?.Invoke();
         gameManager.AltarCompleted();
+        currentItem.GetComponent<ItemBehaviour>().isItemOnAltar = true;
     }
 }
