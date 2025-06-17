@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("References")]
     private Transform playerT;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip chaseSound;
 
     private bool detectedPlayer;
 
@@ -34,15 +36,21 @@ public class EnemyController : MonoBehaviour
 
         if (detectedPlayer)
         {
+            if(!audioSource.isPlaying) audioSource.PlayOneShot(chaseSound);
+
             //Move toward player
             Vector3 dirToPlayer = Vector3.Normalize(playerT.position - transform.position);
-            transform.Translate(chaseSpeed * Time.deltaTime * dirToPlayer);
+            transform.Translate(chaseSpeed * Time.deltaTime * dirToPlayer, Space.World);
+            transform.rotation = Quaternion.LookRotation(dirToPlayer);
         }
         else
         {
+            if (audioSource.isPlaying) audioSource.Stop();
+
             //Move toward next point
             Vector3 dirToNextPoint = Vector3.Normalize(points[currentPointIndex] - transform.position);
-            transform.Translate(roamingSpeed * Time.deltaTime * dirToNextPoint);
+            transform.Translate(roamingSpeed * Time.deltaTime * dirToNextPoint, Space.World);
+            transform.rotation = Quaternion.LookRotation(dirToNextPoint);
 
             if(Vector3.Distance(transform.position, points[currentPointIndex]) < 0.1f)
             {
