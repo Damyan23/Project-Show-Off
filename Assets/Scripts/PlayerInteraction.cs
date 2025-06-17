@@ -105,7 +105,7 @@ public class PlayerInteraction : MonoBehaviour
         // Center on altar
         //Vector3 verticalOffset = currentItem.transform.parent.GetComponent<MeshRenderer>().bounds.extents.y * Vector3.up;
         currentItem.transform.localPosition = Vector3.zero + placementOffset;
-        currentItem.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 90));
+        currentItem.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         // Freeze physics
         var rb = currentItem.GetComponent<Rigidbody>();
