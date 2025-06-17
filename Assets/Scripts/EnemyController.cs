@@ -15,8 +15,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("References")]
     private Transform playerT;
-    private AudioSource audioSource;
-    private AudioClip chaseSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip chaseSound;
 
     private bool detectedPlayer;
 
