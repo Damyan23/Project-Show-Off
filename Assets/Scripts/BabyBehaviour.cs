@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BabyBehaviour : MonoBehaviour
 {
-    private float interactionDisntance = 5;
+    [SerializeField] private float interactionDisntance = 5;
     private KeyCode interactionKey = KeyCode.E;
     private Transform player;
     // Start is called before the first frame update
