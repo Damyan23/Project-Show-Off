@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
 
         if (detectedPlayer)
         {
-            if(audioSource != null &&!audioSource.isPlaying) audioSource.PlayOneShot(chaseSound);
+            if(!audioSource.isPlaying) audioSource.PlayOneShot(chaseSound);
 
             //Move toward player
             Vector3 dirToPlayer = Vector3.Normalize(playerT.position - transform.position);
@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+            if (audioSource.isPlaying) audioSource.Stop();
 
             //Move toward next point
             Vector3 dirToNextPoint = Vector3.Normalize(points[currentPointIndex] - transform.position);
