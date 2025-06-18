@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour
 {
-    [Header("Item Data")]
-    public ScriptableObject itemData;
-
-
     [Header("Pickup Behaviour")]
     [SerializeField] private KeyCode pickupKey;
     [HideInInspector] public bool isItemOnAltar = false;

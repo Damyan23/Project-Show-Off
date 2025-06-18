@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int requiredNumberOfDoneAltars = 3;
     [HideInInspector] public int numberOfDoneAltars = 0;
     [SerializeField] private GameObject babyPrefab;
-    [SerializeField] private Vector3 babySpawnPosition;
+    [SerializeField] private GameObject crib;
     private bool babySpawned = false;
 
     // Define the delegate type
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     private void spawnBaby()
     {
         GameObject baby = Instantiate(babyPrefab);
-        baby.transform.position = babySpawnPosition;
+        baby.transform.position = crib.transform.GetChild(0).position;
         babySpawned = true;
     }
 

@@ -42978,7 +42978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6649e6a12e401f043b83e1c69122c25f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionOffset: {x: -5, y: -800, z: -5}
+  positionOffset: {x: -0.31, y: 15, z: 0}
   rotationOffset: {x: 13.1, y: 10, z: 91.1}
   itemParent: {fileID: 1406383712}
   currentItem: {fileID: 0}
@@ -158794,7 +158794,8 @@ AudioSource:
   m_GameObject: {fileID: 1317802813}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5913887035298693423, guid: 9c9bd0eeddb344c78af8da6934fdff56,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
