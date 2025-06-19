@@ -5,15 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class BabyBehaviour : MonoBehaviour
 {
-    private float interactionDisntance;
+    private float interactionDisntance = 5;
     private KeyCode interactionKey = KeyCode.E;
     private Transform player;
-
-    void Awake()
-    {
-        interactionDisntance = PlayerInteraction.Instance.interactionDistance;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +20,6 @@ public class BabyBehaviour : MonoBehaviour
         if (Vector3.Distance(player.position, this.transform.position) < interactionDisntance && Input.GetKeyDown(interactionKey))
         {
             gameOver();
-            Debug.Log("asd");
         }
     }
 
