@@ -88,7 +88,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             interactable.GetComponent<ItemBehaviour>().PickupItem();
         }
-        else if (interactable.CompareTag("Altar") && !interactable.GetComponent<AltarBehaviour>().isSlotTaken && InventoryManager.Instance.isSlotTaken)
+        else if (interactable.CompareTag("Altar") && !interactable.GetComponentInParent<AltarBehaviour>().isSlotTaken && InventoryManager.Instance.isSlotTaken)
         {
             PlaceItemOnAltar(interactable.transform.parent.gameObject);
         }
