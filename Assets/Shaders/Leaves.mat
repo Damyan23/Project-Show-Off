@@ -99,15 +99,17 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 1
-    - _WindStrength: 0.5
-    - _Wind_Speed: 3
+    - _WindStrength: 0.2
+    - _Wind_Speed: 30
     - _Wind_Strength: 2
+    - _WolrdColorNoiseScale: 1
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
+    - _Color: {r: 0.36019138, g: 0.72955966, b: 0.3630547, a: 0}
+    - _ColorB: {r: 1, g: 0.10310422, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Wind_Direction: {r: 2.23, g: 2, b: 0, a: 0}
