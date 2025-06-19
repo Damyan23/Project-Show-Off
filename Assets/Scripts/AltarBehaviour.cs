@@ -34,7 +34,7 @@ public class AltarBehaviour : MonoBehaviour
         }
 
         playerInteraction = player.GetComponent<PlayerInteraction>();
-        Debug.Log(playerInteraction);
+        // Debug.Log(playerInteraction);
         particles = GetComponentsInChildren<ParticleSystem>();
         foreach (var particle in particles)
         {
