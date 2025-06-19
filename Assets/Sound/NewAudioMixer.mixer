@@ -202,6 +202,8 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 4deea2c40d2234988b0a391ee18fdb78
     name: Reverb
+  - guid: dea0afb4caa544caba60482782565a3d
+    name: Volume
   m_AudioMixerGroupViews:
   - guids:
     - 565889652fd0c4b84891a6d4d0d0d494
@@ -295,6 +297,7 @@ AudioMixerSnapshotController:
     cec78614509ca44c0b78a0f26880ae1a: 34.2
     93668c849f499473f96f87ef71f61f2d: 1
     6194b3a49c52740eba351ad67fde56c7: -10000
+    dea0afb4caa544caba60482782565a3d: 0.5
     4deea2c40d2234988b0a391ee18fdb78: 0
     855b83e4811ad45338c2dd8a160c5ea6: 0.246
     f19cb46508632477ba65e3567b746adb: 1000
