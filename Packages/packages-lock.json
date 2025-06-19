@@ -185,7 +185,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.7",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -270,7 +270,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "5842962abcad9645f35d08070d0e90f60ee9f761"
+      "hash": "feda2e5296ee4db35c592a07ec06069c207c9992"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

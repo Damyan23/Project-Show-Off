@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour
             //Move toward player
             Vector3 dirToPlayer = Vector3.Normalize(playerT.position - transform.position);
             transform.Translate(chaseSpeed * Time.deltaTime * dirToPlayer, Space.World);
+            dirToPlayer.y = 0f;
             transform.rotation = Quaternion.LookRotation(dirToPlayer);
         }
         else
@@ -50,6 +51,7 @@ public class EnemyController : MonoBehaviour
             //Move toward next point
             Vector3 dirToNextPoint = Vector3.Normalize(points[currentPointIndex] - transform.position);
             transform.Translate(roamingSpeed * Time.deltaTime * dirToNextPoint, Space.World);
+            dirToNextPoint.y = 0f;
             transform.rotation = Quaternion.LookRotation(dirToNextPoint);
 
             if(Vector3.Distance(transform.position, points[currentPointIndex]) < 0.1f)
