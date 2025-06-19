@@ -6,15 +6,19 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private Image blackFade;
-
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.None;
-    }
+    [SerializeField] private float transitionTime = 2f;
+    [SerializeField] private Animator transition;
 
     public void StartGame()
     {
+        StartCoroutine(StartGameCoroutine());
+    }
+    private IEnumerator StartGameCoroutine()
+    {
+        transition.SetTrigger ("Start");
+        Cursor.lockState = CursorLockMode.None;
+
+        yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(1);
     }
 }
