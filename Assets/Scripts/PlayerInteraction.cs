@@ -79,7 +79,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        Debug.Log(closestInteractable);
+        // Debug.Log(closestInteractable);
     }
 
     void HandleInteractable(Collider interactable)
