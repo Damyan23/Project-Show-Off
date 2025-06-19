@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -768,7 +768,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d293f4fc6bfb1a8499b5106c10de3c03, type: 2}
+      objectReference: {fileID: 2100000, guid: a226193ce3dd88d48a1c27646d81b7e8, type: 2}
     - target: {fileID: 3793779403353490583, guid: 694b7ca3ee7584041827df26dfd3876b,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -4217,17 +4217,17 @@ PrefabInstance:
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: 0.49466687
+      value: -0.46467713
       objectReference: {fileID: 0}
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 0.7857313
+      value: 1.1468151
       objectReference: {fileID: 0}
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: 0.6104739
+      value: 1.048456
       objectReference: {fileID: 0}
     - target: {fileID: 7733451101519532113, guid: b2850168c8a0b55479da90ae221cc3d5,
         type: 3}

@@ -22,13 +22,12 @@ public class InventoryManager : MonoBehaviour
 
     void Awake()
     {
-        
+        Instance = this;
         cam = Camera.main;
     }
 
     void OnValidate()
     {
-        Instance = this;
         if (currentItem != null && cam != null)
         {
             Vector3 viewportPos = new Vector3(1f, 0f, zDepth);
@@ -41,27 +40,22 @@ public class InventoryManager : MonoBehaviour
     public void AddItem(GameObject item)
     {
         currentItem = item;
+        item.layer = LayerMask.NameToLayer("HeldItem");
         rb = currentItem.GetComponent<Rigidbody>();
-        rb.excludeLayers = LayerMask.GetMask("Player");
         rb.isKinematic = true;
 
-        // Then parent it to the camera
-        currentItem.transform.SetParent(cam.transform);
-
-        // First, position the item in world space
-        Vector3 viewportPos = new Vector3(1f, 0f, zDepth);
-        Vector3 worldTargetPos = cam.ViewportToWorldPoint(viewportPos);
-        currentItem.transform.position = worldTargetPos + positionOffset;
-        currentItem.transform.rotation = Quaternion.Euler(rotationOffset);
+        item.transform.SetParent(cam.transform);
+        // Set local position so it's always at the same spot relative to the camera
+        currentItem.transform.localPosition = cam.transform.InverseTransformPoint(
+            cam.ViewportToWorldPoint(new Vector3(1f, 0f, zDepth))
+        ) + positionOffset;
 
 
-
-        // And now set its local rotation to maintain offset
+        // Set local rotation
         currentItem.transform.localRotation = Quaternion.Euler(rotationOffset);
 
         isSlotTaken = true;
     }
-
 
 
     public void DropItem()
@@ -69,7 +63,6 @@ public class InventoryManager : MonoBehaviour
         if (currentItem == null || !isSlotTaken) return;
 
         rb.isKinematic = false;
-        rb.excludeLayers = 0; // Reset exclude layers to allow physics interactions
         currentItem.transform.SetParent(itemParent.transform);
 
         isSlotTaken = false;
