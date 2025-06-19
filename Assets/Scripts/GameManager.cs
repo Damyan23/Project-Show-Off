@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         baby.transform.position = babySpawnPosition;
         babySpawned = true;
     }
-
+    
     private void IncrementAltarCount()
     {
         numberOfDoneAltars++;

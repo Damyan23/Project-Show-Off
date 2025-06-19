@@ -79,7 +79,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        Debug.Log(closestInteractable);
+        // Debug.Log(closestInteractable);
     }
 
     void HandleInteractable(Collider interactable)
@@ -88,7 +88,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             interactable.GetComponent<ItemBehaviour>().PickupItem();
         }
-        else if (interactable.CompareTag("Altar") && InventoryManager.Instance.isSlotTaken)
+        else if (interactable.CompareTag("Altar") && !interactable.GetComponentInParent<AltarBehaviour>().isSlotTaken && InventoryManager.Instance.isSlotTaken)
         {
             PlaceItemOnAltar(interactable.transform.parent.gameObject);
         }
