@@ -20076,6 +20076,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6629880e46886724fa0107d3035304e6, type: 3}
+--- !u!1 &162082894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 162082895}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &162082895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162082894}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -163.64124, y: -293.41217, z: -1150.0684}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &162211246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130043,7 +130074,7 @@ MonoBehaviour:
   numberOfDoneAltars: 0
   babyPrefab: {fileID: 8934468187195064734, guid: 57f44937442a1334a96155c655c741db,
     type: 3}
-  crib: {fileID: 1363987883}
+  babySpawnPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &1067724494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158183,6 +158214,9 @@ MonoBehaviour:
   roamingSpeed: 30
   chaseSpeed: 45
   detectionRadius: 50
+  mixerSettings: []
+  mixer: {fileID: 0}
+  fadeTime: 0
   audioSource: {fileID: 1317802819}
   chaseSound: {fileID: 8300000, guid: 3c70fcd3092114076b264819b26dcd14, type: 3}
 --- !u!65 &1317802816
@@ -164380,12 +164414,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b3e6db10d22f504dbc606110b2cb5e7, type: 3}
---- !u!1 &1363987883 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8776869128248315225, guid: d1de2b494dab04a499be2b9ff6d8e813,
-    type: 3}
-  m_PrefabInstance: {fileID: 1299631203}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1363987884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8252392583924619235, guid: d1de2b494dab04a499be2b9ff6d8e813,
@@ -174841,6 +174869,9 @@ MonoBehaviour:
   roamingSpeed: 30
   chaseSpeed: 45
   detectionRadius: 50
+  mixerSettings: []
+  mixer: {fileID: 0}
+  fadeTime: 0
   audioSource: {fileID: 1454523920}
   chaseSound: {fileID: 8300000, guid: 3c70fcd3092114076b264819b26dcd14, type: 3}
 --- !u!65 &1454523917
@@ -258125,3 +258156,4 @@ SceneRoots:
   - {fileID: 2114532155}
   - {fileID: 456033298}
   - {fileID: 1466655715}
+  - {fileID: 162082895}
