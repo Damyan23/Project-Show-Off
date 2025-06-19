@@ -6,29 +6,19 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private Image blackFade;
-
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        StartCoroutine(FadeIn());   
-    }
+    [SerializeField] private float transitionTime = 2f;
+    [SerializeField] private Animator transition;
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(StartGameCoroutine());
     }
-
-
-    private IEnumerator FadeIn()
+    private IEnumerator StartGameCoroutine()
     {
-        float alpha = 1f;
+        transition.SetTrigger ("Start");
+        Cursor.lockState = CursorLockMode.None;
 
-        while (alpha > 0f)
-        {
-            alpha -= 0.05f;
-            blackFade.color = new Color(0f, 0f, 0f, alpha);
-            yield return new WaitForSeconds(0.05f);
-        }
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(1);
     }
 }
