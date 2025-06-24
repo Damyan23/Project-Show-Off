@@ -24,7 +24,7 @@ public class EnemyPatrolBehaviour : EnemyMovementBehaviour
 
     public override Vector3 GetStartPosition()
     {
-        NavMesh.SamplePosition(patrolPosition, out NavMeshHit hit, 100f, NavMesh.AllAreas);
+        NavMesh.SamplePosition(patrolPosition, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas);
         patrolPosition = hit.position;
         return hit.position;
     }
@@ -51,7 +51,7 @@ public class EnemyPatrolBehaviour : EnemyMovementBehaviour
 
         Physics.Raycast(patrolPosition + new Vector3(randomPoint.x, 50f, randomPoint.y), Vector3.down, out RaycastHit hit, 75f, LayerMask.GetMask("Ground"));
 
-        NavMesh.SamplePosition(hit.point, out NavMeshHit meshHit, 100f, NavMesh.AllAreas);
+        NavMesh.SamplePosition(hit.point, out NavMeshHit meshHit, patrolRadius, NavMesh.AllAreas);
         currentDestination = meshHit.position;
 
         canSetDestination = true;
