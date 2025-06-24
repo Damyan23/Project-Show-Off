@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine.Audio;
-using Unity.VisualScripting;
 
 public class RandomSoundPlayer : MonoBehaviour
 {
@@ -28,9 +26,6 @@ public class RandomSoundPlayer : MonoBehaviour
     private void Start()
     {
         Invoke("StartLoop", minDelay);
-
-        normalSnapshot = mixer.FindSnapshot("Normal");
-        insaneSnapshot = mixer.FindSnapshot("Insane");
     }
 
     private void StartLoop()
@@ -66,7 +61,7 @@ public class RandomSoundPlayer : MonoBehaviour
         float sumOfWeights = 0f;
         int i = -1;
 
-        while(sumOfWeights < rand)
+        while (sumOfWeights < rand)
         {
             SoundClip clip = soundClips[i + 1];
             if (!isInsane && clip.insane)
@@ -87,7 +82,7 @@ public class RandomSoundPlayer : MonoBehaviour
     }
 
     private IEnumerator PlayRandomLoop()
-    { 
+    {
         while (true)
         {
             PlayRandomSound();
@@ -102,10 +97,7 @@ public class RandomSoundPlayer : MonoBehaviour
 
         //Apply sanity to all settings
         float t = insanity / maxInsanity;
-        foreach(MixerSettings setting in settings)
-        {
-            mixer.SetFloat(setting.parameterName, Mathf.Lerp(setting.lowerValue, setting.upperValue, t));
-        }
+        MixerSettings.ApplySettings(settings, mixer, t);
     }
 }
 
@@ -117,6 +109,19 @@ public struct MixerSettings
     public string parameterName;
     public float lowerValue;
     public float upperValue;
+
+    public static void ApplySettings(MixerSettings[] settings, AudioMixer mixer, float t)
+    {
+        foreach (MixerSettings setting in settings)
+        {
+            mixer.SetFloat(setting.parameterName, Mathf.Lerp(setting.lowerValue, setting.upperValue, t));
+        }
+    }
+
+    public static void ApplySettings(List<MixerSettings> settings, AudioMixer mixer, float t)
+    {
+        ApplySettings(settings.ToArray(), mixer, t);
+    }
 }
 
 [System.Serializable]
