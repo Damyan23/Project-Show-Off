@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyPathBehaviour : EnemyMovementBehaviour
 {
@@ -14,12 +15,14 @@ public class EnemyPathBehaviour : EnemyMovementBehaviour
 
     public override Vector3 GetDestination()
     {
-        return points[checkpointIndex];
+        NavMesh.SamplePosition(points[checkpointIndex], out NavMeshHit hit, 100f, NavMesh.AllAreas);
+        return hit.position;
     }
 
     public override Vector3 GetStartPosition()
     {
-        return points[0];
+        NavMesh.SamplePosition(points[0], out NavMeshHit hit, 100f, NavMesh.AllAreas);
+        return hit.position;
     }
 
     public override void UpdateDestination()
