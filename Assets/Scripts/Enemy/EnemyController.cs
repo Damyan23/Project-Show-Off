@@ -32,11 +32,12 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         movementBehaviour = GetComponent<EnemyMovementBehaviour>();
+        agent = GetComponent<NavMeshAgent>();   
+        agent.speed = roamingSpeed; 
+
         transform.position = movementBehaviour.GetStartPosition();
         movementBehaviour.UpdateDestination();
         destination = movementBehaviour.GetDestination();
-
-        agent = GetComponent<NavMeshAgent>();   
     }
 
     private void Update()
@@ -82,7 +83,7 @@ public class EnemyController : MonoBehaviour
             if (dirToDestination.magnitude > Mathf.Epsilon) transform.rotation = Quaternion.LookRotation(dirToDestination);
             SetDestination();
 
-            if (Vector3.Distance(transform.position, destination) < 0.1f)
+            if (Vector3.Distance(transform.position, destination) < 1f)
             {
                 movementBehaviour.UpdateDestination();
                 SetDestination();

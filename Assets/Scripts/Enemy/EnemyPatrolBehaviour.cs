@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyPatrolBehaviour : EnemyMovementBehaviour
 {
@@ -9,7 +9,7 @@ public class EnemyPatrolBehaviour : EnemyMovementBehaviour
     [SerializeField] private float waitTimeBetweenPoints = 2.5f;
 
     private Vector3 currentDestination;
-    private bool canSetNewDestination = true;
+    private bool canSetDestination = true;
 
     public override void DrawPath()
     {
@@ -24,19 +24,23 @@ public class EnemyPatrolBehaviour : EnemyMovementBehaviour
 
     public override Vector3 GetStartPosition()
     {
-        return patrolPosition;
+        NavMesh.SamplePosition(patrolPosition, out NavMeshHit hit, 100f, NavMesh.AllAreas);
+        patrolPosition = hit.position;
+        return hit.position;
     }
 
     public override void UpdateDestination()
     {
-        StartCoroutine(updateDestination());
+        if (canSetDestination)
+        {
+            StartCoroutine(updateDestination());
+        }
+
     }
 
     private IEnumerator updateDestination()
     {
-        if (!canSetNewDestination) yield break;
-
-        canSetNewDestination = false;
+        canSetDestination = false;
 
         yield return new WaitForSeconds(waitTimeBetweenPoints);
 
@@ -45,9 +49,11 @@ public class EnemyPatrolBehaviour : EnemyMovementBehaviour
         float randomDst = Random.Range(0f, patrolRadius);
         Vector2 randomPoint = randomDirection * randomDst;
 
-        Physics.Raycast(new Vector3(randomPoint.x, 50f, randomPoint.y), Vector3.down, out RaycastHit hit);
-        currentDestination = hit.point;
+        Physics.Raycast(patrolPosition + new Vector3(randomPoint.x, 50f, randomPoint.y), Vector3.down, out RaycastHit hit, 75f, LayerMask.GetMask("Ground"));
 
-        canSetNewDestination = true;
+        NavMesh.SamplePosition(hit.point, out NavMeshHit meshHit, 100f, NavMesh.AllAreas);
+        currentDestination = meshHit.position;
+
+        canSetDestination = true;
     }
 }
