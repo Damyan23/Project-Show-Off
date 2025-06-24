@@ -117,7 +117,7 @@ public class SanityController : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         enemy.gameObject.SetActive(true);
-        enemy.transform.position = enemy.points[0];
+        enemy.transform.position = enemy.GetComponent<EnemyMovementBehaviour>().GetStartPosition();
     }
 
     private void ApplyPostProcessingEffects()

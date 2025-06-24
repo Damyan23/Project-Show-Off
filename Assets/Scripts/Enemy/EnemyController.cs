@@ -2,13 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Audio;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
-    public List<Vector3> points;
-    private int currentPointIndex;
-
     [Header("Stats")]
     [SerializeField] float roamingSpeed = 2.5f;
     [SerializeField] float chaseSpeed = 4f;
@@ -25,12 +24,20 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private AudioClip chaseSound;
 
     private bool detectedPlayer;
+    private NavMeshAgent agent;
+
+    private EnemyMovementBehaviour movementBehaviour;
+    private Vector3 destination;
 
     private void Start()
     {
-        currentPointIndex = 0;
-        transform.position = points[currentPointIndex];
-        detectedPlayer = false;
+        movementBehaviour = GetComponent<EnemyMovementBehaviour>();
+        agent = GetComponent<NavMeshAgent>();   
+        agent.speed = roamingSpeed; 
+
+        transform.position = movementBehaviour.GetStartPosition();
+        movementBehaviour.UpdateDestination();
+        destination = movementBehaviour.GetDestination();
     }
 
     private void Update()
@@ -45,6 +52,7 @@ public class EnemyController : MonoBehaviour
                 StopCoroutine("FadeSound");
                 StartCoroutine(FadeSound(true));
                 detectedPlayer = true;
+                agent.speed = chaseSpeed;
             }
         }
         else
@@ -54,34 +62,40 @@ public class EnemyController : MonoBehaviour
                 StopCoroutine("FadeSound");
                 StartCoroutine(FadeSound(false));
                 detectedPlayer = false;
+                agent.speed = roamingSpeed;
             }
         }
 
 
         if (detectedPlayer)
         {
-
             //Move toward player
             Vector3 dirToPlayer = Vector3.Normalize(playerT.position - transform.position);
-            transform.Translate(chaseSpeed * Time.deltaTime * dirToPlayer, Space.World);
             dirToPlayer.y = 0f;
-            transform.rotation = Quaternion.LookRotation(dirToPlayer);
+            if(dirToPlayer.magnitude > Mathf.Epsilon) transform.rotation = Quaternion.LookRotation(dirToPlayer);
+            agent.SetDestination(playerT.position);
         }
         else
         {
             //Move toward next point
-            Vector3 dirToNextPoint = Vector3.Normalize(points[currentPointIndex] - transform.position);
-            transform.Translate(roamingSpeed * Time.deltaTime * dirToNextPoint, Space.World);
-            dirToNextPoint.y = 0f;
-            transform.rotation = Quaternion.LookRotation(dirToNextPoint);
+            Vector3 dirToDestination = Vector3.Normalize(destination - transform.position);
+            dirToDestination.y = 0f;
+            if (dirToDestination.magnitude > Mathf.Epsilon) transform.rotation = Quaternion.LookRotation(dirToDestination);
+            SetDestination();
 
-            if (Vector3.Distance(transform.position, points[currentPointIndex]) < 0.1f)
+            if (Vector3.Distance(transform.position, destination) < 1f)
             {
-                currentPointIndex++;
-                if (currentPointIndex >= points.Count) currentPointIndex = 0;
+                movementBehaviour.UpdateDestination();
+                SetDestination();
             }
         }
 
+    }
+
+    private void SetDestination()
+    {
+        destination = movementBehaviour.GetDestination();
+        agent.SetDestination(destination);
     }
 
 
@@ -103,10 +117,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        return;
+
         if (other.transform.name == "Player")
         {
             SanityController sanityController = other.GetComponent<SanityController>();
-            StartCoroutine(sanityController.HitPlayer(this));
+            if(sanityController != null) StartCoroutine(sanityController.HitPlayer(this));
         }
     }
 
@@ -114,10 +130,8 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
-    }
 
-    private void OnValidate()
-    {
-        transform.position = points[0];
+        if(movementBehaviour == null) movementBehaviour = GetComponent<EnemyMovementBehaviour>();
+        movementBehaviour.DrawPath();
     }
 }
