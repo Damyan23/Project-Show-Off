@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
             if (!detectedPlayer)
             {
                 StopCoroutine("FadeSound");
-                StartCoroutine(FadeSound(true));
+                if(!audioSource.isPlaying) StartCoroutine(FadeSound(true));
                 detectedPlayer = true;
                 agent.speed = chaseSpeed;
             }
@@ -100,7 +100,7 @@ public class EnemyController : MonoBehaviour
 
 
     private IEnumerator FadeSound(bool fadeIn)
-    {
+    { 
         float startTime = Time.time;
         if (fadeIn) audioSource.PlayOneShot(chaseSound);
 
