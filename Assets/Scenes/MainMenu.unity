@@ -537,7 +537,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 87ab4ae44be029745ae8106738a7b4ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91017c1d92ff5d64089f0d080a1babed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1283,6 +1283,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2075183460}
     m_Modifications:
+    - target: {fileID: 279376367347876234, guid: 2b109d3f07a13404bb2d0c54b6352d0b,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2915888131425371144, guid: 2b109d3f07a13404bb2d0c54b6352d0b,
+        type: 3}
+      propertyPath: m_text
+      value: Take the offerings and place them on the altars so you can please the
+        women and free your baby
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204282171467363596, guid: 2b109d3f07a13404bb2d0c54b6352d0b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8218539388790217374, guid: 2b109d3f07a13404bb2d0c54b6352d0b,
         type: 3}
       propertyPath: m_Name

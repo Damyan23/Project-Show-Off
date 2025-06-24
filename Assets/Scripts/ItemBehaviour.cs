@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class ItemBehaviour : MonoBehaviour
 {
     [Header("Pickup Behaviour")]
