@@ -18269,12 +18269,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 151253415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7f29e2cc50e2f548bcd93ca4438b4b9, type: 3}
+  m_Script: {fileID: 11500000, guid: ba827c700129eb541baec2cf10da1c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPosition: {x: -100, y: 0, z: -350}
-  patrolRadius: 200
-  waitTimeBetweenPoints: 2.5
+  points:
+  - {x: -290.5691, y: 0, z: -71.430984}
+  - {x: -7.3692474, y: 0, z: -377.2636}
+  - {x: -321.2531, y: 0, z: -423.7601}
 --- !u!1001 &151523915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57191,7 +57192,7 @@ MonoBehaviour:
   enableSprinting: 1
   sprintKey: 304
   preventUphillSlowdown: 1
-  maxSlopeAngle: 90
+  maxSlopeAngle: 65
   slopeRayLength: 1.5
   rb: {fileID: 0}
   fogController: {fileID: 1365107275}
@@ -216506,11 +216507,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
-        type: 3}
-      propertyPath: MaxDistance
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
