@@ -56165,7 +56165,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.8663864
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -56295,7 +56295,7 @@ MonoBehaviour:
   enemyDetectionRange: 100
   enemyDetectionInsanityPoints: 10
   offerSanityReduction: 20
-  insaneThreshold: 75
+  insaneThreshold: 65.1
   maxChromaticAberration: 0.5
   maxMotionBlur: 1
   maxDesaturation: -100
@@ -56324,8 +56324,8 @@ MonoBehaviour:
   mouseSensitivity: 100
   cameraOffset: {x: 0, y: 0, z: 0}
   enableHeadBobbing: 0
-  headBobbingIntensity: 0.15
-  headBobbingSpeed: 17.5
+  headBobbingIntensity: 1
+  headBobbingSpeed: 20.1
   insanityFovIncrease: 20
   sprintFovIncrease: 20
   fovLerpSpeed: 5
@@ -56351,7 +56351,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   fogController: {fileID: 1365107275}
   audioSource: {fileID: 456033288}
-  footstepClips: []
+  footstepClips:
+  - {fileID: 8300000, guid: 80ff577e9126148e0a2d9e3099611bed, type: 3}
+  - {fileID: 8300000, guid: 5cc0c7dd2bae1434fb75bbe392de147d, type: 3}
   footstepInterval: 0.5
 --- !u!54 &456033294
 Rigidbody:
@@ -56399,7 +56401,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1962302
+  m_Radius: 0.15987179
   m_Height: 1.6790214
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
