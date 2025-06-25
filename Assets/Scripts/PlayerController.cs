@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool preventUphillSlowdown = true;
     [SerializeField] private float maxSlopeAngle = 45f;
     [SerializeField] private float slopeRayLength = 1.5f;
-    [HideInInspector] public Rigidbody rb;
+
+
+    public Rigidbody rb;
 
     [Header("References")]
     [SerializeField] private FogController fogController;

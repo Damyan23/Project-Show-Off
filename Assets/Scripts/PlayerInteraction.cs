@@ -26,13 +26,9 @@ public class PlayerInteraction : MonoBehaviour
     public delegate void decreaseSanity();
     public decreaseSanity _decreaseSanity;
 
-    void Awake()
-    {
-        Instance = this;
-    }
-
     void Start()
     {
+        Instance = this;
         gameManager = GameManager.instance;
     }
 
@@ -49,10 +45,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 HandleInteractable(closestInteractable);
             }
-            else if (pressFToInteract.enabled)
-            {
-                pressFToInteract.enabled = false;
-            }
+            else if (pressFToInteract.enabled) { pressFToInteract.enabled = false; }
         }
 
         if (Input.GetKeyDown(dropKey))
@@ -107,7 +100,7 @@ public class PlayerInteraction : MonoBehaviour
         if (currentItem == null) return;
 
         // Parent to altar first!
-        altar.GetComponent<AltarBehaviour>().PlaceItem(currentItem);
+        altar.GetComponentInParent<AltarBehaviour>().PlaceItem(currentItem);
 
         // Center on altar
         //Vector3 verticalOffset = currentItem.transform.parent.GetComponent<MeshRenderer>().bounds.extents.y * Vector3.up;

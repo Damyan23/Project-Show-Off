@@ -7,23 +7,22 @@ public class GameManager : MonoBehaviour
     #region Singleton
         public static GameManager instance;
 
-    void Awake()
-    {
-        // If there is already an instance and it's not this one
-        if (instance != null && instance != this)
+        void Awake()
         {
-            // Destroy this duplicate instance
-            Destroy(gameObject);
-            return;
+            // If there is already an instance and it's not this one
+            if (instance != null && instance != this)
+            {
+                // Destroy this duplicate instance
+                Destroy(gameObject);
+                return;
+            }
+            
+            // Set this as the singleton instance
+            instance = this;
+            
+            // Make the GameManager persistent between scene loads (optional)
+            DontDestroyOnLoad(gameObject);
         }
-
-        // Set this as the singleton instance
-        instance = this;
-
-        // Make the GameManager persistent between scene loads (optional)
-        DontDestroyOnLoad(gameObject);
-        taskManager = this.GetComponent<TaskManager>();
-    }
     #endregion
 
 
@@ -32,9 +31,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int numberOfDoneAltars = 0;
     [SerializeField] private GameObject babyPrefab;
     [SerializeField] private GameObject crib;
-
-    [Header("Task Settings")]
-    [HideInInspector] public TaskManager taskManager;
     private bool babySpawned = false;
 
     // Define the delegate type
@@ -45,7 +41,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        taskManager.UpdateTask (" Find an item and pick it up");    
         onAltarDone += IncrementAltarCount;
     }
 
@@ -56,7 +51,6 @@ public class GameManager : MonoBehaviour
 
     private void spawnBaby()
     {
-        taskManager.UpdateTask("Find your baby");
         GameObject baby = Instantiate(babyPrefab);
         baby.transform.position = crib.transform.GetChild(0).position;
         babySpawned = true;
@@ -65,10 +59,6 @@ public class GameManager : MonoBehaviour
     private void IncrementAltarCount()
     {
         numberOfDoneAltars++;
-
-        string taskText = " Altars completed: " + numberOfDoneAltars + "/" + requiredNumberOfDoneAltars;
-        taskManager.UpdateTask(taskText);
-
         Debug.Log("Altar completed! Total: " + numberOfDoneAltars + "/" + requiredNumberOfDoneAltars);
     }
     

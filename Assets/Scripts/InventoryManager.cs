@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        
         cam = Camera.main;
     }
 
