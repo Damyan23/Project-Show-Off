@@ -160,7 +160,6 @@ public class Ladder : MonoBehaviour
             Vector2 playerLookDirection = new Vector2(player.transform.forward.x, player.transform.forward.z);
             Vector2 ladderDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.z - player.transform.position.z).normalized;
             float dot = Vector2.Dot(playerLookDirection, ladderDirection);
-            Debug.Log(horizontalDistance);
 
             if (horizontalDistance < 7.5f && dot > 0.75f)
             {

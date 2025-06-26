@@ -8,6 +8,7 @@ public class PathEditor : Editor
     {
         EnemyPathBehaviour path = (EnemyPathBehaviour)target;
 
+
         for(int i = 0; i < path.points.Count; i++)
         {
             //Get handle position
@@ -16,6 +17,8 @@ public class PathEditor : Editor
 
             //If difference is big enough, update the list
             if(Vector3.Distance(oldPosition, newPosition) > 0.001f) path.points[i] = newPosition;
+
+            if (path.points.Count < 2) continue;
 
             //Draw lines between all points
             Handles.color = Color.white;

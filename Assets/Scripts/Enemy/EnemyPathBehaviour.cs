@@ -8,6 +8,8 @@ public class EnemyPathBehaviour : EnemyMovementBehaviour
     private int checkpointIndex = 0;
     public List<Vector3> points;
 
+    private Vector3 currentDestination;
+
     public override void DrawPath()
     {
         //Drawing paths is being handled by the custom editor
@@ -15,13 +17,13 @@ public class EnemyPathBehaviour : EnemyMovementBehaviour
 
     public override Vector3 GetDestination()
     {
-        NavMesh.SamplePosition(points[checkpointIndex], out NavMeshHit hit, 100f, NavMesh.AllAreas);
-        return hit.position;
+        return currentDestination;
     }
 
     public override Vector3 GetStartPosition()
     {
         NavMesh.SamplePosition(points[0], out NavMeshHit hit, 100f, NavMesh.AllAreas);
+        currentDestination = hit.position;
         return hit.position;
     }
 
@@ -29,5 +31,8 @@ public class EnemyPathBehaviour : EnemyMovementBehaviour
     {
         checkpointIndex++;
         if (checkpointIndex >= points.Count) checkpointIndex = 0;
+
+        NavMesh.SamplePosition(points[checkpointIndex], out NavMeshHit hit, 100f, NavMesh.AllAreas);
+        currentDestination = hit.position;
     }
 }
