@@ -85,10 +85,9 @@ public class PlayerController : MonoBehaviour
 
         if (direction.magnitude < 0.1f)
         {
-            if (audioSource.isPlaying)
-                PlayFootstep ();
+            PlayFootstep ();
 
-            return;
+            return; 
         }
 
         // Calculate current speed based on sprinting state

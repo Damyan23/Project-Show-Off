@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject babyPrefab;
     [SerializeField] private GameObject crib;
     private bool babySpawned = false;
+    [SerializeField] private AudioClip babySpawnedSound;
+    private AudioSource cribAudioSource;
 
     // Define the delegate type
     public delegate void OnAltarDoneEvent();
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         onAltarDone += IncrementAltarCount;
+        cribAudioSource = crib.AddComponent<AudioSource>();
+        crib.GetComponent<AudioSource>().clip = babySpawnedSound;
     }
 
     void Update()
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject baby = Instantiate(babyPrefab);
         baby.transform.position = crib.transform.GetChild(0).position;
+        crib.GetComponent<AudioSource>().Play();
         babySpawned = true;
     }
     
