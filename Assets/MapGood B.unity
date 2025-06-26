@@ -18264,14 +18264,6 @@ MonoBehaviour:
   roamingSpeed: 20
   chaseSpeed: 30
   detectionRadius: 50
-  mixerSettings:
-  - parameterName: Volume
-    lowerValue: -30
-    upperValue: -10
-  mixer: {fileID: 24100000, guid: 9c9bd0eeddb344c78af8da6934fdff56, type: 2}
-  fadeTime: 10
-  audioSource: {fileID: 151253419}
-  chaseSound: {fileID: 8300000, guid: 3c70fcd3092114076b264819b26dcd14, type: 3}
 --- !u!65 &151253421
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160350,14 +160342,6 @@ MonoBehaviour:
   roamingSpeed: 20
   chaseSpeed: 30
   detectionRadius: 50
-  mixerSettings:
-  - parameterName: Volume
-    lowerValue: -30
-    upperValue: -10
-  mixer: {fileID: 24100000, guid: 9c9bd0eeddb344c78af8da6934fdff56, type: 2}
-  fadeTime: 10
-  audioSource: {fileID: 1317802819}
-  chaseSound: {fileID: 8300000, guid: 3c70fcd3092114076b264819b26dcd14, type: 3}
 --- !u!65 &1317802816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179638,7 +179622,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 151
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -179648,7 +179632,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: b2e265026fc58384f83524fb97cc1550, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 87190ea16838c3b41b49919ffab2e506, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1470235684
 PrefabInstance:
