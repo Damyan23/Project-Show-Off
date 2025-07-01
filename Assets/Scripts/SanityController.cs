@@ -17,6 +17,7 @@ public class SanityController : MonoBehaviour
     [SerializeField] private float enemyDetectionInsanityPoints = 4f;
     [SerializeField] float offerSanityReduction = 20f;
     [SerializeField, Range(0f, maxSanity)] float insaneThreshold = 75f;
+    [SerializeField] private float insanityLostPerSecond = 1f;
 
     [Header("Post-Processing Settings")]
     [SerializeField] private float maxChromaticAberration = 0.5f;
@@ -67,6 +68,8 @@ public class SanityController : MonoBehaviour
                 ApplyInsanity();
             }
         }
+
+        RemoveInsanity(Time.deltaTime * insanityLostPerSecond);
     }
 
     private void TryGetPostProcessingEffects()
