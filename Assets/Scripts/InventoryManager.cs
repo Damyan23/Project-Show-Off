@@ -69,7 +69,7 @@ public class InventoryManager : MonoBehaviour
         if (currentItem == null || !isSlotTaken) return;
 
         rb.isKinematic = false;
-        rb.excludeLayers = 0; // Reset exclude layers to allow physics interactions
+        //rb.excludeLayers = 0; // Reset exclude layers to allow physics interactions
         currentItem.transform.SetParent(itemParent.transform);
 
         isSlotTaken = false;

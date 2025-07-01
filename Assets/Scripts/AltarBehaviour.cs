@@ -7,6 +7,7 @@ public class AltarBehaviour : MonoBehaviour
 {
     [Header("Altart settings")]
     [HideInInspector] public bool isSlotTaken = false;
+    [SerializeField] private float interactionDistance = 3f;
     [HideInInspector] public GameObject item;
 
     [Header("Sound settings")]
@@ -52,8 +53,8 @@ public class AltarBehaviour : MonoBehaviour
             return;
         }
 
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance <= playerInteraction.interactionDistance)
+        float distance = Vector3.Distance(player.transform.position, transform.GetChild(1).position);
+        if (distance <= interactionDistance)
         {
             if (audioSource.isPlaying) audioSource.Pause();
             return;
@@ -84,5 +85,11 @@ public class AltarBehaviour : MonoBehaviour
         {
             if (!particle.isPlaying) particle.Play();
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere (transform.GetChild(1).position, interactionDistance);
     }
 }

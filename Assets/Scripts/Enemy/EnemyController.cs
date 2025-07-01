@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float roamingSpeed = 2.5f;
     [SerializeField] float chaseSpeed = 4f;
     [SerializeField] float detectionRadius = 10f;
+    [SerializeField] float rotationSpeed = 1f;
 
     [Header("References")]
     private Transform playerT;
@@ -43,7 +44,12 @@ public class EnemyController : MonoBehaviour
             agent.speed = chaseSpeed;
             Vector3 dirToPlayer = Vector3.Normalize(playerT.position - transform.position);
             dirToPlayer.y = 0f;
-            if(dirToPlayer.magnitude > Mathf.Epsilon) transform.rotation = Quaternion.LookRotation(dirToPlayer);
+            if(dirToPlayer.magnitude > Mathf.Epsilon)
+            {
+                Quaternion currentRotation = transform.rotation;
+                Quaternion targetRotation = Quaternion.LookRotation(dirToPlayer);
+                transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
             agent.SetDestination(playerT.position);
         }
         else
@@ -52,7 +58,12 @@ public class EnemyController : MonoBehaviour
             agent.speed = roamingSpeed;
             Vector3 dirToDestination = Vector3.Normalize(destination - transform.position);
             dirToDestination.y = 0f;
-            if (dirToDestination.magnitude > Mathf.Epsilon) transform.rotation = Quaternion.LookRotation(dirToDestination);
+            if (dirToDestination.magnitude > Mathf.Epsilon)
+            {
+                Quaternion currentRotation = transform.rotation;
+                Quaternion targetRotation = Quaternion.LookRotation(dirToDestination);
+                transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
             SetDestination();
 
             if (Vector3.Distance(transform.position, destination) < 1f)

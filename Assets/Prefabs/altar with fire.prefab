@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSlotTaken: 0
+  interactionDistance: 7
   item: {fileID: 0}
   intervalInSeconds: 30
   _clip: {fileID: 8300000, guid: f19f95949376e4b119216ae89c9e14b5, type: 3}
