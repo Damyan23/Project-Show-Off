@@ -125,7 +125,7 @@ public class PlayerInteraction : MonoBehaviour
 
         _decreaseSanity?.Invoke();
         gameManager.AltarCompleted();
-        gameManager.SpawnWhiteWoman();
+        gameManager.SpawnEnemy();
         currentItem.GetComponent<ItemBehaviour>().isItemOnAltar = true;
     }
 }

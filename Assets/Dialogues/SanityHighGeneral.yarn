@@ -1,0 +1,12 @@
+﻿title: SanityHighGeneral
+---
+<<declare $shNumber = 0>>
+<<set $shNumber = random_range(0, 2)>>
+<<if $shNumber == 0>>
+No… I’m losing him.
+<<elseif $shNumber == 1>>
+The darkness… it’s too strong.
+<<else>>
+I can’t fail. I won’t fail.
+<<endif>>
+===

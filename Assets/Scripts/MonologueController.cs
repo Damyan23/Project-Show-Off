@@ -1,82 +1,61 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
+using UnityEngine.Events;
 
-public class ItemMonologueTrigger : MonoBehaviour
+public class MonologueController : MonoBehaviour
 {
-    public string startNode = "StartMonologue";
-    public string itemNode = "NearbyItemMonologue";
-    public float triggerDistance = 10f;
-    private bool hasTriggered = false;
-    private Transform player;
-    private Transform startAltar;
+    [Header("Monologue Node Names")]
+    public string forestGeneralLines = "ForestGeneralLines";
+    public string altarDialogue = "AltarDialogue";
+    public string sanityHighGeneral = "SanityHighGeneral";
+    public string gameOverGeneral = "GameOverGeneral";
+    public string whiteWomenEncounter = "WhiteWomenEncounter";
 
     private DialogueRunner dialogueRunner;
-    private PlayerInteraction playerInteraction;
-    private Collider closestInteractable = null;
-    private Transform closestInteractableT;
-    
-    // Track which item we last showed dialogue for
-    private Collider lastItemShownDialogue;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        startAltar = GameObject.FindGameObjectWithTag("Start Altar")?.transform;
-        playerInteraction = player.GetComponent<PlayerInteraction>();
         dialogueRunner = FindObjectOfType<DialogueRunner>();
+        if (dialogueRunner == null)
+        {
+            Debug.LogError("DialogueRunner not found in the scene.");
+        }
 
-        if (player == null)
-            Debug.LogError("Player not found. Make sure it's tagged correctly.");
-
-        if (startAltar == null)
-            Debug.LogError("Start altar not found. Make sure it's tagged correctly.");
+        TriggerForestGeneral();
     }
 
-    private void Update()
+    private void StartDialogue(string nodeName)
     {
-        if (player == null || dialogueRunner == null || dialogueRunner.IsDialogueRunning)
-            return;
+        if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
+        dialogueRunner.StartDialogue(nodeName);
 
-        // Update the transform we have in the function only if the closest interactable from inventory manager actually changes
-        if (playerInteraction.closestInteractable != null && playerInteraction.closestInteractable != closestInteractable)
-        {
-            closestInteractable = playerInteraction.closestInteractable;
-            closestInteractableT = playerInteraction.closestInteractable.GetComponent<Transform>();
-        }
-        
-        float distanceToClosestItem = Mathf.Infinity;
+        Debug.Log (dialogueRunner + " started.");   
+    }
 
-        if (closestInteractableT != null)
-            distanceToClosestItem = Vector3.Distance(closestInteractableT.position, player.position);
+    // === Public Methods to Trigger Dialogue ===
 
-        // Only show dialogue if we're within range AND this is a different item than the last one we showed dialogue for
-        if (distanceToClosestItem <= triggerDistance && closestInteractable != lastItemShownDialogue)
-        {
-            // Set the Yarn variable for substitution
-            dialogueRunner.VariableStorage.SetValue("$itemName", closestInteractableT.name);
+    public void TriggerForestGeneral()
+    {
+        StartDialogue(forestGeneralLines);
+    }
 
-            // Start the dialogue
-            dialogueRunner.StartDialogue(itemNode);
-            
-            // Remember this item so we don't show dialogue again
-            lastItemShownDialogue = closestInteractable;
-        }
-        
-        // Reset the last item if we move away from all items (optional - allows re-triggering if player leaves and comes back)
-        if (distanceToClosestItem > triggerDistance)
-        {
-            lastItemShownDialogue = null;
-        }
+    public void TriggerAltarDialogue()
+    {
+        StartDialogue(altarDialogue);
+    }
 
-        if (hasTriggered) return;
+    public void TriggerSanityHigh()
+    {
+        StartDialogue(sanityHighGeneral);
+    }
 
-        float distanceToFirstAltar = Vector3.Distance(transform.position, player.position);
+    public void TriggerGameOver()
+    {
+        StartDialogue(gameOverGeneral);
+    }
 
-        if (distanceToFirstAltar <= triggerDistance)
-        {
-            hasTriggered = true;
-            dialogueRunner.StartDialogue(startNode);
-        }
+    public void TriggerWhiteWomenEncounter()
+    {
+        StartDialogue(whiteWomenEncounter);
     }
 }

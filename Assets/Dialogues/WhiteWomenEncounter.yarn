@@ -1,0 +1,14 @@
+﻿title: WhiteWomenEncounter
+---
+<<declare $wwNumber = 0>>
+<<set $wwNumber = random_range(0, 3)>>
+<<if $wwNumber == 0>>
+Get away from me!
+<<elseif $wwNumber == 1>>
+You won’t trick me. I know what you are.
+<<elseif $wwNumber == 2>>
+You took him! Give him back!
+<<else>>
+Your lies won’t break me.
+<<endif>>
+===

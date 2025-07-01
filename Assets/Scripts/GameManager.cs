@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -45,8 +44,8 @@ public class GameManager : MonoBehaviour
     // Create an instance of the delegate that other scripts can subscribe to
     public OnAltarDoneEvent onAltarDone;
 
-    [Header("White Woman Spawn Settings")]
-    [SerializeField] private GameObject whiteWomanPrefab;
+    [Header("Enemy Spawn Settings")]
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float minDistance = 8f;
     [SerializeField] private float maxDistance = 15f;
     [SerializeField] private float ariseHeight = 2f;
@@ -94,46 +93,76 @@ public class GameManager : MonoBehaviour
             onAltarDone.Invoke();
         }
     }
-    
-    public void SpawnWhiteWoman()
+
+    public void SpawnEnemy()
     {
-        if (whiteWomanPrefab != null)
+        if (enemyPrefab == null)
         {
-            // Random angle: -45° (left) to +45° (right) relative to forward
-            float angle = Random.Range(-45f, 45f);
-            float distance = Random.Range(minDistance, maxDistance);
-
-            // Direction vector
-            Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
-            Vector3 spawnPos = playerTransform.position + direction.normalized * distance;
-
-            // Spawn below ground
-            spawnPos.y -= ariseHeight;
-
-            GameObject ww = Instantiate(whiteWomanPrefab, spawnPos, Quaternion.identity, this.transform);
-
-            // Start coroutine to move up
-            StartCoroutine(AriseWhiteWoman(ww, ariseHeight));
+            Debug.LogError("Enemy prefab is not assigned in GameManager.");
+            return;
         }
-        else
+
+        // Randomly pick left (-1) or right (1)
+        int side = Random.Range(0, 2) * 2 - 1;
+
+        // Generate a random deviation angle within a small cone towards the chosen side
+        float baseAngle = side * 45f; // Base angle: -45 (left), 45 (right)
+        float angleOffset = Random.Range(-20f, 20f); // Small deviation around base
+        float angle = baseAngle + angleOffset;
+
+        // Get direction vector
+        Vector3 direction = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+        float distance = Random.Range(minDistance, maxDistance);
+        Vector3 spawnPos = playerTransform.position + direction.normalized * distance;
+
+        // Adjust spawn Y to align with NavMesh ground
+        UnityEngine.AI.NavMeshHit hit;
+        if (UnityEngine.AI.NavMesh.SamplePosition(spawnPos, out hit, 10f, UnityEngine.AI.NavMesh.AllAreas))
         {
-            Debug.LogError("White woman prefab is not assigned in PlayerInteraction.");
+            spawnPos = hit.position;
         }
+
+        // Calculate enemy height using Renderer bounds
+        float enemyHeight = 2f; // Default fallback height
+        Renderer rend = enemyPrefab.GetComponentInChildren<Renderer>();
+        if (rend != null)
+        {
+            enemyHeight = rend.bounds.size.y;
+        }
+
+        // Spawn below the ground
+        spawnPos.y -= ariseHeight + enemyHeight;
+
+        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, this.transform);
+
+        StartCoroutine(AriseEnemy(enemy, ariseHeight + enemyHeight));
     }
 
-    private IEnumerator AriseWhiteWoman(GameObject ww, float height)
+
+
+    private IEnumerator AriseEnemy(GameObject enemy, float height)
     {
-        Vector3 start = ww.transform.position;
+        Vector3 start = enemy.transform.position;
         Vector3 end = start + Vector3.up * height;
         float elapsed = 0f;
         float duration = height / ariseSpeed;
 
         while (elapsed < duration)
         {
-            ww.transform.position = Vector3.Lerp(start, end, elapsed / duration);
+            enemy.transform.position = Vector3.Lerp(start, end, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
-        ww.transform.position = end;
+        enemy.transform.position = end;
+    }
+    
+    private Vector3 GetGroundPos(Vector3 position)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(position + Vector3.up * 10f, Vector3.down, out hit, Mathf.Infinity))
+        {
+            return hit.point;
+        }
+        return position; // Fallback to original position if no ground found
     }
 }

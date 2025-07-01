@@ -1,0 +1,12 @@
+﻿title: GameOverGeneral
+---
+<<declare $goNumber = 0>>
+<<set $goNumber = random_range(0, 2)>>
+<<if $goNumber == 0>>
+Not this time… I’ll do better.
+<<elseif $goNumber == 1>>
+Again. As long as it takes.
+<<else>>
+You’re worth every step through hell.
+<<endif>>
+===
