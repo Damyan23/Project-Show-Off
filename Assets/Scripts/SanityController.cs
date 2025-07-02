@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -10,6 +10,7 @@ public class SanityController : MonoBehaviour
 {
     public float CurrentInsanity { get; private set; }
     const float maxSanity = 100f;
+
 
     [Header("Insanity Settings")]
     [SerializeField] private float hitInsanityPoints;
@@ -38,6 +39,11 @@ public class SanityController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool enableDebugMode = false;
 
+    [Header("Monologue Settings")]
+    private MonologueController monologueController;
+    public event Action OnEnemyDetected;
+
+
     #region Volume Overrides
 
     private ChromaticAberration chromaticAberration;
@@ -49,6 +55,7 @@ public class SanityController : MonoBehaviour
 
     private void Start()
     {
+        monologueController = GameManager.instance.gameObject.GetComponent<MonologueController>();
         //InventoryManager.Instance._decreaseSanity = RemoveInsanity;
         TryGetPostProcessingEffects();
 
@@ -66,6 +73,12 @@ public class SanityController : MonoBehaviour
             {
                 CurrentInsanity = newSanity;
                 ApplyInsanity();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                monologueController.encounterMonologueTime.CanTrigger = true;
+                OnEnemyDetected?.Invoke();
             }
         }
 
@@ -169,6 +182,10 @@ public class SanityController : MonoBehaviour
             {
                 AddInsanity(enemyDetectionInsanityPoints);
                 ApplyInsanity();
+
+                if (monologueController.encounterMonologueTime.CanTrigger)
+                    OnEnemyDetected?.Invoke();
+
                 return;
             }
         }
@@ -192,15 +209,15 @@ public class SanityController : MonoBehaviour
     private IEnumerator TransitionToDeathScreen()
     {
         float alpha = 0f;
+        monologueController.TriggerGameOver();
 
-        while(alpha < 1f)
+        while (alpha < 1f)
         {
-            alpha += 0.05f;
+            alpha += 0.025f;
             deathFade.color = new Color(0f, 0f, 0f, alpha);
             yield return new WaitForSeconds(0.05f);
         }
 
         SceneManager.LoadScene(2);
-
     }
 }

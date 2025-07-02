@@ -1,0 +1,13 @@
+﻿title: AltarLookGeneral
+---
+<<declare $altarLookLine = 0>>
+<<set $altarLookLine = random_range(0, 2)>>
+
+<<if $altarLookLine == 0>>
+An altar… like in the stories. #line:AnAltar… 
+<<elseif $altarLookLine == 1>>
+Finally, what I’ve been searching for. #line:Finally,w
+<<else>>
+Fast or they will catch me #line:Fast
+<<endif>>
+===

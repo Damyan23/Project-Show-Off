@@ -3,10 +3,10 @@
 <<declare $shNumber = 0>>
 <<set $shNumber = random_range(0, 2)>>
 <<if $shNumber == 0>>
-No… I’m losing him.
+No… I’m losing him. #line:NoImLoosing
 <<elseif $shNumber == 1>>
-The darkness… it’s too strong.
+The darkness… it’s too strong. #line:TheDrakness
 <<else>>
-I can’t fail. I won’t fail.
+I can’t fail. I won’t fail. #line:ICantFail
 <<endif>>
 ===

@@ -20,6 +20,7 @@ public class AltarBehaviour : MonoBehaviour
     private GameObject _currentItem = null;
     private GameObject player = null;
     private PlayerInteraction playerInteraction;
+    private MonologueController monologueController;
 
     [Header("Particles settings")]
     private ParticleSystem[] particles;
@@ -27,6 +28,7 @@ public class AltarBehaviour : MonoBehaviour
     void Awake()
     {
         TryGetComponent<AudioSource>(out audioSource);
+        monologueController = GameManager.instance.gameObject.GetComponent<MonologueController>();
 
         player = GameObject.FindWithTag("Player");
         if (player == null)
@@ -75,6 +77,7 @@ public class AltarBehaviour : MonoBehaviour
         _currentItem = item;
         item.transform.SetParent(transform.GetChild(0).transform);
         lightCandelsUp();
+        monologueController.TriggerAltarItemPlacedGeneral();
     }
 
     void lightCandelsUp()

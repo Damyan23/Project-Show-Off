@@ -1,16 +1,16 @@
-﻿title: ForestGeneralLines
----
-<<declare $fgNumber = 0>>
-<<set $fgNumber = random_range(0, 4)>>
-<<if $fgNumber == 0>>
-He's out there somewhere.
-<<elseif $fgNumber == 1>>
-Don’t give in to fear. He needs me.
-<<elseif $fgNumber == 2>>
-This fog… it’s not natural. It wants me to forget.
-<<elseif $fgNumber == 3>>
-Every step takes me closer… I have to believe that.
-<<else>>
-They won’t keep him from me. Not without a fight.
-<<endif>>
-===
+﻿    title: ForestGeneralLines
+    ---
+    <<declare $fgNumber = 0>>
+    <<set $fgNumber = random_range(0, 4)>>
+    <<if $fgNumber == 0>>
+    He's out there somewhere. #line:HesOut
+    <<elseif $fgNumber == 1>>
+    Don’t give in to fear. He needs me. #line:DontGive
+    <<elseif $fgNumber == 2>>
+    This fog… it’s not natural. It wants me to forget. #line:ThisFog
+    <<elseif $fgNumber == 3>>
+    Every step takes me closer… I have to believe that. #line:EveryStep
+    <<else>>
+    They won’t keep him from me. Not without a fight. #line:TheyWont
+    <<endif>>
+    ===

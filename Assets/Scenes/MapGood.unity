@@ -36410,6 +36410,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 402138071}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &291424040 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 552205805}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &291696530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68040,7 +68046,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 636163552}
     m_Modifications:
     - target: {fileID: 2958262985454349539, guid: 52571f68872914e24837210513edea1d,
         type: 3}
@@ -68056,6 +68062,11 @@ PrefabInstance:
         type: 3}
       propertyPath: autoAdvanceDelay
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958262986446477828, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2958262986520364887, guid: 52571f68872914e24837210513edea1d,
         type: 3}
@@ -68085,6 +68096,32 @@ PrefabInstance:
     - target: {fileID: 2958262986520364887, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4,
+        type: 2}
+    - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+    - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2958262987206614837, guid: 52571f68872914e24837210513edea1d,
@@ -68135,22 +68172,22 @@ PrefabInstance:
     - target: {fileID: 7262066351540048079, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_Name
-      value: Dialogue System
+      value: Dialogue Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -384.18524
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -66.3687
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -180.47325
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
@@ -68160,17 +68197,17 @@ PrefabInstance:
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7985477256237130417, guid: 52571f68872914e24837210513edea1d,
         type: 3}
@@ -68190,6 +68227,11 @@ PrefabInstance:
     - target: {fileID: 8020628925107869966, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020628925184811234, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8020628925673895293, guid: 52571f68872914e24837210513edea1d,
@@ -68238,6 +68280,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7545569452688597077, guid: 9242b9ba10abdd34ca9761c46a55e21b,
         type: 3}
+    - target: {fileID: 8790380584632356852, guid: 52571f68872914e24837210513edea1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9078442560890639579, guid: 52571f68872914e24837210513edea1d,
         type: 3}
       propertyPath: m_IsActive
@@ -77707,6 +77754,7 @@ Transform:
   - {fileID: 676215730}
   - {fileID: 1511563251}
   - {fileID: 713802802}
+  - {fileID: 291424040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &637541730
@@ -131488,10 +131536,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forestGeneralLines: ForestGeneralLines
-  altarDialogue: AltarDialogue
   sanityHighGeneral: SanityHighGeneral
   gameOverGeneral: GameOverGeneral
   whiteWomenEncounter: WhiteWomenEncounter
+  altarLookGeneral: AltarLookGeneral
+  altarItemPlacedGeneral: AltarItemPlacedGeneral
+  forestGeneralMonologueTime:
+    MinTime: 3
+    MaxTime: 5
+    CanTrigger: 0
+  encounterMonologueTime:
+    MinTime: 2
+    MaxTime: 5
+    CanTrigger: 1
+  altarLookMonologueTime:
+    MinTime: 3
+    MaxTime: 6
+    CanTrigger: 0
+  insanityMonologueTime:
+    MinTime: 3
+    MaxTime: 5
+    CanTrigger: 0
+  insanityThreshold: 60
 --- !u!1001 &1067724494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179329,7 +179395,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: b2e265026fc58384f83524fb97cc1550, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f3a863f332588c842b0e9026f99bf2a7, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1470235684
 PrefabInstance:
@@ -260379,4 +260445,3 @@ SceneRoots:
   - {fileID: 1697790643}
   - {fileID: 581191065}
   - {fileID: 332377849}
-  - {fileID: 552205805}

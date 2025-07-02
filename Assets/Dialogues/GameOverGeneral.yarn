@@ -3,10 +3,10 @@
 <<declare $goNumber = 0>>
 <<set $goNumber = random_range(0, 2)>>
 <<if $goNumber == 0>>
-Not this time… I’ll do better.
+Not this time… I’ll do better. #line:NotThisTime
 <<elseif $goNumber == 1>>
-Again. As long as it takes.
+Again. As long as it takes. #line:Again
 <<else>>
-You’re worth every step through hell.
+You’re worth every step through hell. #line:YoureWorth
 <<endif>>
 ===

@@ -1,0 +1,13 @@
+﻿title: AltarItemPlacedGeneral
+---
+<<declare $altarPlaceLine = 0>>
+<<set $altarPlaceLine = random_range(0, 2)>>
+
+<<if $altarPlaceLine == 0>>
+One step closer, my love. Just hold on. #line:OneStep
+<<elseif $altarPlaceLine == 1>>
+It’s warm… like hope. #line:ItsWarm
+<<else>>
+The light cuts through the mist. I can see it again. #line:TheLight
+<<endif>>
+===

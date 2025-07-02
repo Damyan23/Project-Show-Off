@@ -3,12 +3,12 @@
 <<declare $wwNumber = 0>>
 <<set $wwNumber = random_range(0, 3)>>
 <<if $wwNumber == 0>>
-Get away from me!
+Get away from me! #line:GetAway
 <<elseif $wwNumber == 1>>
-You won’t trick me. I know what you are.
+You won’t trick me. I know what you are. #line:YouWont
 <<elseif $wwNumber == 2>>
-You took him! Give him back!
+You took him! Give him back! #line:YouTook
 <<else>>
-Your lies won’t break me.
+Your lies won’t break me. #line:YourLies
 <<endif>>
 ===
