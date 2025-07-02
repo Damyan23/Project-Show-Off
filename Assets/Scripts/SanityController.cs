@@ -193,7 +193,7 @@ public class SanityController : MonoBehaviour
 
     private bool IsObjectVisible(GameObject obj)
     {
-        Renderer renderer = obj.GetComponent<Renderer>();
+        SkinnedMeshRenderer renderer = obj.GetComponentInChildren<SkinnedMeshRenderer>();
 
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
         if (!GeometryUtility.TestPlanesAABB(planes, renderer.bounds)) return false;
