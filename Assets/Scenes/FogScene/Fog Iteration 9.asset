@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Value: {fileID: 0}
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.307
   m_MaxSamples:
     m_OverrideState: 0
     m_Value: 6
@@ -260,8 +260,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -47.4
 --- !u!114 &-1399231487970715808
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -414,10 +414,10 @@ MonoBehaviour:
     m_Value: {x: 0.90130705, y: 0.9332159, z: 1, w: 0}
   gamma:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 0.96769303, y: 0.98569614, z: 1, w: 0}
   gain:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 0.9328652, y: 0.94964874, z: 1, w: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,19 +564,19 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.11000584
-          value: 0.07499999
-          inSlope: 1.2207104
-          outSlope: 1.2207104
+          time: 0.14122394
+          value: 0.12517512
+          inSlope: 2.522023
+          outSlope: 2.522023
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.5734347
-          value: 0.47500002
-          inSlope: 0.9712702
-          outSlope: 0.9712702
+          time: 0.7424344
+          value: 0.5246129
+          inSlope: 0.39461267
+          outSlope: 0.39461267
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -753,8 +753,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   mode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 2
   useFullACES:
     m_OverrideState: 0
     m_Value: 0
@@ -854,17 +854,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   quality:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 2
   threshold:
     m_OverrideState: 0
     m_Value: 0
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.314
   scatter:
-    m_OverrideState: 0
-    m_Value: 0.7
+    m_OverrideState: 1
+    m_Value: 0.838
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -878,13 +878,13 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
   m_HighQualityPrefiltering:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   m_HighQualityFiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
 --- !u!114 &8825810609076107760
 MonoBehaviour:
@@ -910,10 +910,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.241
   smoothness:
-    m_OverrideState: 0
-    m_Value: 0.2
+    m_OverrideState: 1
+    m_Value: 0.222
   roundness:
     m_OverrideState: 0
     m_Value: 1
