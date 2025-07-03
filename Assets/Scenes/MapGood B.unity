@@ -18155,7 +18155,7 @@ Transform:
   m_GameObject: {fileID: 456033287}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 297.5, y: -54.3, z: -426.1}
+  m_LocalPosition: {x: -194.1, y: -20, z: 20.1}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -57806,7 +57806,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: bfa1b5c6b4080844bbb6406272d5a0d7, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 0eb023c290a52e345952d8aa957f1ba6, type: 2}
 --- !u!1001 &1368374688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63677,6 +63677,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 639272599}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1507200470
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -185.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 29.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.82207817
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.4428256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.31509444
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1697307
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 56.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 41.943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427316701978161172, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8757166618187645648, guid: 62be4c9750c9f164f9b0cd49ec5b12c7,
+        type: 3}
+      propertyPath: m_Name
+      value: offering
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 62be4c9750c9f164f9b0cd49ec5b12c7, type: 3}
 --- !u!4 &1508293653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5957202058881989642, guid: 89c85d9a054b34d48acd3b6ae68c8652,
@@ -78996,7 +79064,7 @@ PrefabInstance:
     - target: {fileID: 6892231606096143115, guid: 03c47f32b0e106b49a19cdd60a6c6efb,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.03742352
+      value: 0.05533442
       objectReference: {fileID: 0}
     - target: {fileID: 6892231606096143115, guid: 03c47f32b0e106b49a19cdd60a6c6efb,
         type: 3}
@@ -89063,6 +89131,7 @@ SceneRoots:
   - {fileID: 322932802}
   - {fileID: 1922556903}
   - {fileID: 2114532155}
+  - {fileID: 1507200470}
   - {fileID: 569783811}
   - {fileID: 456033298}
   - {fileID: 1466655715}

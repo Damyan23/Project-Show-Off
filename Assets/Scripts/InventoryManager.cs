@@ -66,7 +66,8 @@ public class InventoryManager : MonoBehaviour
 
     public void DropItem()
     {
-        if (currentItem == null || !isSlotTaken) return;
+        if (currentItem == null) return;
+        if (!isSlotTaken) return;
 
         rb.isKinematic = false;
         //rb.excludeLayers = 0; // Reset exclude layers to allow physics interactions

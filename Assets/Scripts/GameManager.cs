@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public OnAltarDoneEvent onAltarDone;
 
     [Header("Enemy Spawn Settings")]
+    [SerializeField] private GameObject enemyContainer;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float minDistance = 8f;
     [SerializeField] private float maxDistance = 15f;
@@ -70,7 +71,9 @@ public class GameManager : MonoBehaviour
     {
         taskManager.UpdateTask("Find your baby");
         GameObject baby = Instantiate(babyPrefab);
-        baby.transform.position = crib.transform.GetChild(0).position;
+        baby.transform.SetParent(crib.transform.GetChild(0));
+        baby.transform.localPosition = Vector3.zero;
+        baby.transform.localRotation = Quaternion.Euler (new Vector3 (90f, 0f, -90f));
         crib.GetComponent<AudioSource>().Play();
         babySpawned = true;
     }
@@ -133,7 +136,7 @@ public class GameManager : MonoBehaviour
         // Spawn below the ground
         spawnPos.y -= ariseHeight + enemyHeight;
 
-        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, this.transform);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, enemyContainer.transform);
 
         StartCoroutine(AriseEnemy(enemy, ariseHeight + enemyHeight));
     }

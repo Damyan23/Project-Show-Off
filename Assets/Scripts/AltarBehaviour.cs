@@ -76,6 +76,8 @@ public class AltarBehaviour : MonoBehaviour
         isSlotTaken = true;
         _currentItem = item;
         item.transform.SetParent(transform.GetChild(0).transform);
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localRotation = Quaternion.Euler(Vector3.zero);
         lightCandelsUp();
         monologueController.TriggerAltarItemPlacedGeneral();
     }

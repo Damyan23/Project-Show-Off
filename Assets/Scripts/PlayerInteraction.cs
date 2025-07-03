@@ -18,7 +18,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Vector3 placementOffset;
 
     [Header("References")]
-    [SerializeField] private TextMeshProUGUI pressFToInteract;
+    [SerializeField] private TextMeshProUGUI pressEToInteract;
 
     private GameManager gameManager;
     [HideInInspector] public Collider closestInteractable = null;
@@ -40,8 +40,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         FindClosestInteractable();
 
-        if (closestInteractable != null && !pressFToInteract.enabled) pressFToInteract.enabled = true;
-        else if (closestInteractable == null && pressFToInteract.enabled) pressFToInteract.enabled = false;
+        if (closestInteractable != null && !pressEToInteract.enabled) pressEToInteract.enabled = true;
+        else if (closestInteractable == null && pressEToInteract.enabled) pressEToInteract.enabled = false;
 
         if (Input.GetKeyDown(interactWithInteractable))
         {
@@ -49,9 +49,9 @@ public class PlayerInteraction : MonoBehaviour
             {
                 HandleInteractable(closestInteractable);
             }
-            else if (pressFToInteract.enabled)
+            else if (pressEToInteract.enabled)
             {
-                pressFToInteract.enabled = false;
+                pressEToInteract.enabled = false;
             }
         }
 
@@ -73,9 +73,9 @@ public class PlayerInteraction : MonoBehaviour
             // If NOT holding an item, skip altars
             if (!InventoryManager.Instance.isSlotTaken && interactable.CompareTag("Altar")) continue;
             // If holding an item, skip items
-            if (InventoryManager.Instance.isSlotTaken && interactable.CompareTag("Item")) continue;
+            else if (InventoryManager.Instance.isSlotTaken && interactable.CompareTag("Item")) continue;
             // If item is on altar, skip it
-            if (interactable.CompareTag("Item") && interactable.GetComponent<ItemBehaviour>().isItemOnAltar) continue;
+            else if (interactable.CompareTag("Item") && interactable.GetComponent<ItemBehaviour>().isItemOnAltar) continue;
 
             float distance = Vector3.Distance(interactable.transform.position, this.transform.position);
 
@@ -106,13 +106,16 @@ public class PlayerInteraction : MonoBehaviour
         var currentItem = InventoryManager.Instance.currentItem;
         if (currentItem == null) return;
 
+        InventoryManager.Instance.isSlotTaken = false;
+        InventoryManager.Instance.currentItem = null;
+        currentItem.GetComponent<ItemBehaviour>().isItemOnAltar = true;
+
         // Parent to altar first!
         altar.GetComponent<AltarBehaviour>().PlaceItem(currentItem);
 
         // Center on altar
         //Vector3 verticalOffset = currentItem.transform.parent.GetComponent<MeshRenderer>().bounds.extents.y * Vector3.up;
-        currentItem.transform.localPosition = Vector3.zero + placementOffset;
-        currentItem.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
 
         // Freeze physics
         var rb = currentItem.GetComponent<Rigidbody>();
@@ -120,12 +123,10 @@ public class PlayerInteraction : MonoBehaviour
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
 
-        InventoryManager.Instance.isSlotTaken = false;
-        InventoryManager.Instance.currentItem = null;
 
         _decreaseSanity?.Invoke();
         gameManager.AltarCompleted();
         gameManager.SpawnEnemy();
-        currentItem.GetComponent<ItemBehaviour>().isItemOnAltar = true;
+      
     }
 }
