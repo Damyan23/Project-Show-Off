@@ -5590,10 +5590,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.937
       objectReference: {fileID: 0}
+    - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
       propertyPath: _clip
       value: 
+      objectReference: {fileID: 8300000, guid: 4835a879a8f074521939ed83160858eb, type: 3}
+    - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: intervalInSeconds
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: interactionDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9037245460622042039, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
@@ -6172,7 +6187,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.504
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6225,7 +6240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamingSpeed: 20
-  chaseSpeed: 30
+  chaseSpeed: 50
   detectionRadius: 50
   rotationSpeed: 1
 --- !u!65 &151253421
@@ -12486,6 +12501,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1922556903}
     m_Modifications:
+    - target: {fileID: 982975428760616921, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.411
+      objectReference: {fileID: 0}
+    - target: {fileID: 982975428760616921, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.107
+      objectReference: {fileID: 0}
+    - target: {fileID: 982975428760616921, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.375
+      objectReference: {fileID: 0}
     - target: {fileID: 1684089219809758483, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -12551,10 +12581,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.067
       objectReference: {fileID: 0}
+    - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
       propertyPath: _clip
       value: 
+      objectReference: {fileID: 8300000, guid: 4835a879a8f074521939ed83160858eb, type: 3}
+    - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: intervalInSeconds
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: interactionDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3627898420496403859, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
@@ -17936,12 +17981,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8111fe977b07f2d438e104fa16f158ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitInsanityPoints: 17.4
+  hitInsanityPoints: 20
   enemyDetectionRange: 50
-  enemyDetectionInsanityPoints: 10.2
+  enemyDetectionInsanityPoints: 15
   offerSanityReduction: 80
   insaneThreshold: 70.2
-  insanityLostPerSecond: 1
+  insanityLostPerSecond: 3
   maxChromaticAberration: 0.5
   maxMotionBlur: 1
   maxDesaturation: -100
@@ -17972,7 +18017,7 @@ MonoBehaviour:
   enableHeadBobbing: 1
   headBobbingIntensity: 0.06
   headBobbingSpeed: 10.6
-  insanityFovIncrease: 20
+  insanityFovIncrease: 15
   sprintFovIncrease: 10
   fovLerpSpeed: 5
 --- !u!114 &456033293
@@ -17992,7 +18037,7 @@ MonoBehaviour:
   enableSprinting: 1
   sprintKey: 304
   preventUphillSlowdown: 1
-  maxSlopeAngle: 65
+  maxSlopeAngle: 75
   slopeRayLength: 1.5
   rb: {fileID: 0}
   fogController: {fileID: 1365107275}
@@ -25713,6 +25758,7 @@ Transform:
   - {fileID: 1067706429}
   - {fileID: 676215730}
   - {fileID: 1511563251}
+  - {fileID: 1622076806}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &636793647
@@ -40434,7 +40480,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -27.883762, y: -0, z: -13.941881}
+    textureOffset: {x: -0, y: -0, z: -0}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -55974,7 +56020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamingSpeed: 20
-  chaseSpeed: 30
+  chaseSpeed: 50
   detectionRadius: 50
   rotationSpeed: 1
 --- !u!65 &1317802816
@@ -56105,7 +56151,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.498
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -67801,6 +67847,58 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 524537927}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1622076805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622076806}
+  - component: {fileID: 1622076807}
+  m_Layer: 0
+  m_Name: EnemySound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622076806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622076805}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 636163552}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622076807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622076805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c666eb1f261e504fa7d11123edad758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseSound: {fileID: 8300000, guid: 3c70fcd3092114076b264819b26dcd14, type: 3}
+  fadeTime: 5
+  mixer: {fileID: 24100000, guid: 9c9bd0eeddb344c78af8da6934fdff56, type: 2}
+  audioSource: {fileID: 151253419}
+  mixerSettings:
+  - parameterName: Volume
+    lowerValue: -30
+    upperValue: -10
 --- !u!4 &1622848580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5957202058881989642, guid: 89c85d9a054b34d48acd3b6ae68c8652,
@@ -75310,8 +75408,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
+      propertyPath: MaxDistance
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
       propertyPath: MinDistance
-      value: 0.6699829
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2859428451933300755, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
@@ -75327,6 +75430,11 @@ PrefabInstance:
         type: 3}
       propertyPath: intervalInSeconds
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235703303236368370, guid: dd44ac5713210f24d869b542b0398d05,
+        type: 3}
+      propertyPath: interactionDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9037245460622042039, guid: dd44ac5713210f24d869b542b0398d05,
         type: 3}
