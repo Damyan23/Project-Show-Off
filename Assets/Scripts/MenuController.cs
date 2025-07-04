@@ -15,10 +15,16 @@ public class MenuController : MonoBehaviour
     }
     private IEnumerator StartGameCoroutine()
     {
-        transition.SetTrigger ("Start");
+        transition.SetTrigger("Start");
         Cursor.lockState = CursorLockMode.None;
 
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(1);
+    }
+    
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+        Application.Quit();
     }
 }

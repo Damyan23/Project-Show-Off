@@ -52,7 +52,7 @@ public class OrbitCamera : MonoBehaviour
             yOffset + heightOffset,
             Mathf.Sin(hRad) * horizontalDistance
         );
-
+        
         // Set camera position
         transform.position = target.position + offset;
 
