@@ -608,5 +608,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolPosition: {x: 0, y: -50, z: 0}
-  patrolRadius: 10
+  patrolRadius: 150
   waitTimeBetweenPoints: 2.5

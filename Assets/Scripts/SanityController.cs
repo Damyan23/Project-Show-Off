@@ -220,4 +220,10 @@ public class SanityController : MonoBehaviour
 
         SceneManager.LoadScene(2);
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, enemyDetectionRange);
+    }
 }
