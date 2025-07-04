@@ -90,8 +90,6 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        return;
-
         if (other.transform.name == "Player")
         {
             SanityController sanityController = other.GetComponent<SanityController>();
