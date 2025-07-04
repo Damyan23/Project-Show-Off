@@ -9,6 +9,11 @@ public class MenuController : MonoBehaviour
     [SerializeField] private float transitionTime = 2f;
     [SerializeField] private Animator transition;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void StartGame()
     {
         StartCoroutine(StartGameCoroutine());
@@ -16,7 +21,6 @@ public class MenuController : MonoBehaviour
     private IEnumerator StartGameCoroutine()
     {
         transition.SetTrigger ("Start");
-        Cursor.lockState = CursorLockMode.None;
 
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(1);
