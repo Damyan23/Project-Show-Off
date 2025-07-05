@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 8cee7ce0bf62c2b44b94c3078c087e94
+  - enabled: 1
+    path: Assets/Scenes/MapGood B.unity
+    guid: 9399db9528f974e3399cb729b70874f0
   - enabled: 0
     path: Assets/Scenes/MapGood 1.unity
     guid: 653c257a001a64f2a9e8c34932025eae

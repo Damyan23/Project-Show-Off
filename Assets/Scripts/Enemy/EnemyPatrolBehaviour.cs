@@ -24,6 +24,7 @@ public class EnemyPatrolBehaviour : EnemyMovementBehaviour
 
     public override Vector3 GetStartPosition()
     {
+        patrolPosition = transform.position;
         NavMesh.SamplePosition(patrolPosition, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas);
         patrolPosition = hit.position;
         return hit.position;
