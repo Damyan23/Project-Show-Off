@@ -494,10 +494,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2a96063009e0e4d8ab0314fab32360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roamingSpeed: 20
-  chaseSpeed: 30
-  detectionRadius: 50
-  rotationSpeed: 1
+  roamingSpeed: 350
+  chaseSpeed: 70
+  detectionRadius: 75
+  rotationSpeed: 4
 --- !u!82 &745422144022008405
 AudioSource:
   m_ObjectHideFlags: 0
