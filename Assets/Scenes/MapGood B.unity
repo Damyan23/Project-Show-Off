@@ -17944,7 +17944,7 @@ MonoBehaviour:
   cameraController: {fileID: 456033292}
   soundPlayer: {fileID: 1067706430}
   deathFade: {fileID: 707472118}
-  enableDebugMode: 1
+  enableDebugMode: 0
 --- !u!114 &456033292
 MonoBehaviour:
   m_ObjectHideFlags: 0
